@@ -1,0 +1,21 @@
+{
+  "name": "baobabticket-platform",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Portail web et billetterie officielle BaobabTicket - Sénégal (Wave & Orange Money)",
+  "scripts": {
+    "build": "echo 'Build successful for BaobabTicket'",
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "billetterie",
+    "senegal",
+    "dakar",
+    "wave",
+    "orange-money",
+    "tickets",
+    "qr-code"
+  ],
+  "author": "Baobab Events",
+  "license": "MIT"
+}
