@@ -1,0 +1,6 @@
+{
+  "name": "BaobabTicket",
+  "description": "Plateforme intelligente de billetterie, QR codes sécurisés, paiements Wave / Orange Money, contrôle d'accès et IA événementielle.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
