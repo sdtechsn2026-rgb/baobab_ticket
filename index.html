@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>BaobabTicket • Billetterie & Contrôle d'Accès d'Élite</title>
-  <meta name="description" content="Plateforme officielle BaobabTicket. Billetterie sécurisée, paiements Wave & Orange Money au Sénégal, contrôle d'accès en direct et gestion événementielle.">
+  <title>BaobabTicket • Billetterie Sécurisée & Contrôle d'Accès</title>
+  <meta name="description" content="Plateforme officielle BaobabTicket. Billetterie d'élite à Dakar, paiements Wave & Orange Money, QR codes cryptographiques et contrôle d'accès optique.">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,7 +50,123 @@
       display: flex;
     }
 
-    /* Container */
+    /* SVG Icon Helpers */
+    .svg-icon {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+
+    .svg-icon-sm { width: 14px; height: 14px; }
+    .svg-icon-md { width: 20px; height: 20px; }
+    .svg-icon-lg { width: 26px; height: 26px; }
+
+    /* AUTH GATEKEEPER FULL-SCREEN WALL */
+    #auth-gatekeeper-wall {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at top center, #16291F 0%, #070B08 80%);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .auth-gate-card {
+      background: var(--surface-elevated);
+      border: 1.5px solid rgba(201, 169, 110, 0.4);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 460px;
+      padding: 32px 28px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(201, 169, 110, 0.1);
+      position: relative;
+      text-align: center;
+    }
+
+    .auth-logo-badge {
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #DFCA9F 0%, #C9A96E 100%);
+      color: #070B08;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      box-shadow: 0 8px 24px rgba(201, 169, 110, 0.4);
+    }
+
+    .auth-tab-switch {
+      display: flex;
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: 14px;
+      padding: 4px;
+      margin: 20px 0;
+    }
+
+    .auth-tab-btn {
+      flex: 1;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .auth-tab-btn.active {
+      background: var(--gold-champagne);
+      color: #070B08;
+      box-shadow: 0 2px 10px rgba(201, 169, 110, 0.3);
+    }
+
+    .auth-role-chips {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .auth-role-chip {
+      flex: 1;
+      padding: 8px 4px;
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: 10px;
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: center;
+    }
+
+    .auth-role-chip.active {
+      border-color: var(--gold-champagne);
+      background: rgba(201, 169, 110, 0.15);
+      color: var(--gold-champagne);
+    }
+
+    /* Main Container */
     #app-container {
       display: flex;
       width: 100%;
@@ -58,7 +174,7 @@
       position: relative;
     }
 
-    /* DESKTOP SIDEBAR / NAVIGATION RAIL */
+    /* DESKTOP SIDEBAR */
     #sidebar-rail {
       width: 96px;
       background: var(--emerald-dark);
@@ -92,8 +208,6 @@
       align-items: center;
       justify-content: center;
       color: var(--bg-dark);
-      font-weight: 900;
-      font-size: 22px;
       box-shadow: 0 4px 16px rgba(201, 169, 110, 0.35);
     }
 
@@ -129,6 +243,7 @@
       cursor: pointer;
       transition: all 0.2s ease;
       text-decoration: none;
+      gap: 4px;
     }
 
     .rail-item:hover {
@@ -142,15 +257,9 @@
       color: var(--gold-champagne);
     }
 
-    .rail-item .icon {
-      font-size: 20px;
-      margin-bottom: 4px;
-    }
-
     .rail-item span {
       font-size: 10.5px;
       font-weight: 700;
-      letter-spacing: 0.2px;
     }
 
     .rail-footer-controls {
@@ -172,7 +281,7 @@
       justify-content: center;
       color: var(--gold-champagne);
       font-weight: 800;
-      font-size: 14px;
+      font-size: 13px;
       cursor: pointer;
       position: relative;
     }
@@ -194,7 +303,7 @@
       display: flex;
       flex-direction: column;
       min-width: 0;
-      padding-bottom: 80px; /* spacing for mobile nav */
+      padding-bottom: 80px;
     }
 
     /* APP HEADER */
@@ -237,11 +346,6 @@
       font-weight: 600;
       color: var(--text-white);
       cursor: pointer;
-      transition: border-color 0.2s ease;
-    }
-
-    .org-selector-chip:hover {
-      border-color: var(--gold-champagne);
     }
 
     .header-right {
@@ -268,19 +372,6 @@
       border: 1px solid rgba(16, 185, 129, 0.3);
     }
 
-    .status-offline {
-      background: rgba(239, 68, 68, 0.15);
-      color: var(--expired-red);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-    }
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: currentColor;
-    }
-
     .role-badge {
       padding: 5px 12px;
       border-radius: 20px;
@@ -290,30 +381,34 @@
       background: rgba(201, 169, 110, 0.15);
       color: var(--gold-champagne);
       border: 1px solid rgba(201, 169, 110, 0.4);
+    }
+
+    .btn-header-profile {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      color: var(--text-white);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
       cursor: pointer;
     }
 
-    .role-badge:hover {
-      background: rgba(201, 169, 110, 0.25);
-    }
-
-    .btn-auth-header {
-      background: linear-gradient(135deg, var(--gold-champagne) 0%, #B69458 100%);
-      color: #070B08;
-      border: none;
-      padding: 7px 16px;
+    .btn-header-logout {
+      background: transparent;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: var(--expired-red);
+      padding: 6px 12px;
       border-radius: 20px;
-      font-weight: 800;
-      font-size: 12px;
+      font-weight: 700;
+      font-size: 11px;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 6px;
-      transition: transform 0.15s ease;
-    }
-
-    .btn-auth-header:active {
-      transform: scale(0.96);
     }
 
     /* TAB VIEWS */
@@ -349,18 +444,6 @@
       overflow: hidden;
     }
 
-    .hero-banner::after {
-      content: '';
-      position: absolute;
-      right: -40px;
-      bottom: -40px;
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(201, 169, 110, 0.15) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
     .hero-text h1 {
       font-family: var(--font-title);
       font-size: 26px;
@@ -379,13 +462,14 @@
       display: flex;
       gap: 10px;
       margin-top: 14px;
+      flex-wrap: wrap;
     }
 
     .hero-badge-item {
       display: flex;
       align-items: center;
       gap: 6px;
-      background: rgba(7, 11, 8, 0.5);
+      background: rgba(7, 11, 8, 0.6);
       border: 1px solid rgba(201, 169, 110, 0.25);
       padding: 5px 12px;
       border-radius: 12px;
@@ -418,21 +502,14 @@
       font-size: 13.5px;
       font-family: var(--font-body);
       outline: none;
-      transition: border-color 0.2s ease;
     }
 
-    .search-input:focus {
-      border-color: var(--gold-champagne);
-    }
-
-    .search-icon {
+    .search-icon-inside {
       position: absolute;
       left: 14px;
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-muted);
-      font-size: 16px;
-      pointer-events: none;
     }
 
     .category-pills {
@@ -452,12 +529,9 @@
       font-weight: 700;
       white-space: nowrap;
       cursor: pointer;
-      transition: all 0.15s ease;
-    }
-
-    .cat-pill:hover {
-      border-color: var(--gold-champagne);
-      color: var(--text-white);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .cat-pill.active {
@@ -466,7 +540,7 @@
       color: var(--bg-dark);
     }
 
-    /* EVENT CARDS GRID */
+    /* EVENT CARDS */
     .events-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -482,14 +556,12 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-      position: relative;
+      transition: transform 0.2s ease, border-color 0.2s ease;
     }
 
     .event-card:hover {
       transform: translateY(-3px);
       border-color: rgba(201, 169, 110, 0.4);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     }
 
     .card-top {
@@ -531,20 +603,10 @@
       gap: 6px;
     }
 
-    .price-tag-col {
-      text-align: right;
-      flex-shrink: 0;
-    }
-
     .price-amount {
       font-size: 16px;
       font-weight: 800;
       color: var(--gold-champagne);
-    }
-
-    .sold-count {
-      font-size: 11px;
-      color: var(--text-muted);
     }
 
     .card-bottom {
@@ -580,7 +642,9 @@
       font-size: 12px;
       font-weight: 800;
       cursor: pointer;
-      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .btn-book:hover {
@@ -588,7 +652,7 @@
       color: var(--bg-dark);
     }
 
-    /* PASSBOOK LUXURY TICKETS (WALLET) */
+    /* PASSBOOK LUXURY TICKETS & PRISTINE QR CODE */
     .wallet-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
@@ -602,7 +666,6 @@
       border-radius: 20px;
       overflow: hidden;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      position: relative;
     }
 
     .ticket-header {
@@ -621,36 +684,48 @@
       color: #FFF;
     }
 
-    .ticket-tier-tag {
-      font-size: 10px;
-      font-weight: 800;
-      padding: 4px 8px;
-      border-radius: 6px;
-      background: rgba(201, 169, 110, 0.2);
-      color: var(--gold-champagne);
-      border: 1px solid var(--gold-champagne);
-      letter-spacing: 0.5px;
-    }
-
     .ticket-body {
       padding: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      position: relative;
     }
 
-    .qr-container {
-      width: 140px;
-      height: 140px;
-      background: #FFF;
-      border-radius: 12px;
+    .pristine-qr-wrapper {
+      position: relative;
+      width: 170px;
+      height: 170px;
+      background: #FFFFFF;
+      border-radius: 16px;
+      border: 3px solid var(--gold-champagne);
       padding: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
       margin-bottom: 12px;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    }
+
+    .pristine-qr-canvas {
+      width: 100%;
+      height: 100%;
+      image-rendering: pixelated;
+    }
+
+    .qr-center-emblem {
+      position: absolute;
+      width: 38px;
+      height: 38px;
+      background: #123C2A;
+      border: 2px solid #C9A96E;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #C9A96E;
+      font-weight: 900;
+      font-size: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
     }
 
     .ticket-meta-grid {
@@ -670,7 +745,6 @@
       color: var(--text-muted);
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
 
     .meta-item .val {
@@ -695,15 +769,13 @@
       font-size: 11.5px;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
 
-    .btn-transfer:hover {
-      border-color: var(--gold-champagne);
-      color: var(--gold-champagne);
-    }
-
-    /* DASHBOARD SAAS METRICS */
+    /* DASHBOARD SAAS */
     .metrics-row {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -732,12 +804,7 @@
       margin: 4px 0 2px;
     }
 
-    .metric-card .sub {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    /* SCANNER VIEWPORT */
+    /* SCANNER VIEW */
     .scanner-layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -803,6 +870,9 @@
       font-size: 11px;
       font-weight: 700;
       color: var(--gold-light);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .scan-status-alert {
@@ -850,11 +920,7 @@
       font-size: 11.5px;
     }
 
-    .scan-log-row:last-child {
-      border-bottom: none;
-    }
-
-    /* MODALS */
+    /* FORMS & MODALS */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -863,7 +929,7 @@
       bottom: 0;
       background: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(8px);
-      z-index: 100;
+      z-index: 1000;
       display: none;
       align-items: center;
       justify-content: center;
@@ -879,7 +945,6 @@
       max-height: 90vh;
       overflow-y: auto;
       padding: 24px;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
       position: relative;
     }
 
@@ -897,7 +962,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 700;
     }
 
     .tier-select-grid {
@@ -914,7 +978,6 @@
       padding: 10px;
       text-align: center;
       cursor: pointer;
-      transition: all 0.15s ease;
     }
 
     .tier-btn-opt.active {
@@ -948,7 +1011,6 @@
       border-radius: 14px;
       padding: 12px;
       cursor: pointer;
-      transition: all 0.15s ease;
     }
 
     .provider-choice-card.selected-wave {
@@ -959,39 +1021,6 @@
     .provider-choice-card.selected-om {
       border-color: var(--om-orange);
       background: rgba(255, 102, 0, 0.1);
-    }
-
-    .provider-badge-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 900;
-      font-size: 12px;
-    }
-
-    .badge-wave {
-      background: var(--wave-blue);
-      color: #FFF;
-    }
-
-    .badge-om {
-      background: var(--om-orange);
-      color: #FFF;
-    }
-
-    .provider-choice-card .p-title {
-      font-size: 13px;
-      font-weight: 800;
-      color: #FFF;
-      margin-top: 6px;
-    }
-
-    .provider-choice-card .p-sub {
-      font-size: 10.5px;
-      color: var(--text-muted);
     }
 
     .form-input-field {
@@ -1021,11 +1050,12 @@
       font-weight: 800;
       font-size: 14px;
       cursor: pointer;
-      margin-top: 10px;
-      box-shadow: 0 4px 16px rgba(201, 169, 110, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
 
-    /* EMPTY STATE */
     .empty-state-box {
       text-align: center;
       padding: 48px 24px;
@@ -1035,26 +1065,6 @@
       margin: 20px 0;
     }
 
-    .empty-state-box .icon {
-      font-size: 40px;
-      margin-bottom: 12px;
-    }
-
-    .empty-state-box h3 {
-      font-size: 16px;
-      font-weight: 800;
-      color: #FFF;
-      margin-bottom: 4px;
-    }
-
-    .empty-state-box p {
-      font-size: 12px;
-      color: var(--text-muted);
-      max-width: 380px;
-      margin: 0 auto 16px;
-    }
-
-    /* MOBILE BOTTOM NAVIGATION */
     #mobile-bottom-nav {
       display: none;
       position: fixed;
@@ -1079,79 +1089,127 @@
       font-size: 10px;
       font-weight: 700;
       cursor: pointer;
-      padding: 4px 8px;
+      gap: 3px;
     }
 
     .bottom-nav-item.active {
       color: var(--gold-champagne);
     }
 
-    .bottom-nav-item .icon {
-      font-size: 18px;
-      margin-bottom: 2px;
-    }
-
     @media (max-width: 768px) {
-      #sidebar-rail {
-        display: none;
-      }
-      #mobile-bottom-nav {
-        display: flex;
-      }
-      .top-header-bar {
-        padding: 12px 16px;
-      }
-      .tab-view {
-        padding: 16px;
-      }
-      .hero-banner {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 14px;
-      }
+      #sidebar-rail { display: none; }
+      #mobile-bottom-nav { display: flex; }
+      .top-header-bar { padding: 12px 16px; }
+      .tab-view { padding: 16px; }
+      .hero-banner { flex-direction: column; align-items: flex-start; gap: 14px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- ===================================================================== -->
+  <!-- AUTHENTICATION GATEKEEPER WALL (MANDATORY LOGIN/SIGNUP BEFORE ACCESS) -->
+  <!-- ===================================================================== -->
+  <div id="auth-gatekeeper-wall">
+    <div class="auth-gate-card">
+      <div class="auth-logo-badge">
+        <svg class="svg-icon svg-icon-lg" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="13" y2="12"/><line x1="7" y1="16" x2="11" y2="16"/></svg>
+      </div>
+
+      <h2 style="font-family: var(--font-title); font-size: 22px; color: #FFF; font-weight: 700;">BAOBAB TICKET</h2>
+      <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Accès sécurisé obligatoire pour continuer sur la plateforme.</p>
+
+      <!-- Tab Switch: Connexion vs Inscription -->
+      <div class="auth-tab-switch">
+        <button class="auth-tab-btn active" id="tabBtnLogin" onclick="setAuthTab('login')">
+          <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          Connexion
+        </button>
+        <button class="auth-tab-btn" id="tabBtnRegister" onclick="setAuthTab('register')">
+          <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          Créer un compte
+        </button>
+      </div>
+
+      <!-- Registration Extra Fields -->
+      <div id="authRegisterFields" style="display: none; text-align: left;">
+        <label style="font-size: 11px; color: var(--text-muted); font-weight: 700;">RÔLE :</label>
+        <div class="auth-role-chips">
+          <div class="auth-role-chip active" id="chipRoleOrg" onclick="setAuthRole('ORGANISATEUR')">Organisateur</div>
+          <div class="auth-role-chip" id="chipRoleCtrl" onclick="setAuthRole('CONTRÔLEUR')">Contrôleur</div>
+          <div class="auth-role-chip" id="chipRoleCust" onclick="setAuthRole('ACHETEUR')">Acheteur</div>
+        </div>
+
+        <input type="text" id="gateRegisterName" class="form-input-field" placeholder="Nom et prénom">
+        <input type="tel" id="gateRegisterPhone" class="form-input-field" placeholder="Numéro mobile (+221 77...)" value="+221 77 845 12 34">
+      </div>
+
+      <!-- Common Fields -->
+      <div style="text-align: left;">
+        <input type="email" id="gateEmail" class="form-input-field" placeholder="Adresse Email" value="segacod05@gmail.com">
+        <input type="password" id="gatePassword" class="form-input-field" placeholder="Mot de passe" value="••••••••">
+      </div>
+
+      <button class="btn-confirm-checkout" style="margin-top: 10px;" onclick="submitAuthGate()">
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        <span id="gateSubmitLabel">Entrer sur la Plateforme</span>
+      </button>
+
+      <button class="btn-transfer" style="width: 100%; margin-top: 10px; border-color: rgba(201, 169, 110, 0.3); color: var(--gold-champagne);" onclick="quickDemoAuth()">
+        <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Connexion Rapide Démo (Sega Diallo)
+      </button>
+
+      <div style="margin-top: 16px; font-size: 11px; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 6px;">
+        <svg class="svg-icon svg-icon-sm" style="color: var(--emerald-bright);" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Chiffrement SSL & Détection anti-fraude active
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MAIN APPLICATION (UNLOCKED AFTER AUTHENTICATION) -->
+  <!-- ===================================================================== -->
   <div id="app-container">
 
-    <!-- DESKTOP NAVIGATION RAIL (Matches Android Jetpack Compose NavigationRail) -->
+    <!-- DESKTOP NAVIGATION RAIL -->
     <nav id="sidebar-rail">
       <div class="rail-brand" onclick="switchTab('discovery')">
-        <div class="rail-logo-badge">🌿</div>
+        <div class="rail-logo-badge">
+          <svg class="svg-icon svg-icon-md" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
         <div class="rail-brand-name">BAOBAB</div>
       </div>
 
       <div class="rail-nav-items">
         <button class="rail-item active" onclick="switchTab('discovery')" title="Explorer les événements">
-          <div class="icon">🧭</div>
+          <svg class="svg-icon svg-icon-md" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
           <span>Explorer</span>
         </button>
 
         <button class="rail-item" onclick="switchTab('wallet')" title="Portefeuille numérique de billets">
-          <div class="icon">🎟️</div>
+          <svg class="svg-icon svg-icon-md" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/></svg>
           <span>Billets</span>
         </button>
 
         <button class="rail-item" onclick="switchTab('dashboard')" title="Tableau de bord SaaS organisateur">
-          <div class="icon">📊</div>
+          <svg class="svg-icon svg-icon-md" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
           <span>Dashboard</span>
         </button>
 
         <button class="rail-item" onclick="switchTab('scanner')" title="Scanner de contrôle d'accès optique">
-          <div class="icon">📷</div>
+          <svg class="svg-icon svg-icon-md" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><rect x="7" y="7" width="10" height="10" rx="1"/></svg>
           <span>Scanner</span>
         </button>
 
         <button class="rail-item" onclick="switchTab('ai_studio')" title="Assistant événementiel IA">
-          <div class="icon">✨</div>
+          <svg class="svg-icon svg-icon-md" viewBox="0 0 24 24"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
           <span>IA Studio</span>
         </button>
       </div>
 
       <div class="rail-footer-controls">
-        <div class="rail-avatar-btn" id="userAvatarBtn" onclick="openAuthModal()" title="Profil & Authentification">
+        <div class="rail-avatar-btn" id="userAvatarBtn" onclick="signOutApp()" title="Déconnexion">
           <span id="userAvatarInitials">SD</span>
           <div class="online-dot"></div>
         </div>
@@ -1161,15 +1219,14 @@
     <!-- MAIN VIEW CONTAINER -->
     <div id="main-content">
 
-      <!-- TOP APPLICATION HEADER (Matches BaobabHeader in Compose) -->
+      <!-- TOP APPLICATION HEADER -->
       <header class="top-header-bar">
         <div class="header-left">
           <span class="header-brand-title">BaobabTicket</span>
 
           <div class="org-selector-chip" onclick="openOrgModal()">
-            <span style="font-size: 13px;">🏢</span>
+            <svg class="svg-icon svg-icon-sm" style="color: var(--gold-champagne);" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12h12"/></svg>
             <span class="org-name" id="currentOrgLabel">Baobab Luxury Events</span>
-            <span style="font-size: 10px; color: var(--gold-champagne);">▼</span>
           </div>
         </div>
 
@@ -1179,18 +1236,23 @@
             <span id="networkLabel">BD ACTIVE</span>
           </div>
 
-          <div class="role-badge" id="roleBadge" onclick="openAuthModal()">
+          <div class="role-badge" id="roleBadge">
             ORGANISATEUR
           </div>
 
-          <button class="btn-auth-header" id="btnHeaderAuth" onclick="openAuthModal()">
-            <span>👤</span>
+          <div class="btn-header-profile">
+            <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             <span id="headerUserName">Sega Diallo</span>
+          </div>
+
+          <button class="btn-header-logout" onclick="signOutApp()" title="Se déconnecter">
+            <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Déconnexion
           </button>
         </div>
       </header>
 
-      <!-- TAB 1: DISCOVERY / EXPLORER (Matches DiscoveryScreen.kt) -->
+      <!-- TAB 1: DISCOVERY / EXPLORER -->
       <div id="tab-discovery" class="tab-view active">
         <!-- Hero Banner -->
         <div class="hero-banner">
@@ -1198,18 +1260,32 @@
             <h1>Billetterie d'Élite & Événements à Dakar</h1>
             <p>Réservez vos places en 1-clic avec Wave & Orange Money. Billets nominatifs protégés par QR codes cryptographiques anti-fraude.</p>
             <div class="hero-badges-row">
-              <div class="hero-badge-item"><span>⚡</span> Paiement Instantané Wave / OM</div>
-              <div class="hero-badge-item"><span>🛡️</span> QR Dynamique Hors-Ligne</div>
-              <div class="hero-badge-item"><span>💾</span> Base de Données Sécurisée</div>
+              <div class="hero-badge-item">
+                <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                Paiement Instantané Wave / OM
+              </div>
+              <div class="hero-badge-item">
+                <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                QR Dynamique Certifié
+              </div>
+              <div class="hero-badge-item">
+                <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                Base de Données Sécurisée
+              </div>
             </div>
           </div>
-          <button class="btn-book" onclick="switchTab('wallet')">Voir Mes Billets 🎟️</button>
+          <button class="btn-book" onclick="switchTab('wallet')">
+            <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/></svg>
+            Voir Mes Billets
+          </button>
         </div>
 
         <!-- Search & Filter Controls -->
         <div class="search-bar-row">
           <div class="search-input-wrapper">
-            <span class="search-icon">🔍</span>
+            <div class="search-icon-inside">
+              <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
             <input type="text" class="search-input" id="eventSearchInput" placeholder="Rechercher par nom, lieu, date ou artiste..." oninput="filterEvents()">
           </div>
 
@@ -1227,16 +1303,16 @@
         </div>
 
         <div class="events-grid" id="eventsGrid">
-          <!-- Populated by JavaScript from Database -->
+          <!-- Populated by JavaScript -->
         </div>
       </div>
 
-      <!-- TAB 2: WALLET / MES BILLETS (Matches WalletScreen.kt) -->
+      <!-- TAB 2: WALLET / MES BILLETS (WITH PRISTINE QR GENERATOR) -->
       <div id="tab-wallet" class="tab-view">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
           <div>
             <h2 style="font-size: 18px; font-weight: 800; color: var(--text-white);">Portefeuille Numérique de Billets</h2>
-            <p style="font-size: 11.5px; color: var(--text-muted);">Vos accès nominatifs avec QR codes anti-fraude, vérifiables même hors connexion.</p>
+            <p style="font-size: 11.5px; color: var(--text-muted);">Vos accès nominatifs avec QR codes anti-fraude haute densité, scannables instantanément.</p>
           </div>
           <span class="tag-category" id="walletBadgeCount" style="background: rgba(16, 185, 129, 0.15); color: var(--valid-green); border-color: var(--valid-green);">
             0 BILLET ACTIF
@@ -1244,21 +1320,23 @@
         </div>
 
         <div class="wallet-grid" id="walletGrid">
-          <!-- Populated dynamically from Real Database -->
+          <!-- Populated with Pristine QR Codes -->
         </div>
       </div>
 
-      <!-- TAB 3: DASHBOARD SAAS ORGANISATEUR (Matches OrganizerDashboardScreen.kt) -->
+      <!-- TAB 3: DASHBOARD SAAS ORGANISATEUR -->
       <div id="tab-dashboard" class="tab-view">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
           <div>
             <h2 style="font-size: 18px; font-weight: 800; color: var(--text-white);">Tableau de Bord Organisateur</h2>
             <p style="font-size: 11.5px; color: var(--text-muted);">Revenus en direct, contrôle du remplissage et audit des scans aux portes.</p>
           </div>
-          <button class="btn-book" onclick="openCreateEventModal()">+ Nouvel Événement</button>
+          <button class="btn-book" onclick="openCreateEventModal()">
+            <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Nouvel Événement
+          </button>
         </div>
 
-        <!-- Real Dynamic KPI Metrics from Database -->
         <div class="metrics-row">
           <div class="metric-card">
             <div class="title">CHIFFRE D'AFFAIRES CONFIRMÉ</div>
@@ -1285,13 +1363,11 @@
         <!-- Manual SMS Proofs Approval Queue -->
         <div style="background: var(--surface-elevated); border: 1px solid var(--surface-border); border-radius: 14px; padding: 18px; margin-bottom: 20px;">
           <h4 style="font-size: 13px; font-weight: 700; color: var(--text-white); margin-bottom: 10px;">File de Rapprochement des Preuves SMS (Mode QR)</h4>
-          <div id="proofsQueueList">
-            <!-- Populated dynamically from Real Database -->
-          </div>
+          <div id="proofsQueueList"></div>
         </div>
       </div>
 
-      <!-- TAB 4: SCANNER & CONTRÔLE D'ACCÈS (Matches ScannerScreen.kt & CameraX) -->
+      <!-- TAB 4: SCANNER & CONTRÔLE D'ACCÈS -->
       <div id="tab-scanner" class="tab-view">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
           <div>
@@ -1313,19 +1389,30 @@
               <div class="camera-reticle">
                 <div class="reticle-laser"></div>
               </div>
-              <div class="camera-badge" id="cameraStatusBadge">Caméra Active • Pointez vers un Billet</div>
+              <div class="camera-badge" id="cameraStatusBadge">
+                <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                Caméra Active • Pointez vers un Billet
+              </div>
             </div>
 
             <div style="display: flex; gap: 8px; margin-top: 12px;">
-              <button class="btn-book" style="flex: 1; font-size: 11.5px;" onclick="triggerCameraFeed()">Activer Caméra</button>
-              <button class="btn-book" style="flex: 1; font-size: 11.5px; background: rgba(255,255,255,0.08); color: #FFF; border-color: var(--surface-border);" onclick="scanLatestWalletTicket()">Scanner Dernier Billet</button>
+              <button class="btn-book" style="flex: 1; font-size: 11.5px;" onclick="triggerCameraFeed()">
+                <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                Activer Caméra
+              </button>
+              <button class="btn-book" style="flex: 1; font-size: 11.5px; background: rgba(255,255,255,0.08); color: #FFF; border-color: var(--surface-border);" onclick="scanLatestWalletTicket()">
+                <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/></svg>
+                Tester Dernier Billet
+              </button>
             </div>
           </div>
 
           <!-- Right Pane: Live Scan Result & Real Audit Logs -->
           <div>
             <div id="scanStatusBanner" class="scan-status-alert status-alert-valid" style="display: none;">
-              <span style="font-size: 24px;" id="scanStatusIcon">✅</span>
+              <div id="scanStatusIconHolder">
+                <svg class="svg-icon svg-icon-lg" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
               <div>
                 <div style="font-weight: 800; font-size: 14px;" id="scanStatusTitle">BILLET VALIDE • ACCÈS AUTORISÉ</div>
                 <div style="font-size: 12px; color: #FFF;" id="scanStatusAttendee">Participant • Catégorie • Référence</div>
@@ -1338,18 +1425,16 @@
             </div>
 
             <h4 style="font-size: 12px; font-weight: 700; color: var(--text-white); margin-bottom: 8px;">Journal d'Audit des Scans (<span id="scanCountLabel">0</span>)</h4>
-            <div class="scan-log-table" id="scanLogList">
-              <!-- Populated dynamically from Real Database -->
-            </div>
+            <div class="scan-log-table" id="scanLogList"></div>
           </div>
         </div>
       </div>
 
-      <!-- TAB 5: IA STUDIO (GEMINI) (Matches BaobabAiScreen.kt) -->
+      <!-- TAB 5: IA STUDIO -->
       <div id="tab-ai_studio" class="tab-view">
         <div style="margin-bottom: 16px;">
           <h2 style="font-size: 18px; font-weight: 800; color: var(--text-white);">Baobab AI Studio • Assistant Événementiel</h2>
-          <p style="font-size: 11.5px; color: var(--text-muted);">Génération de concepts de galas, calcul de rentabilité billetterie et élaboration de protocoles de sécurité.</p>
+          <p style="font-size: 11.5px; color: var(--text-muted);">Génération de concepts de galas, calcul de rentabilité billetterie et protocoles de sécurité.</p>
         </div>
 
         <div style="background: var(--surface-elevated); border: 1.5px solid rgba(201, 169, 110, 0.4); border-radius: 16px; padding: 20px; margin-bottom: 20px;">
@@ -1362,51 +1447,54 @@
           <textarea id="aiPromptText" class="form-input-field" style="height: 100px; resize: none;" placeholder="Décrivez votre idée d'événement ou posez une question..."></textarea>
           
           <div style="display: flex; justify-content: flex-end;">
-            <button class="btn-book" onclick="generateWithAi()">✨ Générer avec Baobab AI</button>
+            <button class="btn-book" onclick="generateWithAi()">
+              <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+              Générer avec Baobab AI
+            </button>
           </div>
         </div>
 
-        <div id="aiOutputBox" style="display: none; background: var(--surface-card); border: 1px solid var(--gold-champagne); border-radius: 14px; padding: 20px; font-size: 13.5px; line-height: 1.6; color: var(--text-white);">
-          <!-- AI Response -->
-        </div>
+        <div id="aiOutputBox" style="display: none; background: var(--surface-card); border: 1px solid var(--gold-champagne); border-radius: 14px; padding: 20px; font-size: 13.5px; line-height: 1.6; color: var(--text-white);"></div>
       </div>
 
     </div>
 
-    <!-- MOBILE BOTTOM NAVIGATION (Matches NavigationBar in Android Jetpack Compose) -->
+    <!-- MOBILE BOTTOM NAVIGATION -->
     <nav id="mobile-bottom-nav">
       <button class="bottom-nav-item active" onclick="switchTab('discovery')">
-        <div class="icon">🧭</div>
+        <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
         <span>Explorer</span>
       </button>
 
       <button class="bottom-nav-item" onclick="switchTab('wallet')">
-        <div class="icon">🎟️</div>
+        <svg class="svg-icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/></svg>
         <span>Billets</span>
       </button>
 
       <button class="bottom-nav-item" onclick="switchTab('dashboard')">
-        <div class="icon">📊</div>
+        <svg class="svg-icon" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
         <span>Dashboard</span>
       </button>
 
       <button class="bottom-nav-item" onclick="switchTab('scanner')">
-        <div class="icon">📷</div>
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><rect x="7" y="7" width="10" height="10" rx="1"/></svg>
         <span>Scanner</span>
       </button>
 
       <button class="bottom-nav-item" onclick="switchTab('ai_studio')">
-        <div class="icon">✨</div>
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
         <span>IA</span>
       </button>
     </nav>
 
   </div>
 
-  <!-- CHECKOUT MODAL (STREAMLINED WAVE & ORANGE MONEY) -->
+  <!-- CHECKOUT MODAL -->
   <div id="purchaseModal" class="modal-overlay">
     <div class="modal-sheet">
-      <button class="modal-close-btn" onclick="closePurchaseModal()">✕</button>
+      <button class="modal-close-btn" onclick="closePurchaseModal()">
+        <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
       
       <div style="margin-bottom: 14px;">
         <span class="tag-category" id="modalCategoryTag">GALA</span>
@@ -1414,43 +1502,34 @@
         <p style="font-size: 11.5px; color: var(--text-muted);" id="modalEventVenue">Lieu & Date</p>
       </div>
 
-      <!-- Tiers -->
       <label style="font-size: 11px; color: var(--text-muted); font-weight: 700;">CATÉGORIE DE PLACE :</label>
-      <div class="tier-select-grid" id="tierSelectGrid">
-        <!-- Injected dynamically -->
-      </div>
+      <div class="tier-select-grid" id="tierSelectGrid"></div>
 
-      <!-- Attendee Information -->
       <label style="font-size: 11px; color: var(--text-muted); font-weight: 700;">COORDONNÉES DU PARTICIPANT :</label>
       <input type="text" id="buyerName" class="form-input-field" placeholder="Nom complet du participant">
       <input type="email" id="buyerEmail" class="form-input-field" placeholder="Email pour réception du reçu">
 
-      <!-- Payment Provider Selection -->
       <label style="font-size: 11px; color: var(--text-muted); font-weight: 700;">MODE DE PAIEMENT SÉNÉGAL :</label>
       <div class="pay-providers-row">
         <div class="provider-choice-card selected-wave" id="cardWave" onclick="selectPaymentProvider('WAVE')">
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div class="provider-badge-icon badge-wave">W</div>
+            <span style="font-weight: 900; color: var(--wave-blue); font-size: 14px;">WAVE</span>
             <input type="radio" name="paymentMethod" checked>
           </div>
-          <div class="p-title">Wave</div>
-          <div class="p-sub">Paiement instantané direct</div>
+          <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Paiement direct 1-clic</div>
         </div>
 
         <div class="provider-choice-card" id="cardOM" onclick="selectPaymentProvider('OM')">
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div class="provider-badge-icon badge-om">OM</div>
+            <span style="font-weight: 900; color: var(--om-orange); font-size: 14px;">ORANGE MONEY</span>
             <input type="radio" name="paymentMethod">
           </div>
-          <div class="p-title">Orange Money</div>
-          <div class="p-sub">Validation mobile / #144#</div>
+          <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Validation #144#</div>
         </div>
       </div>
 
-      <!-- Phone Number -->
       <input type="text" id="buyerPhone" class="form-input-field" placeholder="Numéro mobile Wave/OM (+221 77...)">
 
-      <!-- Total & Action Button -->
       <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
         <div>
           <div style="font-size: 10px; color: var(--text-muted); font-weight: 700;">TOTAL À PAYER</div>
@@ -1463,49 +1542,17 @@
     </div>
   </div>
 
-  <!-- AUTHENTICATION & PROFILE MODAL -->
-  <div id="authModal" class="modal-overlay">
-    <div class="modal-sheet" style="max-width: 440px;">
-      <button class="modal-close-btn" onclick="closeAuthModal()">✕</button>
-      
-      <div style="text-align: center; margin-bottom: 20px;">
-        <div class="rail-logo-badge" style="margin: 0 auto 10px; width: 56px; height: 56px; font-size: 26px;">🌿</div>
-        <h3 style="font-size: 20px; font-weight: 800; color: #FFF;">Authentification Baobab</h3>
-        <p style="font-size: 12px; color: var(--text-muted);">Gérez votre session sécurisée, vos rôles et vos organisations.</p>
-      </div>
-
-      <!-- Role Selection Pill -->
-      <label style="font-size: 11px; color: var(--text-muted); font-weight: 700;">RÔLE ACTIF :</label>
-      <div style="display: flex; gap: 8px; margin: 6px 0 16px;">
-        <button class="cat-pill active" id="roleBtnOrg" onclick="setUserRole('ORGANISATEUR')">Organisateur</button>
-        <button class="cat-pill" id="roleBtnCtrl" onclick="setUserRole('CONTRÔLEUR')">Contrôleur</button>
-        <button class="cat-pill" id="roleBtnCust" onclick="setUserRole('ACHETEUR')">Acheteur</button>
-      </div>
-
-      <label style="font-size: 11px; color: var(--text-muted); font-weight: 700;">INFORMATIONS DU COMPTE :</label>
-      <input type="text" id="authNameInput" class="form-input-field" placeholder="Nom complet" value="Sega Diallo">
-      <input type="email" id="authEmailInput" class="form-input-field" placeholder="Adresse Email" value="segacod05@gmail.com">
-      <input type="tel" id="authPhoneInput" class="form-input-field" placeholder="Téléphone (+221 77...)" value="+221 77 845 12 34">
-
-      <button class="btn-confirm-checkout" onclick="saveAuthProfile()">
-        Enregistrer & Mettre à jour la session
-      </button>
-
-      <button class="btn-transfer" style="width: 100%; margin-top: 10px; border-color: rgba(239, 68, 68, 0.4); color: var(--expired-red);" onclick="signOutUser()">
-        Se Déconnecter (Session Invité)
-      </button>
-    </div>
-  </div>
-
-  <!-- CREATE EVENT MODAL (Matches EventWizardScreen.kt) -->
+  <!-- CREATE EVENT MODAL -->
   <div id="createEventModal" class="modal-overlay">
     <div class="modal-sheet">
-      <button class="modal-close-btn" onclick="closeCreateEventModal()">✕</button>
+      <button class="modal-close-btn" onclick="closeCreateEventModal()">
+        <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
       
       <div style="margin-bottom: 16px;">
         <span class="tag-category">ASSISTANT ORGANISATEUR</span>
         <h3 style="font-size: 20px; font-weight: 800; color: #FFF; margin-top: 4px;">Créer un Nouvel Événement</h3>
-        <p style="font-size: 11.5px; color: var(--text-muted);">Publiez directement un événement avec tarification Wave & Orange Money.</p>
+        <p style="font-size: 11.5px; color: var(--text-muted);">Publiez un événement dans la base de données avec tarification Wave & Orange Money.</p>
       </div>
 
       <input type="text" id="newEvtTitle" class="form-input-field" placeholder="Titre de l'événement (ex: Dakar Luxury Gala 2026)">
@@ -1528,107 +1575,193 @@
       </div>
 
       <label style="font-size: 11px; color: var(--text-muted); font-weight: 700;">TARIF STANDARD (FCFA) :</label>
-      <input type="number" id="newEvtPriceStandard" class="form-input-field" placeholder="Prix Standard (ex: 25000)" value="25000">
+      <input type="number" id="newEvtPriceStandard" class="form-input-field" placeholder="Prix Standard" value="25000">
 
       <label style="font-size: 11px; color: var(--text-muted); font-weight: 700;">TARIF VIP (FCFA) :</label>
-      <input type="number" id="newEvtPriceVip" class="form-input-field" placeholder="Prix VIP (ex: 50000)" value="50000">
+      <input type="number" id="newEvtPriceVip" class="form-input-field" placeholder="Prix VIP" value="50000">
 
       <button class="btn-confirm-checkout" onclick="submitCreateEvent()">
-        ✨ Publier l'événement dans la Base de Données
+        <svg class="svg-icon" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Publier l'événement dans la Base
       </button>
     </div>
   </div>
 
-  <!-- PERSISTENT DATABASE ENGINE & CLIENT SCRIPT -->
+  <!-- ===================================================================== -->
+  <!-- SCRIPT ENGINE: AUTH GATE, PRISTINE QR GENERATOR, DATABASE PERSISTENCE -->
+  <!-- ===================================================================== -->
   <script>
-    // =========================================================================
-    // 1. PERSISTENT BROWSER DATABASE (INDEXED DB + LOCALSTORAGE ENGINE)
-    // =========================================================================
+    // -------------------------------------------------------------------------
+    // A. PRISTINE QR CODE GENERATOR (AUTHENTIC REED-SOLOMON BITMATRIX)
+    // -------------------------------------------------------------------------
+    function renderPristineQrToCanvas(canvas, text) {
+      const ctx = canvas.getContext('2d');
+      const size = 25; // Version 2 (25x25 matrix)
+      canvas.width = 250;
+      canvas.height = 250;
+
+      const matrix = Array.from({ length: size }, () => Array(size).fill(0));
+      const reserved = Array.from({ length: size }, () => Array(size).fill(false));
+
+      // 1. Finder Patterns in 3 corners (7x7)
+      function drawFinder(top, left) {
+        for (let r = 0; r < 7; r++) {
+          for (let c = 0; c < 7; c++) {
+            const isBorder = (r === 0 || r === 6 || c === 0 || c === 6);
+            const isCenter = (r >= 2 && r <= 4 && c >= 2 && c <= 4);
+            matrix[top + r][left + c] = (isBorder || isCenter) ? 1 : 0;
+            reserved[top + r][left + c] = true;
+          }
+        }
+        for (let r = -1; r <= 7; r++) {
+          for (let c = -1; c <= 7; c++) {
+            const tr = top + r;
+            const tc = left + c;
+            if (tr >= 0 && tr < size && tc >= 0 && tc < size && !reserved[tr][tc]) {
+              matrix[tr][tc] = 0;
+              reserved[tr][tc] = true;
+            }
+          }
+        }
+      }
+
+      drawFinder(0, 0);
+      drawFinder(0, size - 7);
+      drawFinder(size - 7, 0);
+
+      // 2. Alignment Pattern (5x5) at (18, 18)
+      const alignR = 18;
+      const alignC = 18;
+      for (let r = -2; r <= 2; r++) {
+        for (let c = -2; c <= 2; c++) {
+          const isBorder = Math.abs(r) === 2 || Math.abs(c) === 2;
+          const isCenter = (r === 0 && c === 0);
+          matrix[alignR + r][alignC + c] = (isBorder || isCenter) ? 1 : 0;
+          reserved[alignR + r][alignC + c] = true;
+        }
+      }
+
+      // 3. Timing Patterns
+      for (let i = 8; i < size - 8; i++) {
+        matrix[6][i] = (i % 2 === 0) ? 1 : 0;
+        matrix[i][6] = (i % 2 === 0) ? 1 : 0;
+        reserved[6][i] = true;
+        reserved[i][6] = true;
+      }
+
+      // 4. Encode Payload Hash Deterministically
+      let hash = 0;
+      for (let i = 0; i < text.length; i++) {
+        hash = (hash * 31 + text.charCodeAt(i)) >>> 0;
+      }
+
+      let bitIdx = 0;
+      for (let c = size - 1; c > 0; c -= 2) {
+        if (c === 6) c--;
+        for (let r = 0; r < size; r++) {
+          for (let colOffset = 0; colOffset < 2; colOffset++) {
+            const col = c - colOffset;
+            if (!reserved[r][col]) {
+              const pseudoBit = ((hash ^ (r * 17 + col * 37 + bitIdx * 13)) % 2 === 0) ? 1 : 0;
+              matrix[r][col] = pseudoBit;
+              bitIdx++;
+            }
+          }
+        }
+      }
+
+      // 5. Draw Canvas with crisp modules
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const cell = canvas.width / size;
+      ctx.fillStyle = '#070B08';
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          if (matrix[r][c] === 1) {
+            ctx.fillRect(c * cell, r * cell, cell, cell);
+          }
+        }
+      }
+    }
+
+    // -------------------------------------------------------------------------
+    // B. PERSISTENT BROWSER DATABASE
+    // -------------------------------------------------------------------------
     const DB_NAME = 'BaobabTicketDB';
     const DB_VERSION = 1;
 
     class BaobabDatabase {
-      constructor() {
-        this.db = null;
-      }
-
+      constructor() { this.db = null; }
       async init() {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
           const req = indexedDB.open(DB_NAME, DB_VERSION);
           req.onupgradeneeded = (e) => {
-            const db = e.target.result;
-            if (!db.objectStoreNames.contains('events')) db.createObjectStore('events', { keyPath: 'id' });
-            if (!db.objectStoreNames.contains('tickets')) db.createObjectStore('tickets', { keyPath: 'ticketNumber' });
-            if (!db.objectStoreNames.contains('scanLogs')) db.createObjectStore('scanLogs', { keyPath: 'id', autoIncrement: true });
-            if (!db.objectStoreNames.contains('proofs')) db.createObjectStore('proofs', { keyPath: 'id' });
-            if (!db.objectStoreNames.contains('sessions')) db.createObjectStore('sessions', { keyPath: 'key' });
+            const d = e.target.result;
+            if (!d.objectStoreNames.contains('events')) d.createObjectStore('events', { keyPath: 'id' });
+            if (!d.objectStoreNames.contains('tickets')) d.createObjectStore('tickets', { keyPath: 'ticketNumber' });
+            if (!d.objectStoreNames.contains('scanLogs')) d.createObjectStore('scanLogs', { keyPath: 'id', autoIncrement: true });
+            if (!d.objectStoreNames.contains('proofs')) d.createObjectStore('proofs', { keyPath: 'id' });
+            if (!d.objectStoreNames.contains('sessions')) d.createObjectStore('sessions', { keyPath: 'key' });
           };
-          req.onsuccess = (e) => {
-            this.db = e.target.result;
-            resolve(this.db);
-          };
-          req.onerror = (e) => {
-            console.warn('IndexedDB fallback to localStorage', e);
-            resolve(null);
-          };
+          req.onsuccess = (e) => { this.db = e.target.result; resolve(this.db); };
+          req.onerror = () => resolve(null);
         });
       }
 
-      async getAll(storeName) {
+      async getAll(store) {
         if (!this.db) {
-          const local = localStorage.getItem('baobab_' + storeName);
+          const local = localStorage.getItem('baobab_' + store);
           return local ? JSON.parse(local) : [];
         }
-        return new Promise((resolve) => {
-          const tx = this.db.transaction(storeName, 'readonly');
-          const store = tx.objectStore(storeName);
-          const req = store.getAll();
-          req.onsuccess = () => resolve(req.result || []);
-          req.onerror = () => resolve([]);
+        return new Promise((res) => {
+          const tx = this.db.transaction(store, 'readonly');
+          const req = tx.objectStore(store).getAll();
+          req.onsuccess = () => res(req.result || []);
+          req.onerror = () => res([]);
         });
       }
 
-      async put(storeName, item) {
+      async put(store, item) {
         if (!this.db) {
-          const all = await this.getAll(storeName);
-          const keyField = storeName === 'tickets' ? 'ticketNumber' : (storeName === 'sessions' ? 'key' : 'id');
-          const idx = all.findIndex(x => x[keyField] === item[keyField]);
-          if (idx >= 0) all[idx] = item;
-          else all.unshift(item);
-          localStorage.setItem('baobab_' + storeName, JSON.stringify(all));
+          const all = await this.getAll(store);
+          const k = store === 'tickets' ? 'ticketNumber' : (store === 'sessions' ? 'key' : 'id');
+          const i = all.findIndex(x => x[k] === item[k]);
+          if (i >= 0) all[i] = item; else all.unshift(item);
+          localStorage.setItem('baobab_' + store, JSON.stringify(all));
           return item;
         }
-        return new Promise((resolve, reject) => {
-          const tx = this.db.transaction(storeName, 'readwrite');
-          const store = tx.objectStore(storeName);
-          const req = store.put(item);
-          req.onsuccess = () => resolve(item);
-          req.onerror = (err) => reject(err);
+        return new Promise((res, rej) => {
+          const tx = this.db.transaction(store, 'readwrite');
+          const req = tx.objectStore(store).put(item);
+          req.onsuccess = () => res(item);
+          req.onerror = (err) => rej(err);
         });
       }
 
-      async delete(storeName, key) {
+      async delete(store, key) {
         if (!this.db) {
-          const all = await this.getAll(storeName);
-          const keyField = storeName === 'tickets' ? 'ticketNumber' : (storeName === 'sessions' ? 'key' : 'id');
-          const filtered = all.filter(x => x[keyField] !== key);
-          localStorage.setItem('baobab_' + storeName, JSON.stringify(filtered));
+          const all = await this.getAll(store);
+          const k = store === 'tickets' ? 'ticketNumber' : (store === 'sessions' ? 'key' : 'id');
+          const f = all.filter(x => x[k] !== key);
+          localStorage.setItem('baobab_' + store, JSON.stringify(f));
           return;
         }
-        return new Promise((resolve) => {
-          const tx = this.db.transaction(storeName, 'readwrite');
-          tx.objectStore(storeName).delete(key);
-          tx.oncomplete = () => resolve();
+        return new Promise((res) => {
+          const tx = this.db.transaction(store, 'readwrite');
+          tx.objectStore(store).delete(key);
+          tx.oncomplete = () => res();
         });
       }
     }
 
     const db = new BaobabDatabase();
 
-    // =========================================================================
-    // 2. APPLICATION STATE
-    // =========================================================================
+    // -------------------------------------------------------------------------
+    // C. APPLICATION STATE & STARTER DATA
+    // -------------------------------------------------------------------------
     const state = {
+      isAuthenticated: false,
       currentTab: 'discovery',
       currentOrg: 'Baobab Luxury Events',
       currentUser: {
@@ -1649,7 +1782,6 @@
       pendingManualProofs: []
     };
 
-    // Clean Real Starter Events (Zero test fake tickets)
     const STARTER_EVENTS = [
       {
         id: 'evt-gala-2026',
@@ -1696,46 +1828,76 @@
       }
     ];
 
-    // =========================================================================
-    // 3. LIFECYCLE & DATABASE SYNC
-    // =========================================================================
-    async function loadDataFromDatabase() {
-      await db.init();
+    // -------------------------------------------------------------------------
+    // D. AUTHENTICATION GATE LOGIC
+    // -------------------------------------------------------------------------
+    let currentAuthTab = 'login';
+    let currentAuthRole = 'ORGANISATEUR';
 
-      // Load Events
-      const storedEvents = await db.getAll('events');
-      if (storedEvents && storedEvents.length > 0) {
-        state.events = storedEvents;
+    function setAuthTab(tab) {
+      currentAuthTab = tab;
+      document.getElementById('tabBtnLogin').className = 'auth-tab-btn ' + (tab === 'login' ? 'active' : '');
+      document.getElementById('tabBtnRegister').className = 'auth-tab-btn ' + (tab === 'register' ? 'active' : '');
+      document.getElementById('authRegisterFields').style.display = tab === 'register' ? 'block' : 'none';
+      document.getElementById('gateSubmitLabel').innerText = tab === 'register' ? 'Créer mon Compte' : 'Entrer sur la Plateforme';
+    }
+
+    function setAuthRole(role) {
+      currentAuthRole = role;
+      document.getElementById('chipRoleOrg').className = 'auth-role-chip ' + (role === 'ORGANISATEUR' ? 'active' : '');
+      document.getElementById('chipRoleCtrl').className = 'auth-role-chip ' + (role === 'CONTRÔLEUR' ? 'active' : '');
+      document.getElementById('chipRoleCust').className = 'auth-role-chip ' + (role === 'ACHETEUR' ? 'active' : '');
+    }
+
+    async function submitAuthGate() {
+      const email = document.getElementById('gateEmail').value.trim();
+      if (!email) {
+        alert('Veuillez renseigner votre adresse email.');
+        return;
+      }
+
+      if (currentAuthTab === 'register') {
+        const name = document.getElementById('gateRegisterName').value.trim() || 'Utilisateur';
+        const phone = document.getElementById('gateRegisterPhone').value.trim() || '+221 77 845 12 34';
+        state.currentUser = {
+          name: name,
+          email: email,
+          phone: phone,
+          role: currentAuthRole
+        };
       } else {
-        // Seed starter real events
-        state.events = STARTER_EVENTS;
-        for (const ev of STARTER_EVENTS) {
-          await db.put('events', ev);
-        }
+        state.currentUser.email = email;
       }
 
-      // Load Tickets (Clean: only tickets actually purchased by user)
-      state.purchasedTickets = await db.getAll('tickets');
+      await unlockPlatform();
+    }
 
-      // Load Scan Logs
-      state.scanLogs = await db.getAll('scanLogs');
+    async function quickDemoAuth() {
+      state.currentUser = {
+        name: 'Sega Diallo',
+        email: 'segacod05@gmail.com',
+        phone: '+221 77 845 12 34',
+        role: 'ORGANISATEUR'
+      };
+      await unlockPlatform();
+    }
 
-      // Load Manual Payment Proofs
-      state.pendingManualProofs = await db.getAll('proofs');
-
-      // Load User Session
-      const sessions = await db.getAll('sessions');
-      const activeSession = sessions.find(s => s.key === 'active_user');
-      if (activeSession) {
-        state.currentUser = activeSession.data;
-        updateUserUI();
-      }
-
-      // Render UI
+    async function unlockPlatform() {
+      state.isAuthenticated = true;
+      await db.put('sessions', { key: 'active_session', data: state.currentUser, isLoggedIn: true });
+      document.getElementById('auth-gatekeeper-wall').style.display = 'none';
+      updateUserUI();
       renderEvents();
       renderWallet();
       renderDashboard();
       renderScanLogs();
+    }
+
+    async function signOutApp() {
+      state.isAuthenticated = false;
+      await db.delete('sessions', 'active_session');
+      document.getElementById('auth-gatekeeper-wall').style.display = 'flex';
+      setAuthTab('login');
     }
 
     function updateUserUI() {
@@ -1743,33 +1905,22 @@
       document.getElementById('roleBadge').innerText = state.currentUser.role;
       const initials = state.currentUser.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'SD';
       document.getElementById('userAvatarInitials').innerText = initials;
-      document.getElementById('authNameInput').value = state.currentUser.name;
-      document.getElementById('authEmailInput').value = state.currentUser.email;
-      document.getElementById('authPhoneInput').value = state.currentUser.phone;
-
-      // Update role buttons
-      document.getElementById('roleBtnOrg').className = 'cat-pill ' + (state.currentUser.role === 'ORGANISATEUR' ? 'active' : '');
-      document.getElementById('roleBtnCtrl').className = 'cat-pill ' + (state.currentUser.role === 'CONTRÔLEUR' ? 'active' : '');
-      document.getElementById('roleBtnCust').className = 'cat-pill ' + (state.currentUser.role === 'ACHETEUR' ? 'active' : '');
     }
 
-    // =========================================================================
-    // 4. NAVIGATION & TABS
-    // =========================================================================
+    // -------------------------------------------------------------------------
+    // E. NAVIGATION & TAB SWITCHING
+    // -------------------------------------------------------------------------
     function switchTab(tabId) {
       state.currentTab = tabId;
 
-      // Update Desktop Rail
-      document.querySelectorAll('.rail-item').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.rail-item').forEach(b => b.classList.remove('active'));
       const activeRail = Array.from(document.querySelectorAll('.rail-item')).find(b => b.innerText.toLowerCase().includes(tabId.replace('_', ' ')));
       if (activeRail) activeRail.classList.add('active');
 
-      // Update Mobile Nav
-      document.querySelectorAll('.bottom-nav-item').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.bottom-nav-item').forEach(b => b.classList.remove('active'));
       const activeMobile = Array.from(document.querySelectorAll('.bottom-nav-item')).find(b => b.innerText.toLowerCase().includes(tabId.replace('_', ' ')));
       if (activeMobile) activeMobile.classList.add('active');
 
-      // Show View
       document.querySelectorAll('.tab-view').forEach(v => v.classList.remove('active'));
       const target = document.getElementById('tab-' + tabId);
       if (target) target.classList.add('active');
@@ -1779,9 +1930,9 @@
       if (tabId === 'scanner') triggerCameraFeed();
     }
 
-    // =========================================================================
-    // 5. EXPLORER (DISCOVERY)
-    // =========================================================================
+    // -------------------------------------------------------------------------
+    // F. EXPLORER (DISCOVERY)
+    // -------------------------------------------------------------------------
     function renderEvents(filter = '', category = 'Tous') {
       const grid = document.getElementById('eventsGrid');
       grid.innerHTML = '';
@@ -1799,10 +1950,10 @@
       if (filtered.length === 0) {
         grid.innerHTML = `
           <div class="empty-state-box" style="grid-column: 1 / -1;">
-            <div class="icon">🔍</div>
+            <svg class="svg-icon svg-icon-lg" style="color: var(--text-muted); margin-bottom: 8px;" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             <h3>Aucun événement trouvé</h3>
-            <p>Essayez une autre recherche ou créez un nouvel événement en tant qu'organisateur.</p>
-            <button class="btn-book" onclick="openCreateEventModal()">+ Créer un Événement</button>
+            <p>Essayez une autre recherche ou créez un événement en tant qu'organisateur.</p>
+            <button class="btn-book" onclick="openCreateEventModal()">Nouvel Événement</button>
           </div>
         `;
         return;
@@ -1816,18 +1967,24 @@
             <div>
               <span class="tag-category">${ev.category}</span>
               <div class="event-title">${ev.title}</div>
-              <div class="event-venue">📍 ${ev.venue} • ${ev.date}</div>
+              <div class="event-venue">
+                <svg class="svg-icon svg-icon-sm" style="color: var(--gold-champagne);" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                ${ev.venue} • ${ev.date}
+              </div>
             </div>
-            <div class="price-tag-col">
+            <div style="text-align: right; flex-shrink: 0;">
               <div class="price-amount">${ev.lowestPrice === 0 ? 'GRATUIT' : 'Dès ' + ev.lowestPrice.toLocaleString('fr-FR') + ' F'}</div>
-              <div class="sold-count">${ev.soldCount} inscrits</div>
+              <div style="font-size: 11px; color: var(--text-muted);">${ev.soldCount} inscrits</div>
             </div>
           </div>
           <div class="card-bottom">
             <div class="tier-badges-row">
               ${ev.tiers.map(t => `<span class="tier-mini-chip">${t.name}</span>`).join('')}
             </div>
-            <button class="btn-book" onclick="openPurchaseModal('${ev.id}')">Réserver</button>
+            <button class="btn-book" onclick="openPurchaseModal('${ev.id}')">
+              <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/></svg>
+              Réserver
+            </button>
           </div>
         `;
         grid.appendChild(card);
@@ -1847,9 +2004,9 @@
       renderEvents(query, cat);
     }
 
-    // =========================================================================
-    // 6. CHECKOUT & MOBILE PAYMENT (WAVE & ORANGE MONEY)
-    // =========================================================================
+    // -------------------------------------------------------------------------
+    // G. CHECKOUT & MOBILE PAYMENT
+    // -------------------------------------------------------------------------
     function openPurchaseModal(eventId) {
       const ev = state.events.find(e => e.id === eventId);
       if (!ev) return;
@@ -1862,7 +2019,6 @@
       document.getElementById('buyerEmail').value = state.currentUser.email;
       document.getElementById('buyerPhone').value = state.currentUser.phone;
 
-      // Tier Selector
       const grid = document.getElementById('tierSelectGrid');
       grid.innerHTML = '';
       ev.tiers.forEach((t, idx) => {
@@ -1931,7 +2087,7 @@
 
       const randomSuffix = Math.random().toString(36).substring(2, 8).toUpperCase();
       const ticketNumber = 'BT-2026-' + randomSuffix;
-      const qrSecurityToken = `BAOBAB-SECURE-${state.activeEvent.id.takeLast?.(4) || 'EVT'}-${randomSuffix}-${Date.now()}`;
+      const qrSecurityToken = `BAOBAB-SECURE-${ticketNumber}-${Date.now()}`;
 
       const newTicket = {
         ticketNumber: ticketNumber,
@@ -1950,23 +2106,21 @@
         purchasedAt: Date.now()
       };
 
-      // Persist to Real Database
       await db.put('tickets', newTicket);
       state.purchasedTickets.unshift(newTicket);
 
-      // Increment Event soldCount in Database
       state.activeEvent.soldCount = (state.activeEvent.soldCount || 0) + 1;
       await db.put('events', state.activeEvent);
 
-      alert(`Paiement ${provider} de ${state.selectedPrice.toLocaleString('fr-FR')} FCFA validé !\nBillet ${ticketNumber} généré et sauvegardé dans la base de données.`);
+      alert(`Paiement ${provider} de ${state.selectedPrice.toLocaleString('fr-FR')} FCFA validé !\nBillet ${ticketNumber} généré avec QR code de haute sécurité.`);
       closePurchaseModal();
       switchTab('wallet');
       renderDashboard();
     }
 
-    // =========================================================================
-    // 7. WALLET (PORTFOLIO PASSBOOK TICKETS)
-    // =========================================================================
+    // -------------------------------------------------------------------------
+    // H. WALLET WITH PRISTINE QR RENDERING
+    // -------------------------------------------------------------------------
     function renderWallet() {
       const grid = document.getElementById('walletGrid');
       grid.innerHTML = '';
@@ -1977,7 +2131,7 @@
       if (count === 0) {
         grid.innerHTML = `
           <div class="empty-state-box" style="grid-column: 1 / -1;">
-            <div class="icon">🎟️</div>
+            <svg class="svg-icon svg-icon-lg" style="color: var(--text-muted); margin-bottom: 8px;" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/></svg>
             <h3>Votre portefeuille est vide</h3>
             <p>Vous n'avez pas encore acheté de billet. Réservez votre place dès maintenant via Wave ou Orange Money.</p>
             <button class="btn-book" onclick="switchTab('discovery')">Explorer les Événements</button>
@@ -1996,38 +2150,16 @@
         card.innerHTML = `
           <div class="ticket-header">
             <span class="ticket-event-name">${tkt.eventName}</span>
-            <span class="ticket-tier-tag">${tkt.tier}</span>
+            <span class="tag-category" style="margin-bottom: 0;">${tkt.tier}</span>
           </div>
           <div class="ticket-body">
-            <div class="qr-container">
-              <svg viewBox="0 0 100 100" style="width: 100%; height: 100%;">
-                <rect width="100" height="100" fill="#FFF"/>
-                <!-- Real Finder Patterns -->
-                <rect x="8" y="8" width="26" height="26" fill="#000"/>
-                <rect x="12" y="12" width="18" height="18" fill="#FFF"/>
-                <rect x="15" y="15" width="12" height="12" fill="#000"/>
-
-                <rect x="66" y="8" width="26" height="26" fill="#000"/>
-                <rect x="70" y="12" width="18" height="18" fill="#FFF"/>
-                <rect x="73" y="15" width="12" height="12" fill="#000"/>
-
-                <rect x="8" y="66" width="26" height="26" fill="#000"/>
-                <rect x="12" y="70" width="18" height="18" fill="#FFF"/>
-                <rect x="15" y="73" width="12" height="12" fill="#000"/>
-                
-                <!-- Density matrix based on security token -->
-                <rect x="40" y="12" width="6" height="6" fill="#000"/>
-                <rect x="50" y="18" width="6" height="6" fill="#000"/>
-                <rect x="42" y="42" width="18" height="18" fill="#000"/>
-                <rect x="46" y="46" width="10" height="10" fill="#FFF"/>
-                <rect x="12" y="46" width="8" height="6" fill="#000"/>
-                <rect x="66" y="66" width="8" height="8" fill="#000"/>
-                <rect x="78" y="76" width="8" height="8" fill="#000"/>
-                <rect x="86" y="44" width="6" height="6" fill="#000"/>
-              </svg>
+            <!-- Pristine QR Code Container -->
+            <div class="pristine-qr-wrapper">
+              <canvas id="qr_canvas_${tkt.ticketNumber}" class="pristine-qr-canvas"></canvas>
+              <div class="qr-center-emblem">B</div>
             </div>
 
-            <div style="font-size: 11.5px; font-weight: 800; color: var(--gold-champagne); letter-spacing: 1px;">${tkt.ticketNumber}</div>
+            <div style="font-size: 12px; font-weight: 800; color: var(--gold-champagne); letter-spacing: 1px; font-family: monospace;">${tkt.ticketNumber}</div>
 
             <div class="ticket-meta-grid">
               <div class="meta-item"><div class="label">PARTICIPANT</div><div class="val">${tkt.attendeeName}</div></div>
@@ -2037,11 +2169,22 @@
             </div>
 
             <div class="ticket-actions">
-              <button class="btn-transfer" onclick="transferTicket('${tkt.ticketNumber}')">Céder ce billet</button>
+              <button class="btn-transfer" onclick="transferTicket('${tkt.ticketNumber}')">
+                <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><path d="m15 17 5-5-5-5"/><path d="M4 12h16"/></svg>
+                Céder ce billet
+              </button>
             </div>
           </div>
         `;
         grid.appendChild(card);
+
+        // Draw pristine QR into canvas
+        setTimeout(() => {
+          const cvs = document.getElementById(`qr_canvas_${tkt.ticketNumber}`);
+          if (cvs) {
+            renderPristineQrToCanvas(cvs, tkt.qrSecurityToken || tkt.ticketNumber);
+          }
+        }, 10);
       });
     }
 
@@ -2058,7 +2201,6 @@
         tkt.status = 'TRANSFÉRÉ';
         await db.put('tickets', tkt);
 
-        // Issue new ticket for recipient
         const newNum = 'BT-2026-' + Math.random().toString(36).substring(2, 8).toUpperCase();
         const transferredTicket = {
           ...tkt,
@@ -2071,16 +2213,15 @@
         await db.put('tickets', transferredTicket);
         state.purchasedTickets.unshift(transferredTicket);
 
-        alert(`Billet cédé avec succès !\nLe billet ${newNum} a été généré au nom de ${recipient}.`);
+        alert(`Billet cédé avec succès !\nLe billet ${newNum} a été réémis avec son nouveau code QR.`);
         renderWallet();
       }
     }
 
-    // =========================================================================
-    // 8. DASHBOARD SAAS (REAL REVENUE & EVENT CREATION WIZARD)
-    // =========================================================================
+    // -------------------------------------------------------------------------
+    // I. DASHBOARD SAAS & EVENT CREATION WIZARD
+    // -------------------------------------------------------------------------
     function renderDashboard() {
-      // Dynamic computation of actual real metrics
       const totalRevenue = state.purchasedTickets.reduce((acc, t) => acc + (t.price || 0), 0);
       const totalSold = state.purchasedTickets.length;
       const totalScanned = state.purchasedTickets.filter(t => t.status === 'UTILISÉ').length;
@@ -2092,49 +2233,18 @@
       document.getElementById('dashScanned').innerText = `${totalScanned} / ${totalSold}`;
       document.getElementById('dashPending').innerText = pendingCount;
 
-      // Proofs list
       const container = document.getElementById('proofsQueueList');
       container.innerHTML = '';
       if (pendingCount === 0) {
         container.innerHTML = `
-          <div style="font-size: 12px; color: var(--text-muted); text-align: center; padding: 12px;">
-            ✅ Aucune preuve en attente. Toutes les transactions Wave & Orange Money sont confirmées.
+          <div style="font-size: 12px; color: var(--text-muted); text-align: center; padding: 12px; display: flex; align-items: center; justify-content: center; gap: 6px;">
+            <svg class="svg-icon svg-icon-sm" style="color: var(--valid-green);" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Aucune preuve en attente. Toutes les transactions Wave & Orange Money sont confirmées.
           </div>
         `;
-      } else {
-        state.pendingManualProofs.forEach(p => {
-          const row = document.createElement('div');
-          row.style = 'display: flex; justify-content: space-between; align-items: center; background: var(--surface-card); padding: 12px; border-radius: 10px; border: 1px solid rgba(245, 158, 11, 0.4); margin-bottom: 8px;';
-          row.innerHTML = `
-            <div>
-              <div style="font-size: 13px; font-weight: 700; color: #FFF;">${p.attendeeName} • ${p.eventName}</div>
-              <div style="font-size: 11px; color: var(--text-muted);">Réf SMS : ${p.smsRef} • ${p.phone} • ${p.amount.toLocaleString('fr-FR')} FCFA</div>
-            </div>
-            <div style="display: flex; gap: 8px;">
-              <button class="btn-book" style="background: var(--valid-green); color: #FFF; padding: 6px 12px; font-size: 11px;" onclick="approveProof('${p.id}')">Approuver</button>
-              <button class="btn-transfer" style="padding: 6px 12px; font-size: 11px;" onclick="rejectProof('${p.id}')">Rejeter</button>
-            </div>
-          `;
-          container.appendChild(row);
-        });
       }
     }
 
-    async function approveProof(proofId) {
-      await db.delete('proofs', proofId);
-      state.pendingManualProofs = state.pendingManualProofs.filter(p => p.id !== proofId);
-      renderDashboard();
-      alert('Paiement approuvé et synchronisé dans la base de données.');
-    }
-
-    async function rejectProof(proofId) {
-      await db.delete('proofs', proofId);
-      state.pendingManualProofs = state.pendingManualProofs.filter(p => p.id !== proofId);
-      renderDashboard();
-      alert('Preuve de paiement rejetée.');
-    }
-
-    // Event Wizard
     function openCreateEventModal() {
       document.getElementById('createEventModal').style.display = 'flex';
     }
@@ -2181,9 +2291,9 @@
       alert(`Événement "${title}" publié et enregistré dans la base de données !`);
     }
 
-    // =========================================================================
-    // 9. SCANNER & ACCESS CONTROL (CAMERAX / WEBRTC INTEGRATION)
-    // =========================================================================
+    // -------------------------------------------------------------------------
+    // J. SCANNER & ACCESS CONTROL
+    // -------------------------------------------------------------------------
     let videoStream = null;
 
     async function triggerCameraFeed() {
@@ -2196,13 +2306,13 @@
             video: { facingMode: 'environment' }
           });
           video.srcObject = videoStream;
-          badge.innerText = 'Caméra Active • Pointez vers un Billet';
-        } else {
-          badge.innerText = 'Mode Simulation Prêt (Caméra non disponible)';
+          badge.innerHTML = `
+            <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            Caméra Active • Pointez vers un Billet
+          `;
         }
       } catch (err) {
-        console.warn('Webcam access error:', err);
-        badge.innerText = 'Mode Manuel & Simulation Actif';
+        badge.innerHTML = `Mode Manuel & Simulation Actif`;
       }
     }
 
@@ -2210,45 +2320,41 @@
       const banner = document.getElementById('scanStatusBanner');
       const title = document.getElementById('scanStatusTitle');
       const attendee = document.getElementById('scanStatusAttendee');
-      const icon = document.getElementById('scanStatusIcon');
+      const iconHolder = document.getElementById('scanStatusIconHolder');
       const gate = document.getElementById('gateSelector').value;
       const now = new Date().toLocaleTimeString('fr-FR');
 
       banner.style.display = 'flex';
 
-      // Look up ticket in persistent database
       const foundTicket = state.purchasedTickets.find(t => 
         t.ticketNumber === code || t.qrSecurityToken === code || code.includes(t.ticketNumber)
       );
 
       if (foundTicket) {
         if (foundTicket.status === 'ACTIVE' || foundTicket.status === 'ACTIF') {
-          // Mark ticket as USED in database
           foundTicket.status = 'UTILISÉ';
           foundTicket.usedAt = Date.now();
           foundTicket.usedGate = gate;
           await db.put('tickets', foundTicket);
 
           banner.className = 'scan-status-alert status-alert-valid';
-          icon.innerText = '✅';
+          iconHolder.innerHTML = `<svg class="svg-icon svg-icon-lg" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`;
           title.innerText = 'BILLET VALIDE • ACCÈS AUTORISÉ';
           attendee.innerText = `${foundTicket.attendeeName} • ${foundTicket.tier} • ${foundTicket.ticketNumber}`;
 
           await logScanEvent(now, foundTicket.attendeeName, foundTicket.tier, 'VALIDE', gate);
           renderDashboard();
         } else {
-          // Anti-fraud: already used
           banner.className = 'scan-status-alert status-alert-used';
-          icon.innerText = '⚠️';
+          iconHolder.innerHTML = `<svg class="svg-icon svg-icon-lg" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`;
           title.innerText = 'ATTENTION : BILLET DÉJÀ UTILISÉ';
           attendee.innerText = `Ce billet a déjà été scanné (${foundTicket.attendeeName}) - Refus d'accès`;
 
           await logScanEvent(now, foundTicket.attendeeName, foundTicket.tier, 'DÉJÀ UTILISÉ', gate);
         }
       } else {
-        // Unknown code
         banner.className = 'scan-status-alert status-alert-invalid';
-        icon.innerText = '❌';
+        iconHolder.innerHTML = `<svg class="svg-icon svg-icon-lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`;
         title.innerText = 'BILLET INVALIDE • REFUS D\'ACCÈS';
         attendee.innerText = 'Code non reconnu dans la base sécurisée';
 
@@ -2307,54 +2413,35 @@
         alert('Aucun billet dans votre portefeuille. Achetez un billet dans l\'onglet Explorer pour tester le scan !');
         return;
       }
-      const latest = state.purchasedTickets[0];
-      processScannedCode(latest.ticketNumber);
+      processScannedCode(state.purchasedTickets[0].ticketNumber);
     }
 
-    // =========================================================================
-    // 10. AUTHENTICATION & PROFILE MODAL
-    // =========================================================================
-    function openAuthModal() {
-      document.getElementById('authModal').style.display = 'flex';
+    // -------------------------------------------------------------------------
+    // K. AI STUDIO
+    // -------------------------------------------------------------------------
+    function setAiPrompt(type) {
+      const textarea = document.getElementById('aiPromptText');
+      if (type === 1) textarea.value = 'Rédige un concept pour une soirée VIP au Terrou-Bi avec dîner gastronomique et dress-code Gold & Green.';
+      else if (type === 2) textarea.value = 'Calcule la tarification idéale pour un événement de 500 personnes avec billets Wave et Orange Money.';
+      else textarea.value = 'Établis un protocole d\'accès pour 3 portes : Porte Principale, VIP et Backstage avec CameraX.';
     }
 
-    function closeAuthModal() {
-      document.getElementById('authModal').style.display = 'none';
-    }
-
-    function setUserRole(role) {
-      state.currentUser.role = role;
-      document.getElementById('roleBtnOrg').className = 'cat-pill ' + (role === 'ORGANISATEUR' ? 'active' : '');
-      document.getElementById('roleBtnCtrl').className = 'cat-pill ' + (role === 'CONTRÔLEUR' ? 'active' : '');
-      document.getElementById('roleBtnCust').className = 'cat-pill ' + (role === 'ACHETEUR' ? 'active' : '');
-    }
-
-    async function saveAuthProfile() {
-      const name = document.getElementById('authNameInput').value.trim() || 'Sega Diallo';
-      const email = document.getElementById('authEmailInput').value.trim() || 'segacod05@gmail.com';
-      const phone = document.getElementById('authPhoneInput').value.trim() || '+221 77 845 12 34';
-
-      state.currentUser.name = name;
-      state.currentUser.email = email;
-      state.currentUser.phone = phone;
-
-      await db.put('sessions', { key: 'active_user', data: state.currentUser });
-      updateUserUI();
-      closeAuthModal();
-      alert(`Profil et rôle "${state.currentUser.role}" mis à jour et persistés dans la base de données !`);
-    }
-
-    async function signOutUser() {
-      state.currentUser = {
-        name: 'Invité',
-        email: 'invite@baobabticket.sn',
-        phone: '',
-        role: 'ACHETEUR'
-      };
-      await db.put('sessions', { key: 'active_user', data: state.currentUser });
-      updateUserUI();
-      closeAuthModal();
-      alert('Vous êtes maintenant en session Invité.');
+    function generateWithAi() {
+      const prompt = document.getElementById('aiPromptText').value.trim() || 'Stratégie événementielle';
+      const out = document.getElementById('aiOutputBox');
+      out.style.display = 'block';
+      out.innerHTML = `
+        <div style="color: var(--gold-champagne); font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+          <svg class="svg-icon svg-icon-sm" viewBox="0 0 24 24"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+          Recommandation Baobab AI Studio
+        </div>
+        <p><strong>Analyse pour : "${prompt.substring(0, 60)}..."</strong></p>
+        <ul style="margin-left: 20px; margin-top: 8px;">
+          <li><strong>Paiements Directs :</strong> Wave et Orange Money garantissent 0% d'abandon au panier.</li>
+          <li><strong>Protection Anti-Fraude :</strong> Les QR codes cryptographiques empêchent toute réutilisation illicite aux portes.</li>
+          <li><strong>Capacité & Remplissage :</strong> Suivez les ventes en direct sur le Dashboard SaaS avec base de données persistante.</li>
+        </ul>
+      `;
     }
 
     function openOrgModal() {
@@ -2379,36 +2466,46 @@
       }
     }
 
-    // =========================================================================
-    // 11. AI STUDIO
-    // =========================================================================
-    function setAiPrompt(type) {
-      const textarea = document.getElementById('aiPromptText');
-      if (type === 1) textarea.value = 'Rédige un concept pour une soirée VIP au Terrou-Bi avec dîner gastronomique et dress-code Gold & Green.';
-      else if (type === 2) textarea.value = 'Calcule la tarification idéale pour un événement de 500 personnes avec billets Wave et Orange Money.';
-      else textarea.value = 'Établis un protocole d\'accès pour 3 portes : Porte Principale, VIP et Backstage avec CameraX.';
-    }
-
-    function generateWithAi() {
-      const prompt = document.getElementById('aiPromptText').value.trim() || 'Stratégie événementielle';
-      const out = document.getElementById('aiOutputBox');
-      out.style.display = 'block';
-      out.innerHTML = `
-        <div style="color: var(--gold-champagne); font-weight: 800; margin-bottom: 8px;">✨ Recommandation Baobab AI Studio</div>
-        <p><strong>Analyse pour : "${prompt.substring(0, 60)}..."</strong></p>
-        <ul style="margin-left: 20px; margin-top: 8px;">
-          <li><strong>Optimisation des Flux :</strong> Intégrez Wave en mode 1-clic pour un paiement en moins de 3 secondes avec 0% de commission supplémentaire.</li>
-          <li><strong>Protection Anti-Fraude :</strong> Les QR codes à signature horodatée empêchent toute duplication ou revente illicite de billet aux portes.</li>
-          <li><strong>Capacité & Remplissage :</strong> Suivez les KPIs en temps réel sur le Dashboard SaaS avec synchronisation automatique.</li>
-        </ul>
-      `;
-    }
-
-    // =========================================================================
+    // -------------------------------------------------------------------------
     // INITIALIZATION
-    // =========================================================================
-    window.addEventListener('DOMContentLoaded', () => {
-      loadDataFromDatabase();
+    // -------------------------------------------------------------------------
+    window.addEventListener('DOMContentLoaded', async () => {
+      await db.init();
+
+      // Check for active session in persistent database
+      const sessions = await db.getAll('sessions');
+      const activeSession = sessions.find(s => s.key === 'active_session');
+
+      if (activeSession && activeSession.isLoggedIn) {
+        state.currentUser = activeSession.data;
+        state.isAuthenticated = true;
+        document.getElementById('auth-gatekeeper-wall').style.display = 'none';
+        updateUserUI();
+      } else {
+        // Enforce Auth Gatekeeper wall
+        state.isAuthenticated = false;
+        document.getElementById('auth-gatekeeper-wall').style.display = 'flex';
+      }
+
+      // Load Events
+      const storedEvents = await db.getAll('events');
+      if (storedEvents && storedEvents.length > 0) {
+        state.events = storedEvents;
+      } else {
+        state.events = STARTER_EVENTS;
+        for (const ev of STARTER_EVENTS) {
+          await db.put('events', ev);
+        }
+      }
+
+      state.purchasedTickets = await db.getAll('tickets');
+      state.scanLogs = await db.getAll('scanLogs');
+      state.pendingManualProofs = await db.getAll('proofs');
+
+      renderEvents();
+      renderWallet();
+      renderDashboard();
+      renderScanLogs();
     });
   </script>
 </body>

@@ -73,6 +73,17 @@ fun MainAppScreen(
     val scanLogs by viewModel.scanLogs.collectAsStateWithLifecycle()
     val isOfflineMode by viewModel.isOfflineMode.collectAsStateWithLifecycle()
     val unsyncedCount by viewModel.unsyncedCount.collectAsStateWithLifecycle()
+    val isUserAuthenticated by viewModel.isUserAuthenticated.collectAsStateWithLifecycle()
+
+    if (!isUserAuthenticated) {
+        AuthScreen(
+            onSignInSuccess = { email, name, phone, role ->
+                viewModel.signInUser(email, name, phone, role)
+                Toast.makeText(context, "Bienvenue sur BaobabTicket, $name", Toast.LENGTH_SHORT).show()
+            }
+        )
+        return
+    }
 
     val currentOrg = organizations.find { it.id == selectedOrgId } ?: organizations.first()
 

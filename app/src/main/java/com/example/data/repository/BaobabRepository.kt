@@ -26,6 +26,9 @@ class BaobabRepository(private val context: Context) {
     val roomPurchasedTickets: Flow<List<PurchasedTicketEntity>> = db.ticketDao().getAllPurchasedTickets()
 
     // Current User & Active Organization
+    private val _isUserAuthenticated = MutableStateFlow(false)
+    val isUserAuthenticated: StateFlow<Boolean> = _isUserAuthenticated.asStateFlow()
+
     private val _currentUser = MutableStateFlow(
         UserProfile(
             id = "usr-sega-01",
@@ -315,7 +318,7 @@ class BaobabRepository(private val context: Context) {
         // Reactive collection of active authenticated user session from Room Database
         scope.launch {
             db.userSessionDao().getActiveSession().collect { session ->
-                if (session != null) {
+                if (session != null && session.isLoggedIn) {
                     val roleEnum = try {
                         UserRole.valueOf(session.role)
                     } catch (_: Exception) {
@@ -330,23 +333,25 @@ class BaobabRepository(private val context: Context) {
                         organizationId = session.organizationId
                     )
                     _selectedOrgId.value = session.organizationId
+                    _isUserAuthenticated.value = true
                 }
             }
         }
     }
 
     // --- Authentication & User Session Management ---
-    fun signInUser(email: String, name: String = "", phone: String = "") {
+    fun signInUser(email: String, name: String = "", phone: String = "", role: UserRole = UserRole.ORGANIZATION_OWNER) {
         val resolvedName = if (name.isNotBlank()) name else email.substringBefore("@").replaceFirstChar { it.uppercase() }
         val user = UserProfile(
             id = "usr-" + UUID.randomUUID().toString().take(8),
             name = resolvedName,
             email = email,
             phone = phone.ifBlank { "+221 77 845 12 34" },
-            role = UserRole.ORGANIZATION_OWNER,
+            role = role,
             organizationId = _selectedOrgId.value
         )
         _currentUser.value = user
+        _isUserAuthenticated.value = true
         scope.launch {
             db.userSessionDao().insertSession(
                 com.example.data.local.UserSessionEntity(
@@ -363,6 +368,7 @@ class BaobabRepository(private val context: Context) {
     }
 
     fun signOutUser() {
+        _isUserAuthenticated.value = false
         scope.launch {
             db.userSessionDao().clearActiveSessions()
         }

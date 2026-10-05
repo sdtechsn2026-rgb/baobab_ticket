@@ -47,8 +47,17 @@ class BaobabViewModel(
     val isOfflineMode: StateFlow<Boolean> = repository.isOfflineMode
     val unsyncedCount: StateFlow<Int> = repository.unsyncedScansCount
     val currentUser: StateFlow<UserProfile> = repository.currentUser
+    val isUserAuthenticated: StateFlow<Boolean> = repository.isUserAuthenticated
     val organizations: StateFlow<List<Organization>> = repository.organizations
     val selectedOrgId: StateFlow<String> = repository.selectedOrgId
+
+    fun signInUser(email: String, name: String = "", phone: String = "", role: UserRole = UserRole.ORGANIZATION_OWNER) {
+        repository.signInUser(email, name, phone, role)
+    }
+
+    fun signOutUser() {
+        repository.signOutUser()
+    }
 
     // Actions
     suspend fun purchaseTicket(
