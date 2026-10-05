@@ -4,8 +4,8 @@
   "private": true,
   "description": "Portail web et billetterie officielle BaobabTicket - Sénégal (Wave & Orange Money)",
   "scripts": {
-    "build": "echo 'Build successful for BaobabTicket'",
-    "start": "npx serve ."
+    "build": "mkdir -p public && cp -f index.html public/index.html 2>/dev/null || true",
+    "start": "npx serve public"
   },
   "keywords": [
     "billetterie",
