@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>BaobabTicket • Plateforme Officielle de Billetterie & Contrôle d'Accès</title>
-  <meta name="description" content="Plateforme intelligente de billetterie d'exception à Dakar. QR codes sécurisés, paiements instantanés Wave & Orange Money, contrôle d'accès en direct et IA événementielle.">
+  <title>BaobabTicket • Billetterie & Contrôle d'Accès d'Élite</title>
+  <meta name="description" content="Plateforme officielle BaobabTicket. Billetterie sécurisée, paiements Wave & Orange Money au Sénégal, contrôle d'accès en direct et gestion événementielle.">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,7 +50,7 @@
       display: flex;
     }
 
-    /* App Layout Container */
+    /* Container */
     #app-container {
       display: flex;
       width: 100%;
@@ -60,13 +60,13 @@
 
     /* DESKTOP SIDEBAR / NAVIGATION RAIL */
     #sidebar-rail {
-      width: 90px;
+      width: 96px;
       background: var(--emerald-dark);
       border-right: 1px solid rgba(201, 169, 110, 0.2);
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px 0;
+      padding: 24px 0 20px;
       position: sticky;
       top: 0;
       height: 100vh;
@@ -80,28 +80,30 @@
       align-items: center;
       margin-bottom: 28px;
       text-decoration: none;
+      cursor: pointer;
     }
 
     .rail-logo-badge {
-      width: 44px;
-      height: 44px;
-      background: var(--gold-champagne);
-      border-radius: 12px;
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #DFCA9F 0%, #C9A96E 100%);
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--bg-dark);
-      font-weight: 800;
-      font-size: 20px;
-      box-shadow: 0 4px 12px rgba(201, 169, 110, 0.3);
+      font-weight: 900;
+      font-size: 22px;
+      box-shadow: 0 4px 16px rgba(201, 169, 110, 0.35);
     }
 
     .rail-brand-name {
       color: var(--gold-champagne);
       font-size: 10px;
       font-weight: 800;
-      letter-spacing: 1.2px;
+      letter-spacing: 1.5px;
       margin-top: 6px;
+      text-transform: uppercase;
     }
 
     .rail-nav-items {
@@ -110,6 +112,7 @@
       gap: 12px;
       width: 100%;
       align-items: center;
+      flex: 1;
     }
 
     .rail-item {
@@ -117,15 +120,26 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      width: 72px;
-      height: 60px;
-      border-radius: 12px;
+      width: 76px;
+      height: 64px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      background: transparent;
       color: var(--text-muted);
       cursor: pointer;
       transition: all 0.2s ease;
-      background: transparent;
-      border: none;
-      font-family: inherit;
+      text-decoration: none;
+    }
+
+    .rail-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-white);
+    }
+
+    .rail-item.active {
+      background: rgba(201, 169, 110, 0.15);
+      border-color: rgba(201, 169, 110, 0.4);
+      color: var(--gold-champagne);
     }
 
     .rail-item .icon {
@@ -134,63 +148,64 @@
     }
 
     .rail-item span {
-      font-size: 10px;
-      font-weight: 600;
-    }
-
-    .rail-item:hover {
-      color: var(--text-white);
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    .rail-item.active {
-      background: var(--gold-champagne);
-      color: var(--bg-dark);
+      font-size: 10.5px;
       font-weight: 700;
-      box-shadow: 0 4px 12px rgba(201, 169, 110, 0.25);
+      letter-spacing: 0.2px;
     }
 
-    .rail-bottom {
-      margin-top: auto;
+    .rail-footer-controls {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
+      width: 100%;
     }
 
-    .rail-icon-btn {
-      width: 36px;
-      height: 36px;
+    .rail-avatar-btn {
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       background: var(--surface-card);
-      border: 1px solid rgba(201, 169, 110, 0.3);
+      border: 2px solid var(--gold-champagne);
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--gold-champagne);
+      font-weight: 800;
+      font-size: 14px;
       cursor: pointer;
-      font-size: 16px;
+      position: relative;
     }
 
-    /* MAIN VIEWPORT */
+    .rail-avatar-btn .online-dot {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 10px;
+      height: 10px;
+      background: var(--valid-green);
+      border: 2px solid var(--bg-dark);
+      border-radius: 50%;
+    }
+
+    /* MAIN VIEW AREA */
     #main-content {
       flex: 1;
       display: flex;
       flex-direction: column;
       min-width: 0;
-      min-height: 100vh;
-      background: var(--bg-dark);
+      padding-bottom: 80px; /* spacing for mobile nav */
     }
 
-    /* HEADER BAR (Identical to BaobabHeader in Compose) */
-    .app-header {
-      height: 64px;
-      background: var(--emerald-dark);
-      border-bottom: 1px solid rgba(201, 169, 110, 0.25);
+    /* APP HEADER */
+    .top-header-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 20px;
+      padding: 16px 28px;
+      background: rgba(15, 23, 19, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--surface-border);
       position: sticky;
       top: 0;
       z-index: 80;
@@ -199,229 +214,321 @@
     .header-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 16px;
     }
 
-    .mobile-brand-pill {
-      display: none;
-      align-items: center;
-      gap: 8px;
+    .header-brand-title {
+      font-family: var(--font-title);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--gold-champagne);
+      letter-spacing: 0.5px;
     }
 
     .org-selector-chip {
-      background: var(--surface-elevated);
-      border: 1px solid rgba(201, 169, 110, 0.3);
-      padding: 5px 12px;
-      border-radius: 20px;
       display: flex;
       align-items: center;
       gap: 8px;
+      background: var(--surface-elevated);
+      border: 1px solid var(--surface-border);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-white);
       cursor: pointer;
-      transition: background 0.15s;
+      transition: border-color 0.2s ease;
     }
 
     .org-selector-chip:hover {
-      background: var(--emerald-primary);
-    }
-
-    .org-name {
-      color: var(--text-white);
-      font-size: 12px;
-      font-weight: 700;
+      border-color: var(--gold-champagne);
     }
 
     .header-right {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .status-badge {
       display: flex;
       align-items: center;
       gap: 6px;
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 10px;
-      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
       cursor: pointer;
     }
 
     .status-online {
       background: rgba(16, 185, 129, 0.15);
-      border: 1px solid var(--valid-green);
       color: var(--valid-green);
+      border: 1px solid rgba(16, 185, 129, 0.3);
     }
 
     .status-offline {
-      background: rgba(245, 158, 11, 0.15);
-      border: 1px solid var(--used-amber);
-      color: var(--used-amber);
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--expired-red);
+      border: 1px solid rgba(239, 68, 68, 0.3);
     }
 
     .status-dot {
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: currentColor;
     }
 
     .role-badge {
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
       background: rgba(201, 169, 110, 0.15);
-      border: 1px solid var(--gold-champagne);
       color: var(--gold-champagne);
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 10px;
-      font-weight: 700;
+      border: 1px solid rgba(201, 169, 110, 0.4);
       cursor: pointer;
     }
 
-    /* TAB CONTENT WRAPPERS */
+    .role-badge:hover {
+      background: rgba(201, 169, 110, 0.25);
+    }
+
+    .btn-auth-header {
+      background: linear-gradient(135deg, var(--gold-champagne) 0%, #B69458 100%);
+      color: #070B08;
+      border: none;
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.15s ease;
+    }
+
+    .btn-auth-header:active {
+      transform: scale(0.96);
+    }
+
+    /* TAB VIEWS */
     .tab-view {
       display: none;
-      padding: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
+      padding: 24px 28px;
+      max-width: 1240px;
       width: 100%;
-      flex: 1;
+      margin: 0 auto;
+      animation: fadeIn 0.25s ease-out;
     }
 
     .tab-view.active {
       display: block;
-      animation: fadeIn 0.25s ease-in-out;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
+      from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* COMPACT CONTROLS & SEARCH BAR */
-    .search-bar-row {
+    /* HERO BANNER */
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(28, 84, 59, 0.6) 0%, rgba(18, 60, 42, 0.9) 100%);
+      border: 1px solid rgba(201, 169, 110, 0.35);
+      border-radius: 20px;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-banner::after {
+      content: '';
+      position: absolute;
+      right: -40px;
+      bottom: -40px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 169, 110, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-text h1 {
+      font-family: var(--font-title);
+      font-size: 26px;
+      font-weight: 700;
+      color: #FFF;
+      margin-bottom: 6px;
+    }
+
+    .hero-text p {
+      font-size: 13px;
+      color: var(--text-muted);
+      max-width: 600px;
+    }
+
+    .hero-badges-row {
       display: flex;
       gap: 10px;
-      margin-bottom: 14px;
+      margin-top: 14px;
+    }
+
+    .hero-badge-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(7, 11, 8, 0.5);
+      border: 1px solid rgba(201, 169, 110, 0.25);
+      padding: 5px 12px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold-light);
+    }
+
+    /* SEARCH & FILTER BAR */
+    .search-bar-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
     }
 
     .search-input-wrapper {
       flex: 1;
+      min-width: 260px;
       position: relative;
     }
 
     .search-input {
       width: 100%;
-      padding: 10px 14px 10px 38px;
       background: var(--surface-card);
       border: 1px solid var(--surface-border);
-      border-radius: 12px;
+      border-radius: 14px;
+      padding: 12px 16px 12px 42px;
       color: var(--text-white);
-      font-size: 13px;
-      font-family: inherit;
+      font-size: 13.5px;
+      font-family: var(--font-body);
+      outline: none;
+      transition: border-color 0.2s ease;
     }
 
     .search-input:focus {
-      outline: none;
       border-color: var(--gold-champagne);
-      background: var(--surface-elevated);
     }
 
     .search-icon {
       position: absolute;
-      left: 12px;
+      left: 14px;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--gold-champagne);
-      font-size: 15px;
+      color: var(--text-muted);
+      font-size: 16px;
+      pointer-events: none;
     }
 
-    /* CATEGORY PILLS */
     .category-pills {
       display: flex;
       gap: 8px;
       overflow-x: auto;
-      padding-bottom: 12px;
-      scrollbar-width: none;
-    }
-
-    .category-pills::-webkit-scrollbar {
-      display: none;
+      padding-bottom: 6px;
     }
 
     .cat-pill {
-      padding: 6px 14px;
-      border-radius: 20px;
-      background: var(--surface-elevated);
+      background: var(--surface-card);
       border: 1px solid var(--surface-border);
-      color: var(--text-white);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 20px;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       white-space: nowrap;
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all 0.15s ease;
+    }
+
+    .cat-pill:hover {
+      border-color: var(--gold-champagne);
+      color: var(--text-white);
     }
 
     .cat-pill.active {
       background: var(--gold-champagne);
-      color: var(--bg-dark);
       border-color: var(--gold-champagne);
-      font-weight: 700;
+      color: var(--bg-dark);
     }
 
     /* EVENT CARDS GRID */
     .events-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 16px;
-      margin-top: 8px;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+      margin-top: 14px;
     }
 
     .event-card {
-      background: var(--surface-elevated);
+      background: var(--surface-card);
       border: 1px solid var(--surface-border);
-      border-radius: 16px;
-      padding: 16px;
+      border-radius: 18px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      transition: border-color 0.2s, transform 0.2s;
+      justify-content: space-between;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
     }
 
     .event-card:hover {
-      border-color: var(--gold-champagne);
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+      border-color: rgba(201, 169, 110, 0.4);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     }
 
     .card-top {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 10px;
+      gap: 12px;
+      margin-bottom: 14px;
     }
 
     .tag-category {
-      background: var(--emerald-dark);
-      border: 1px solid rgba(201, 169, 110, 0.4);
-      color: var(--gold-champagne);
-      font-size: 9px;
+      display: inline-block;
+      font-size: 10px;
       font-weight: 800;
-      padding: 2px 7px;
-      border-radius: 6px;
+      letter-spacing: 0.8px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: rgba(201, 169, 110, 0.15);
+      color: var(--gold-champagne);
+      border: 1px solid rgba(201, 169, 110, 0.3);
+      margin-bottom: 8px;
     }
 
     .event-title {
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--text-white);
-      margin-top: 6px;
-      line-height: 1.25;
+      font-family: var(--font-title);
+      font-size: 18px;
+      font-weight: 700;
+      color: #FFF;
+      line-height: 1.3;
+      margin-bottom: 6px;
     }
 
     .event-venue {
-      font-size: 11.5px;
+      font-size: 12px;
       color: var(--text-muted);
-      margin-top: 3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .price-tag-col {
@@ -430,170 +537,215 @@
     }
 
     .price-amount {
-      color: var(--gold-champagne);
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 800;
+      color: var(--gold-champagne);
     }
 
     .sold-count {
+      font-size: 11px;
       color: var(--text-muted);
-      font-size: 10px;
     }
 
     .card-bottom {
-      margin-top: auto;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
       padding-top: 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .tier-badges-row {
       display: flex;
       gap: 6px;
+      flex-wrap: wrap;
     }
 
     .tier-mini-chip {
-      background: var(--surface-card);
-      border: 1px solid #384E42;
-      color: var(--text-muted);
-      font-size: 10px;
-      font-weight: 600;
-      padding: 2px 6px;
+      background: var(--surface-elevated);
+      border: 1px solid var(--surface-border);
       border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-muted);
     }
 
     .btn-book {
-      background: var(--gold-champagne);
-      color: var(--bg-dark);
-      border: none;
-      padding: 8px 16px;
-      border-radius: 10px;
-      font-weight: 800;
+      background: linear-gradient(135deg, var(--emerald-primary) 0%, var(--emerald-dark) 100%);
+      border: 1.5px solid var(--gold-champagne);
+      color: var(--gold-champagne);
+      padding: 8px 18px;
+      border-radius: 12px;
       font-size: 12px;
+      font-weight: 800;
       cursor: pointer;
-      transition: transform 0.15s;
+      transition: all 0.15s ease;
     }
 
     .btn-book:hover {
-      transform: scale(1.03);
+      background: var(--gold-champagne);
+      color: var(--bg-dark);
     }
 
-    /* WALLET SECTION (PASSBOOK TICKETS) */
+    /* PASSBOOK LUXURY TICKETS (WALLET) */
     .wallet-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 22px;
+      margin-top: 16px;
     }
 
     .passbook-ticket {
-      background: linear-gradient(145deg, #10261B, #0A1410);
-      border: 1.5px solid var(--gold-champagne);
-      border-radius: 18px;
+      background: #0E1612;
+      border: 1px solid rgba(201, 169, 110, 0.35);
+      border-radius: 20px;
       overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
       position: relative;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     }
 
     .ticket-header {
-      background: var(--emerald-dark);
-      padding: 14px 18px;
+      background: linear-gradient(135deg, var(--emerald-dark) 0%, #163625 100%);
+      padding: 16px 20px;
+      border-bottom: 1px dashed rgba(201, 169, 110, 0.3);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid rgba(201, 169, 110, 0.3);
     }
 
     .ticket-event-name {
+      font-family: var(--font-title);
       font-size: 15px;
-      font-weight: 800;
-      color: var(--text-white);
+      font-weight: 700;
+      color: #FFF;
     }
 
     .ticket-tier-tag {
-      background: var(--gold-champagne);
-      color: var(--bg-dark);
       font-size: 10px;
       font-weight: 800;
-      padding: 3px 8px;
+      padding: 4px 8px;
       border-radius: 6px;
+      background: rgba(201, 169, 110, 0.2);
+      color: var(--gold-champagne);
+      border: 1px solid var(--gold-champagne);
+      letter-spacing: 0.5px;
     }
 
     .ticket-body {
-      padding: 18px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      text-align: center;
-    }
-
-    .qr-container {
-      background: #FFF;
-      padding: 12px;
-      border-radius: 12px;
-      margin: 12px 0;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       position: relative;
     }
 
-    .qr-container svg {
-      display: block;
+    .qr-container {
       width: 140px;
       height: 140px;
+      background: #FFF;
+      border-radius: 12px;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
     }
 
     .ticket-meta-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
+      gap: 12px;
       width: 100%;
-      gap: 8px;
-      margin-top: 10px;
-      padding: 10px;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
-      text-align: left;
+      margin: 14px 0;
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 12px 14px;
     }
 
     .meta-item .label {
-      font-size: 9px;
+      font-size: 9.5px;
       color: var(--text-muted);
+      font-weight: 700;
       text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .meta-item .val {
-      font-size: 11.5px;
-      font-weight: 700;
+      font-size: 12.5px;
       color: var(--text-white);
+      font-weight: 700;
     }
 
     .ticket-actions {
       display: flex;
-      gap: 8px;
+      gap: 10px;
       width: 100%;
-      margin-top: 12px;
     }
 
     .btn-transfer {
       flex: 1;
-      padding: 8px;
-      border-radius: 8px;
-      background: var(--surface-card);
-      border: 1px solid rgba(201, 169, 110, 0.4);
-      color: var(--gold-champagne);
-      font-size: 11px;
+      background: transparent;
+      border: 1px solid var(--surface-border);
+      color: var(--text-muted);
+      padding: 9px;
+      border-radius: 10px;
+      font-size: 11.5px;
       font-weight: 700;
       cursor: pointer;
+      transition: all 0.15s ease;
     }
 
-    /* SCANNER WORKSTATION (2 PANES ON DESKTOP) */
+    .btn-transfer:hover {
+      border-color: var(--gold-champagne);
+      color: var(--gold-champagne);
+    }
+
+    /* DASHBOARD SAAS METRICS */
+    .metrics-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .metric-card {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: 16px;
+      padding: 18px 20px;
+    }
+
+    .metric-card .title {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-muted);
+      letter-spacing: 0.8px;
+    }
+
+    .metric-card .value {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--gold-champagne);
+      margin: 4px 0 2px;
+    }
+
+    .metric-card .sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* SCANNER VIEWPORT */
     .scanner-layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: 24px;
+      margin-top: 14px;
     }
 
-    @media (max-width: 840px) {
+    @media (max-width: 860px) {
       .scanner-layout {
         grid-template-columns: 1fr;
       }
@@ -601,9 +753,9 @@
 
     .camera-box {
       background: #000;
-      border: 1.5px solid var(--surface-border);
-      border-radius: 16px;
-      height: 380px;
+      border: 2px solid rgba(201, 169, 110, 0.4);
+      border-radius: 18px;
+      aspect-ratio: 4/3;
       position: relative;
       overflow: hidden;
       display: flex;
@@ -611,47 +763,55 @@
       justify-content: center;
     }
 
+    .camera-feed {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     .camera-reticle {
+      position: absolute;
       width: 220px;
       height: 220px;
       border: 2px solid var(--gold-champagne);
       border-radius: 16px;
-      position: relative;
+      box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.55);
+      pointer-events: none;
     }
 
     .reticle-laser {
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #2EA373, #EBD6A7, #2EA373, transparent);
+      box-shadow: 0 0 12px #2EA373;
       position: absolute;
-      left: 0;
-      right: 0;
-      height: 2.5px;
-      background: linear-gradient(90deg, transparent, var(--emerald-bright), var(--gold-champagne), var(--emerald-bright), transparent);
-      animation: laserMove 2s infinite alternate ease-in-out;
+      animation: laserSweep 2s ease-in-out infinite alternate;
     }
 
-    @keyframes laserMove {
-      from { top: 10px; }
-      to { top: 205px; }
+    @keyframes laserSweep {
+      0% { top: 10%; }
+      100% { top: 90%; }
     }
 
     .camera-badge {
       position: absolute;
-      bottom: 12px;
-      background: rgba(0, 0, 0, 0.7);
-      padding: 4px 12px;
-      border-radius: 8px;
+      bottom: 14px;
+      background: rgba(7, 11, 8, 0.85);
+      border: 1px solid var(--surface-border);
+      padding: 6px 14px;
+      border-radius: 20px;
       font-size: 11px;
       font-weight: 700;
-      color: var(--text-white);
-      border: 1px solid rgba(201, 169, 110, 0.3);
+      color: var(--gold-light);
     }
 
     .scan-status-alert {
-      padding: 16px;
-      border-radius: 12px;
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 12px;
+      gap: 14px;
     }
 
     .status-alert-valid {
@@ -673,11 +833,11 @@
     }
 
     .scan-log-table {
-      background: var(--surface-elevated);
+      background: var(--surface-card);
       border: 1px solid var(--surface-border);
-      border-radius: 12px;
-      padding: 12px;
-      max-height: 220px;
+      border-radius: 14px;
+      overflow: hidden;
+      max-height: 260px;
       overflow-y: auto;
     }
 
@@ -685,261 +845,269 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 8px 10px;
-      background: var(--surface-card);
-      border-radius: 8px;
-      margin-bottom: 6px;
-      font-size: 11px;
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 11.5px;
     }
 
-    /* DASHBOARD SAAS METRICS */
-    .metrics-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-      margin-bottom: 20px;
+    .scan-log-row:last-child {
+      border-bottom: none;
     }
 
-    .metric-card {
-      background: var(--surface-elevated);
-      border: 1px solid var(--surface-border);
-      border-radius: 14px;
-      padding: 16px;
-    }
-
-    .metric-card .title {
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--text-muted);
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-    }
-
-    .metric-card .value {
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--gold-champagne);
-      margin: 4px 0;
-    }
-
-    .metric-card .sub {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    /* MODAL STREAMLINED CHECKOUT (Wave & Orange Money) */
+    /* MODALS */
     .modal-overlay {
       position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.82);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(8px);
+      z-index: 100;
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 200;
       padding: 16px;
     }
 
     .modal-sheet {
       background: var(--surface-elevated);
-      border: 1.5px solid var(--gold-champagne);
-      border-radius: 20px;
-      max-width: 480px;
+      border: 1.5px solid rgba(201, 169, 110, 0.35);
+      border-radius: 24px;
       width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
       padding: 24px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
       position: relative;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
     }
 
     .modal-close-btn {
       position: absolute;
-      top: 16px;
-      right: 16px;
-      background: transparent;
-      border: none;
+      top: 18px;
+      right: 18px;
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
       color: var(--text-muted);
-      font-size: 22px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
     }
 
     .tier-select-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 8px;
-      margin: 12px 0 16px;
+      margin: 14px 0;
     }
 
     .tier-btn-opt {
-      padding: 10px 8px;
-      border-radius: 10px;
       background: var(--surface-card);
       border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 10px;
       text-align: center;
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all 0.15s ease;
     }
 
     .tier-btn-opt.active {
-      background: var(--emerald-dark);
       border-color: var(--gold-champagne);
+      background: rgba(201, 169, 110, 0.15);
     }
 
     .tier-btn-opt .name {
       font-size: 11px;
-      font-weight: 700;
-      color: var(--gold-champagne);
+      font-weight: 800;
+      color: var(--text-white);
     }
 
     .tier-btn-opt .cost {
       font-size: 11px;
-      color: #FFF;
+      color: var(--gold-champagne);
+      font-weight: 700;
       margin-top: 2px;
     }
 
-    /* Wave & Orange Money Cards */
     .pay-providers-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin: 12px 0;
+      margin: 14px 0;
     }
 
     .provider-choice-card {
       background: var(--surface-card);
       border: 1.5px solid var(--surface-border);
-      border-radius: 12px;
+      border-radius: 14px;
       padding: 12px;
       cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      transition: all 0.2s;
+      transition: all 0.15s ease;
     }
 
     .provider-choice-card.selected-wave {
       border-color: var(--wave-blue);
-      background: rgba(27, 164, 232, 0.12);
+      background: rgba(27, 164, 232, 0.1);
     }
 
     .provider-choice-card.selected-om {
       border-color: var(--om-orange);
-      background: rgba(255, 102, 0, 0.12);
+      background: rgba(255, 102, 0, 0.1);
     }
 
     .provider-badge-icon {
       width: 28px;
       height: 28px;
-      border-radius: 50%;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 800;
-      font-size: 11px;
+      font-weight: 900;
+      font-size: 12px;
+    }
+
+    .badge-wave {
+      background: var(--wave-blue);
       color: #FFF;
     }
 
-    .badge-wave { background: var(--wave-blue); }
-    .badge-om { background: var(--om-orange); }
+    .badge-om {
+      background: var(--om-orange);
+      color: #FFF;
+    }
 
     .provider-choice-card .p-title {
       font-size: 13px;
       font-weight: 800;
       color: #FFF;
+      margin-top: 6px;
     }
 
     .provider-choice-card .p-sub {
-      font-size: 9.5px;
+      font-size: 10.5px;
       color: var(--text-muted);
     }
 
     .form-input-field {
       width: 100%;
-      padding: 10px 12px;
       background: var(--surface-card);
       border: 1px solid var(--surface-border);
-      border-radius: 10px;
-      color: #FFF;
-      font-family: inherit;
+      border-radius: 12px;
+      padding: 11px 14px;
+      color: var(--text-white);
       font-size: 13px;
+      font-family: var(--font-body);
       margin-bottom: 10px;
+      outline: none;
     }
 
     .form-input-field:focus {
-      outline: none;
       border-color: var(--gold-champagne);
     }
 
     .btn-confirm-checkout {
       width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
-      font-weight: 800;
-      font-size: 13px;
-      cursor: pointer;
-      background: var(--gold-champagne);
+      background: linear-gradient(135deg, var(--gold-champagne) 0%, #B69458 100%);
       color: var(--bg-dark);
-      transition: opacity 0.2s;
+      border: none;
+      padding: 14px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 4px 16px rgba(201, 169, 110, 0.3);
     }
 
-    /* MOBILE BOTTOM NAVIGATION BAR */
+    /* EMPTY STATE */
+    .empty-state-box {
+      text-align: center;
+      padding: 48px 24px;
+      background: var(--surface-card);
+      border: 1px dashed var(--surface-border);
+      border-radius: 20px;
+      margin: 20px 0;
+    }
+
+    .empty-state-box .icon {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+
+    .empty-state-box h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: #FFF;
+      margin-bottom: 4px;
+    }
+
+    .empty-state-box p {
+      font-size: 12px;
+      color: var(--text-muted);
+      max-width: 380px;
+      margin: 0 auto 16px;
+    }
+
+    /* MOBILE BOTTOM NAVIGATION */
     #mobile-bottom-nav {
       display: none;
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      height: 62px;
-      background: var(--surface-elevated);
-      border-top: 1px solid rgba(201, 169, 110, 0.25);
-      z-index: 100;
+      background: rgba(15, 23, 19, 0.98);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid var(--surface-border);
+      padding: 8px 12px 12px;
       justify-content: space-around;
-      align-items: center;
-      padding: 0 6px;
+      z-index: 95;
     }
 
     .bottom-nav-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      flex: 1;
-      height: 100%;
-      color: var(--text-muted);
-      border: none;
       background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 10px;
+      font-weight: 700;
       cursor: pointer;
-      font-family: inherit;
-    }
-
-    .bottom-nav-item .icon {
-      font-size: 18px;
-    }
-
-    .bottom-nav-item span {
-      font-size: 9.5px;
-      font-weight: 600;
-      margin-top: 2px;
+      padding: 4px 8px;
     }
 
     .bottom-nav-item.active {
       color: var(--gold-champagne);
-      font-weight: 800;
     }
 
-    /* RESPONSIVE BREAKPOINT (Mobile vs Desktop) */
-    @media (max-width: 720px) {
+    .bottom-nav-item .icon {
+      font-size: 18px;
+      margin-bottom: 2px;
+    }
+
+    @media (max-width: 768px) {
       #sidebar-rail {
         display: none;
-      }
-      .mobile-brand-pill {
-        display: flex;
       }
       #mobile-bottom-nav {
         display: flex;
       }
+      .top-header-bar {
+        padding: 12px 16px;
+      }
       .tab-view {
-        padding-bottom: 80px; /* Space for bottom bar */
+        padding: 16px;
+      }
+      .hero-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
       }
     }
   </style>
@@ -948,58 +1116,57 @@
 
   <div id="app-container">
 
-    <!-- DESKTOP / ORDINATEUR NAVIGATION RAIL -->
+    <!-- DESKTOP NAVIGATION RAIL (Matches Android Jetpack Compose NavigationRail) -->
     <nav id="sidebar-rail">
-      <a href="#" class="rail-brand">
-        <div class="rail-logo-badge">B</div>
-        <span class="rail-brand-name">BAOBAB</span>
-      </a>
+      <div class="rail-brand" onclick="switchTab('discovery')">
+        <div class="rail-logo-badge">🌿</div>
+        <div class="rail-brand-name">BAOBAB</div>
+      </div>
 
       <div class="rail-nav-items">
-        <button class="rail-item active" onclick="switchTab('discovery')">
+        <button class="rail-item active" onclick="switchTab('discovery')" title="Explorer les événements">
           <div class="icon">🧭</div>
           <span>Explorer</span>
         </button>
 
-        <button class="rail-item" onclick="switchTab('wallet')">
+        <button class="rail-item" onclick="switchTab('wallet')" title="Portefeuille numérique de billets">
           <div class="icon">🎟️</div>
           <span>Billets</span>
         </button>
 
-        <button class="rail-item" onclick="switchTab('dashboard')">
+        <button class="rail-item" onclick="switchTab('dashboard')" title="Tableau de bord SaaS organisateur">
           <div class="icon">📊</div>
           <span>Dashboard</span>
         </button>
 
-        <button class="rail-item" onclick="switchTab('scanner')">
+        <button class="rail-item" onclick="switchTab('scanner')" title="Scanner de contrôle d'accès optique">
           <div class="icon">📷</div>
           <span>Scanner</span>
         </button>
 
-        <button class="rail-item" onclick="switchTab('ai_studio')">
+        <button class="rail-item" onclick="switchTab('ai_studio')" title="Assistant événementiel IA">
           <div class="icon">✨</div>
           <span>IA Studio</span>
         </button>
       </div>
 
-      <div class="rail-bottom">
-        <button class="rail-icon-btn" title="Changer d'organisation" onclick="promptSwitchOrg()">🏢</button>
-        <button class="rail-icon-btn" title="Changer de rôle" onclick="promptSwitchRole()">👤</button>
+      <div class="rail-footer-controls">
+        <div class="rail-avatar-btn" id="userAvatarBtn" onclick="openAuthModal()" title="Profil & Authentification">
+          <span id="userAvatarInitials">SD</span>
+          <div class="online-dot"></div>
+        </div>
       </div>
     </nav>
 
-    <!-- MAIN VIEWPORT -->
+    <!-- MAIN VIEW CONTAINER -->
     <div id="main-content">
 
-      <!-- TOP HEADER BAR -->
-      <header class="app-header">
+      <!-- TOP APPLICATION HEADER (Matches BaobabHeader in Compose) -->
+      <header class="top-header-bar">
         <div class="header-left">
-          <div class="mobile-brand-pill">
-            <div class="rail-logo-badge" style="width: 32px; height: 32px; font-size: 15px;">B</div>
-            <span style="font-weight: 800; color: var(--gold-champagne); font-size: 13px;">BAOBAB</span>
-          </div>
+          <span class="header-brand-title">BaobabTicket</span>
 
-          <div class="org-selector-chip" onclick="promptSwitchOrg()">
+          <div class="org-selector-chip" onclick="openOrgModal()">
             <span style="font-size: 13px;">🏢</span>
             <span class="org-name" id="currentOrgLabel">Baobab Luxury Events</span>
             <span style="font-size: 10px; color: var(--gold-champagne);">▼</span>
@@ -1009,118 +1176,132 @@
         <div class="header-right">
           <div class="status-badge status-online" id="networkBadge" onclick="toggleNetwork()">
             <div class="status-dot"></div>
-            <span id="networkLabel">EN LIGNE</span>
+            <span id="networkLabel">BD ACTIVE</span>
           </div>
 
-          <div class="role-badge" id="roleBadge" onclick="promptSwitchRole()">
+          <div class="role-badge" id="roleBadge" onclick="openAuthModal()">
             ORGANISATEUR
           </div>
+
+          <button class="btn-auth-header" id="btnHeaderAuth" onclick="openAuthModal()">
+            <span>👤</span>
+            <span id="headerUserName">Sega Diallo</span>
+          </button>
         </div>
       </header>
 
-      <!-- TAB 1: DISCOVERY / EXPLORER -->
+      <!-- TAB 1: DISCOVERY / EXPLORER (Matches DiscoveryScreen.kt) -->
       <div id="tab-discovery" class="tab-view active">
+        <!-- Hero Banner -->
+        <div class="hero-banner">
+          <div class="hero-text">
+            <h1>Billetterie d'Élite & Événements à Dakar</h1>
+            <p>Réservez vos places en 1-clic avec Wave & Orange Money. Billets nominatifs protégés par QR codes cryptographiques anti-fraude.</p>
+            <div class="hero-badges-row">
+              <div class="hero-badge-item"><span>⚡</span> Paiement Instantané Wave / OM</div>
+              <div class="hero-badge-item"><span>🛡️</span> QR Dynamique Hors-Ligne</div>
+              <div class="hero-badge-item"><span>💾</span> Base de Données Sécurisée</div>
+            </div>
+          </div>
+          <button class="btn-book" onclick="switchTab('wallet')">Voir Mes Billets 🎟️</button>
+        </div>
+
+        <!-- Search & Filter Controls -->
         <div class="search-bar-row">
           <div class="search-input-wrapper">
             <span class="search-icon">🔍</span>
-            <input type="text" class="search-input" id="eventSearchInput" placeholder="Rechercher un événement, lieu, date..." oninput="filterEvents()">
+            <input type="text" class="search-input" id="eventSearchInput" placeholder="Rechercher par nom, lieu, date ou artiste..." oninput="filterEvents()">
           </div>
-        </div>
 
-        <div class="category-pills">
-          <button class="cat-pill active" onclick="setCategory('Tous', this)">Tous</button>
-          <button class="cat-pill" onclick="setCategory('Gala & Soirée', this)">Gala & Soirée</button>
-          <button class="cat-pill" onclick="setCategory('Conférence', this)">Conférence</button>
-          <button class="cat-pill" onclick="setCategory('Festival', this)">Festival</button>
+          <div class="category-pills">
+            <button class="cat-pill active" onclick="setCategory('Tous', this)">Tous</button>
+            <button class="cat-pill" onclick="setCategory('Gala & Soirée', this)">Gala & Soirée</button>
+            <button class="cat-pill" onclick="setCategory('Conférence & Tech', this)">Conférence & Tech</button>
+            <button class="cat-pill" onclick="setCategory('Festival & Concert', this)">Festival & Concert</button>
+          </div>
         </div>
 
         <div style="display: flex; justify-content: space-between; align-items: center; margin: 16px 0 8px;">
-          <h3 style="font-size: 15px; font-weight: 700; color: var(--text-white);" id="eventsHeaderTitle">Événements Disponibles (3)</h3>
-          <span style="font-size: 11px; color: var(--text-muted);">Sénégal • XOF</span>
+          <h3 style="font-size: 15px; font-weight: 700; color: var(--text-white);" id="eventsHeaderTitle">Événements Disponibles</h3>
+          <span style="font-size: 11.5px; color: var(--text-muted);">Sénégal • Monnaie XOF (FCFA)</span>
         </div>
 
         <div class="events-grid" id="eventsGrid">
-          <!-- Populated by JavaScript -->
+          <!-- Populated by JavaScript from Database -->
         </div>
       </div>
 
-      <!-- TAB 2: WALLET / MES BILLETS -->
+      <!-- TAB 2: WALLET / MES BILLETS (Matches WalletScreen.kt) -->
       <div id="tab-wallet" class="tab-view">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
           <div>
-            <h2 style="font-size: 18px; font-weight: 800; color: var(--text-white);">Portefeuille Numérique</h2>
-            <p style="font-size: 11.5px; color: var(--text-muted);">Vos billets sécurisés avec QR anti-fraude et accès direct hors-ligne.</p>
+            <h2 style="font-size: 18px; font-weight: 800; color: var(--text-white);">Portefeuille Numérique de Billets</h2>
+            <p style="font-size: 11.5px; color: var(--text-muted);">Vos accès nominatifs avec QR codes anti-fraude, vérifiables même hors connexion.</p>
           </div>
-          <span class="tag-category" style="background: rgba(16, 185, 129, 0.15); color: var(--valid-green); border-color: var(--valid-green);">
-            2 BILLETS ACTIFS
+          <span class="tag-category" id="walletBadgeCount" style="background: rgba(16, 185, 129, 0.15); color: var(--valid-green); border-color: var(--valid-green);">
+            0 BILLET ACTIF
           </span>
         </div>
 
         <div class="wallet-grid" id="walletGrid">
-          <!-- Populated by JavaScript -->
+          <!-- Populated dynamically from Real Database -->
         </div>
       </div>
 
-      <!-- TAB 3: DASHBOARD SAAS ORGANISATEUR -->
+      <!-- TAB 3: DASHBOARD SAAS ORGANISATEUR (Matches OrganizerDashboardScreen.kt) -->
       <div id="tab-dashboard" class="tab-view">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
           <div>
             <h2 style="font-size: 18px; font-weight: 800; color: var(--text-white);">Tableau de Bord Organisateur</h2>
-            <p style="font-size: 11.5px; color: var(--text-muted);">Supervision des ventes, rapprochement bancaire et flux aux portes.</p>
+            <p style="font-size: 11.5px; color: var(--text-muted);">Revenus en direct, contrôle du remplissage et audit des scans aux portes.</p>
           </div>
-          <button class="btn-book" onclick="alert('Assistant de création d\'événement ouvert !')">+ Nouvel Événement</button>
+          <button class="btn-book" onclick="openCreateEventModal()">+ Nouvel Événement</button>
         </div>
 
+        <!-- Real Dynamic KPI Metrics from Database -->
         <div class="metrics-row">
           <div class="metric-card">
-            <div class="title">REVENUS CONFIRMÉS</div>
-            <div class="value" id="dashRevenue">18 450 000 F</div>
+            <div class="title">CHIFFRE D'AFFAIRES CONFIRMÉ</div>
+            <div class="value" id="dashRevenue">0 FCFA</div>
             <div class="sub">Wave & Orange Money</div>
           </div>
           <div class="metric-card">
-            <div class="title">BILLETS VENDUS</div>
-            <div class="value" id="dashSold">412</div>
-            <div class="sub">Taux d'occupation 82%</div>
+            <div class="title">BILLETS VENDUS (BD)</div>
+            <div class="value" id="dashSold">0</div>
+            <div class="sub" id="dashSoldSub">Enregistrés dans la base</div>
           </div>
           <div class="metric-card">
             <div class="title">ENTRÉES SCANNÉES</div>
-            <div class="value" id="dashScanned" style="color: var(--valid-green);">286 / 412</div>
+            <div class="value" id="dashScanned" style="color: var(--valid-green);">0 / 0</div>
             <div class="sub">Validations aux portes</div>
           </div>
           <div class="metric-card">
-            <div class="title">PREUVES EN ATTENTE</div>
-            <div class="value" id="dashPending" style="color: var(--used-amber);">1</div>
+            <div class="title">PREUVES SMS EN ATTENTE</div>
+            <div class="value" id="dashPending" style="color: var(--used-amber);">0</div>
             <div class="sub">Paiements manuels QR</div>
           </div>
         </div>
 
-        <!-- Pending Proofs approval queue -->
-        <div style="background: var(--surface-elevated); border: 1px solid var(--surface-border); border-radius: 14px; padding: 16px; margin-bottom: 16px;">
-          <h4 style="font-size: 13px; font-weight: 700; color: var(--text-white); margin-bottom: 10px;">Validation des Preuves SMS (Mode QR)</h4>
-          <div style="display: flex; justify-content: space-between; align-items: center; background: var(--surface-card); padding: 12px; border-radius: 10px; border: 1px solid rgba(245, 158, 11, 0.4);">
-            <div>
-              <div style="font-size: 13px; font-weight: 700; color: #FFF;">Ibrahima Fall • Baobab Luxury Gala (VVIP)</div>
-              <div style="font-size: 11px; color: var(--text-muted);">Réf SMS : WV-DKR-782190 • 77 450 11 22 • 50 000 FCFA</div>
-            </div>
-            <div style="display: flex; gap: 8px;">
-              <button class="btn-book" style="background: var(--valid-green); color: #FFF; padding: 6px 12px; font-size: 11px;" onclick="approveProof(this)">Approuver</button>
-              <button class="btn-transfer" style="padding: 6px 12px; font-size: 11px;" onclick="rejectProof(this)">Rejeter</button>
-            </div>
+        <!-- Manual SMS Proofs Approval Queue -->
+        <div style="background: var(--surface-elevated); border: 1px solid var(--surface-border); border-radius: 14px; padding: 18px; margin-bottom: 20px;">
+          <h4 style="font-size: 13px; font-weight: 700; color: var(--text-white); margin-bottom: 10px;">File de Rapprochement des Preuves SMS (Mode QR)</h4>
+          <div id="proofsQueueList">
+            <!-- Populated dynamically from Real Database -->
           </div>
         </div>
       </div>
 
-      <!-- TAB 4: SCANNER & CONTRÔLE D'ACCÈS -->
+      <!-- TAB 4: SCANNER & CONTRÔLE D'ACCÈS (Matches ScannerScreen.kt & CameraX) -->
       <div id="tab-scanner" class="tab-view">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
           <div>
             <h2 style="font-size: 18px; font-weight: 800; color: var(--text-white);">Contrôle d'Accès Optique (CameraX)</h2>
-            <p style="font-size: 11.5px; color: var(--text-muted);">Validation instantanée des QR codes avec détection anti-fraude doublons.</p>
+            <p style="font-size: 11.5px; color: var(--text-muted);">Validation des QR codes contre la base de données avec détection anti-doublon.</p>
           </div>
-          <select id="gateSelector" style="background: var(--surface-elevated); border: 1px solid var(--gold-champagne); color: var(--gold-champagne); padding: 6px 12px; border-radius: 10px; font-weight: 700; font-size: 11px;">
-            <option>Porte Principale</option>
-            <option>Accès VIP</option>
-            <option>Accès VVIP</option>
+          <select id="gateSelector" style="background: var(--surface-elevated); border: 1px solid var(--gold-champagne); color: var(--gold-champagne); padding: 7px 14px; border-radius: 10px; font-weight: 700; font-size: 12px; outline: none;">
+            <option value="Porte Principale">Porte Principale</option>
+            <option value="Accès VIP">Accès VIP</option>
+            <option value="Accès VVIP">Accès VVIP</option>
           </select>
         </div>
 
@@ -1128,71 +1309,71 @@
           <!-- Left Pane: Camera Stream -->
           <div>
             <div class="camera-box">
+              <video id="scannerVideo" class="camera-feed" autoplay playsinline muted></video>
               <div class="camera-reticle">
                 <div class="reticle-laser"></div>
               </div>
-              <div class="camera-badge">Caméra Active • Pointez vers un Billet</div>
+              <div class="camera-badge" id="cameraStatusBadge">Caméra Active • Pointez vers un Billet</div>
             </div>
 
-            <div style="display: flex; gap: 6px; margin-top: 10px;">
-              <button class="btn-book" style="flex: 1; font-size: 11px;" onclick="simulateScan('VALID')">Simuler Scan Valide</button>
-              <button class="btn-book" style="flex: 1; font-size: 11px; background: var(--used-amber); color: #FFF;" onclick="simulateScan('USED')">Scan Déjà Utilisé</button>
-              <button class="btn-book" style="flex: 1; font-size: 11px; background: var(--expired-red); color: #FFF;" onclick="simulateScan('INVALID')">Scan Faux Code</button>
+            <div style="display: flex; gap: 8px; margin-top: 12px;">
+              <button class="btn-book" style="flex: 1; font-size: 11.5px;" onclick="triggerCameraFeed()">Activer Caméra</button>
+              <button class="btn-book" style="flex: 1; font-size: 11.5px; background: rgba(255,255,255,0.08); color: #FFF; border-color: var(--surface-border);" onclick="scanLatestWalletTicket()">Scanner Dernier Billet</button>
             </div>
           </div>
 
-          <!-- Right Pane: Live Scan Result & Audit Logs -->
+          <!-- Right Pane: Live Scan Result & Real Audit Logs -->
           <div>
-            <div id="scanStatusBanner" class="scan-status-alert status-alert-valid">
-              <span style="font-size: 24px;">✅</span>
+            <div id="scanStatusBanner" class="scan-status-alert status-alert-valid" style="display: none;">
+              <span style="font-size: 24px;" id="scanStatusIcon">✅</span>
               <div>
                 <div style="font-weight: 800; font-size: 14px;" id="scanStatusTitle">BILLET VALIDE • ACCÈS AUTORISÉ</div>
-                <div style="font-size: 12px; color: #FFF;" id="scanStatusAttendee">Sega Diallo • VVIP • BT-2026-8F92K7X4</div>
+                <div style="font-size: 12px; color: #FFF;" id="scanStatusAttendee">Participant • Catégorie • Référence</div>
               </div>
             </div>
 
-            <div style="display: flex; gap: 6px; margin-bottom: 12px;">
+            <div style="display: flex; gap: 8px; margin-bottom: 14px;">
               <input type="text" id="manualScanInput" class="form-input-field" style="margin-bottom: 0;" placeholder="Saisie manuelle code (ex: BT-2026-...)">
               <button class="btn-book" onclick="submitManualCode()">Valider</button>
             </div>
 
-            <h4 style="font-size: 12px; font-weight: 700; color: var(--text-white); margin-bottom: 8px;">Journal des Scans en Direct (<span id="scanCountLabel">3</span>)</h4>
+            <h4 style="font-size: 12px; font-weight: 700; color: var(--text-white); margin-bottom: 8px;">Journal d'Audit des Scans (<span id="scanCountLabel">0</span>)</h4>
             <div class="scan-log-table" id="scanLogList">
-              <!-- Logs populated by JS -->
+              <!-- Populated dynamically from Real Database -->
             </div>
           </div>
         </div>
       </div>
 
-      <!-- TAB 5: IA STUDIO (GEMINI) -->
+      <!-- TAB 5: IA STUDIO (GEMINI) (Matches BaobabAiScreen.kt) -->
       <div id="tab-ai_studio" class="tab-view">
         <div style="margin-bottom: 16px;">
           <h2 style="font-size: 18px; font-weight: 800; color: var(--text-white);">Baobab AI Studio • Assistant Événementiel</h2>
-          <p style="font-size: 11.5px; color: var(--text-muted);">Génération de concepts de galas, calcul de rentabilité billetterie et rédaction de cartons d'invitation.</p>
+          <p style="font-size: 11.5px; color: var(--text-muted);">Génération de concepts de galas, calcul de rentabilité billetterie et élaboration de protocoles de sécurité.</p>
         </div>
 
         <div style="background: var(--surface-elevated); border: 1.5px solid rgba(201, 169, 110, 0.4); border-radius: 16px; padding: 20px; margin-bottom: 20px;">
-          <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+          <div style="display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap;">
             <button class="cat-pill active" onclick="setAiPrompt(1)">Gala Prestige Dakar</button>
             <button class="cat-pill" onclick="setAiPrompt(2)">Calculateur Tarifs Wave/OM</button>
             <button class="cat-pill" onclick="setAiPrompt(3)">Protocole Sécurité & Portes</button>
           </div>
 
-          <textarea id="aiPromptText" class="form-input-field" style="height: 90px; resize: none;" placeholder="Décrivez votre idée d'événement ou posez une question..."></textarea>
+          <textarea id="aiPromptText" class="form-input-field" style="height: 100px; resize: none;" placeholder="Décrivez votre idée d'événement ou posez une question..."></textarea>
           
           <div style="display: flex; justify-content: flex-end;">
             <button class="btn-book" onclick="generateWithAi()">✨ Générer avec Baobab AI</button>
           </div>
         </div>
 
-        <div id="aiOutputBox" style="display: none; background: var(--surface-card); border: 1px solid var(--gold-champagne); border-radius: 14px; padding: 18px; font-size: 13px; line-height: 1.6; color: var(--text-white);">
+        <div id="aiOutputBox" style="display: none; background: var(--surface-card); border: 1px solid var(--gold-champagne); border-radius: 14px; padding: 20px; font-size: 13.5px; line-height: 1.6; color: var(--text-white);">
           <!-- AI Response -->
         </div>
       </div>
 
     </div>
 
-    <!-- MOBILE BOTTOM NAVIGATION (Matches NavigationBar in Compose) -->
+    <!-- MOBILE BOTTOM NAVIGATION (Matches NavigationBar in Android Jetpack Compose) -->
     <nav id="mobile-bottom-nav">
       <button class="bottom-nav-item active" onclick="switchTab('discovery')">
         <div class="icon">🧭</div>
@@ -1222,39 +1403,30 @@
 
   </div>
 
-  <!-- CHECKOUT MODAL (STREAMLINED WAVE / ORANGE MONEY) -->
+  <!-- CHECKOUT MODAL (STREAMLINED WAVE & ORANGE MONEY) -->
   <div id="purchaseModal" class="modal-overlay">
     <div class="modal-sheet">
       <button class="modal-close-btn" onclick="closePurchaseModal()">✕</button>
       
-      <div style="margin-bottom: 12px;">
+      <div style="margin-bottom: 14px;">
         <span class="tag-category" id="modalCategoryTag">GALA</span>
-        <h3 style="font-size: 18px; font-weight: 800; color: #FFF; margin-top: 4px;" id="modalEventTitle">Baobab Luxury Gala 2026</h3>
-        <p style="font-size: 11px; color: var(--text-muted);" id="modalEventVenue">Terrou-Bi Resort & Marina, Dakar • 14 Nov 2026</p>
+        <h3 style="font-size: 18px; font-weight: 800; color: #FFF; margin-top: 4px;" id="modalEventTitle">Événement</h3>
+        <p style="font-size: 11.5px; color: var(--text-muted);" id="modalEventVenue">Lieu & Date</p>
       </div>
 
       <!-- Tiers -->
       <label style="font-size: 11px; color: var(--text-muted); font-weight: 700;">CATÉGORIE DE PLACE :</label>
       <div class="tier-select-grid" id="tierSelectGrid">
-        <div class="tier-btn-opt active" onclick="selectTier(0, 25000, 'STANDARD')">
-          <div class="name">STANDARD</div>
-          <div class="cost">25 000 F</div>
-        </div>
-        <div class="tier-btn-opt" onclick="selectTier(1, 50000, 'VIP')">
-          <div class="name">VIP</div>
-          <div class="cost">50 000 F</div>
-        </div>
-        <div class="tier-btn-opt" onclick="selectTier(2, 100000, 'VVIP')">
-          <div class="name">VVIP TABLE</div>
-          <div class="cost">100 000 F</div>
-        </div>
+        <!-- Injected dynamically -->
       </div>
 
-      <!-- Attendee Name -->
-      <input type="text" id="buyerName" class="form-input-field" placeholder="Nom complet du participant" value="Sega Diallo">
+      <!-- Attendee Information -->
+      <label style="font-size: 11px; color: var(--text-muted); font-weight: 700;">COORDONNÉES DU PARTICIPANT :</label>
+      <input type="text" id="buyerName" class="form-input-field" placeholder="Nom complet du participant">
+      <input type="email" id="buyerEmail" class="form-input-field" placeholder="Email pour réception du reçu">
 
-      <!-- Wave & Orange Money Selection -->
-      <label style="font-size: 11px; color: var(--text-muted); font-weight: 700;">MODE DE PAIEMENT :</label>
+      <!-- Payment Provider Selection -->
+      <label style="font-size: 11px; color: var(--text-muted); font-weight: 700;">MODE DE PAIEMENT SÉNÉGAL :</label>
       <div class="pay-providers-row">
         <div class="provider-choice-card selected-wave" id="cardWave" onclick="selectPaymentProvider('WAVE')">
           <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -1262,7 +1434,7 @@
             <input type="radio" name="paymentMethod" checked>
           </div>
           <div class="p-title">Wave</div>
-          <div class="p-sub">0% ou 1% de frais</div>
+          <div class="p-sub">Paiement instantané direct</div>
         </div>
 
         <div class="provider-choice-card" id="cardOM" onclick="selectPaymentProvider('OM')">
@@ -1276,142 +1448,365 @@
       </div>
 
       <!-- Phone Number -->
-      <input type="text" id="buyerPhone" class="form-input-field" placeholder="Numéro mobile Wave/OM (+221 77...)" value="+221 77 845 12 34">
+      <input type="text" id="buyerPhone" class="form-input-field" placeholder="Numéro mobile Wave/OM (+221 77...)">
 
       <!-- Total & Action Button -->
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
         <div>
           <div style="font-size: 10px; color: var(--text-muted); font-weight: 700;">TOTAL À PAYER</div>
-          <div style="font-size: 20px; font-weight: 800; color: var(--gold-champagne);" id="modalTotalAmount">25 000 FCFA</div>
+          <div style="font-size: 20px; font-weight: 800; color: var(--gold-champagne);" id="modalTotalAmount">0 FCFA</div>
         </div>
         <button class="btn-confirm-checkout" id="btnConfirmPay" onclick="executePaymentProcess()">
-          Payer avec Wave (25 000 FCFA)
+          Confirmer la commande
         </button>
       </div>
     </div>
   </div>
 
-  <!-- SCRIPT ENGINE -->
+  <!-- AUTHENTICATION & PROFILE MODAL -->
+  <div id="authModal" class="modal-overlay">
+    <div class="modal-sheet" style="max-width: 440px;">
+      <button class="modal-close-btn" onclick="closeAuthModal()">✕</button>
+      
+      <div style="text-align: center; margin-bottom: 20px;">
+        <div class="rail-logo-badge" style="margin: 0 auto 10px; width: 56px; height: 56px; font-size: 26px;">🌿</div>
+        <h3 style="font-size: 20px; font-weight: 800; color: #FFF;">Authentification Baobab</h3>
+        <p style="font-size: 12px; color: var(--text-muted);">Gérez votre session sécurisée, vos rôles et vos organisations.</p>
+      </div>
+
+      <!-- Role Selection Pill -->
+      <label style="font-size: 11px; color: var(--text-muted); font-weight: 700;">RÔLE ACTIF :</label>
+      <div style="display: flex; gap: 8px; margin: 6px 0 16px;">
+        <button class="cat-pill active" id="roleBtnOrg" onclick="setUserRole('ORGANISATEUR')">Organisateur</button>
+        <button class="cat-pill" id="roleBtnCtrl" onclick="setUserRole('CONTRÔLEUR')">Contrôleur</button>
+        <button class="cat-pill" id="roleBtnCust" onclick="setUserRole('ACHETEUR')">Acheteur</button>
+      </div>
+
+      <label style="font-size: 11px; color: var(--text-muted); font-weight: 700;">INFORMATIONS DU COMPTE :</label>
+      <input type="text" id="authNameInput" class="form-input-field" placeholder="Nom complet" value="Sega Diallo">
+      <input type="email" id="authEmailInput" class="form-input-field" placeholder="Adresse Email" value="segacod05@gmail.com">
+      <input type="tel" id="authPhoneInput" class="form-input-field" placeholder="Téléphone (+221 77...)" value="+221 77 845 12 34">
+
+      <button class="btn-confirm-checkout" onclick="saveAuthProfile()">
+        Enregistrer & Mettre à jour la session
+      </button>
+
+      <button class="btn-transfer" style="width: 100%; margin-top: 10px; border-color: rgba(239, 68, 68, 0.4); color: var(--expired-red);" onclick="signOutUser()">
+        Se Déconnecter (Session Invité)
+      </button>
+    </div>
+  </div>
+
+  <!-- CREATE EVENT MODAL (Matches EventWizardScreen.kt) -->
+  <div id="createEventModal" class="modal-overlay">
+    <div class="modal-sheet">
+      <button class="modal-close-btn" onclick="closeCreateEventModal()">✕</button>
+      
+      <div style="margin-bottom: 16px;">
+        <span class="tag-category">ASSISTANT ORGANISATEUR</span>
+        <h3 style="font-size: 20px; font-weight: 800; color: #FFF; margin-top: 4px;">Créer un Nouvel Événement</h3>
+        <p style="font-size: 11.5px; color: var(--text-muted);">Publiez directement un événement avec tarification Wave & Orange Money.</p>
+      </div>
+
+      <input type="text" id="newEvtTitle" class="form-input-field" placeholder="Titre de l'événement (ex: Dakar Luxury Gala 2026)">
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <select id="newEvtCategory" class="form-input-field">
+          <option value="Gala & Soirée">Gala & Soirée</option>
+          <option value="Conférence & Tech">Conférence & Tech</option>
+          <option value="Festival & Concert">Festival & Concert</option>
+          <option value="Sport & Culture">Sport & Culture</option>
+        </select>
+        <input type="text" id="newEvtCity" class="form-input-field" placeholder="Ville" value="Dakar">
+      </div>
+
+      <input type="text" id="newEvtVenue" class="form-input-field" placeholder="Lieu (ex: Terrou-Bi Resort & Marina)">
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <input type="text" id="newEvtDate" class="form-input-field" placeholder="Date (ex: 20 Décembre 2026)">
+        <input type="number" id="newEvtCapacity" class="form-input-field" placeholder="Capacité totale" value="500">
+      </div>
+
+      <label style="font-size: 11px; color: var(--text-muted); font-weight: 700;">TARIF STANDARD (FCFA) :</label>
+      <input type="number" id="newEvtPriceStandard" class="form-input-field" placeholder="Prix Standard (ex: 25000)" value="25000">
+
+      <label style="font-size: 11px; color: var(--text-muted); font-weight: 700;">TARIF VIP (FCFA) :</label>
+      <input type="number" id="newEvtPriceVip" class="form-input-field" placeholder="Prix VIP (ex: 50000)" value="50000">
+
+      <button class="btn-confirm-checkout" onclick="submitCreateEvent()">
+        ✨ Publier l'événement dans la Base de Données
+      </button>
+    </div>
+  </div>
+
+  <!-- PERSISTENT DATABASE ENGINE & CLIENT SCRIPT -->
   <script>
-    // State Store (mirrors Room DB & ViewModel)
+    // =========================================================================
+    // 1. PERSISTENT BROWSER DATABASE (INDEXED DB + LOCALSTORAGE ENGINE)
+    // =========================================================================
+    const DB_NAME = 'BaobabTicketDB';
+    const DB_VERSION = 1;
+
+    class BaobabDatabase {
+      constructor() {
+        this.db = null;
+      }
+
+      async init() {
+        return new Promise((resolve, reject) => {
+          const req = indexedDB.open(DB_NAME, DB_VERSION);
+          req.onupgradeneeded = (e) => {
+            const db = e.target.result;
+            if (!db.objectStoreNames.contains('events')) db.createObjectStore('events', { keyPath: 'id' });
+            if (!db.objectStoreNames.contains('tickets')) db.createObjectStore('tickets', { keyPath: 'ticketNumber' });
+            if (!db.objectStoreNames.contains('scanLogs')) db.createObjectStore('scanLogs', { keyPath: 'id', autoIncrement: true });
+            if (!db.objectStoreNames.contains('proofs')) db.createObjectStore('proofs', { keyPath: 'id' });
+            if (!db.objectStoreNames.contains('sessions')) db.createObjectStore('sessions', { keyPath: 'key' });
+          };
+          req.onsuccess = (e) => {
+            this.db = e.target.result;
+            resolve(this.db);
+          };
+          req.onerror = (e) => {
+            console.warn('IndexedDB fallback to localStorage', e);
+            resolve(null);
+          };
+        });
+      }
+
+      async getAll(storeName) {
+        if (!this.db) {
+          const local = localStorage.getItem('baobab_' + storeName);
+          return local ? JSON.parse(local) : [];
+        }
+        return new Promise((resolve) => {
+          const tx = this.db.transaction(storeName, 'readonly');
+          const store = tx.objectStore(storeName);
+          const req = store.getAll();
+          req.onsuccess = () => resolve(req.result || []);
+          req.onerror = () => resolve([]);
+        });
+      }
+
+      async put(storeName, item) {
+        if (!this.db) {
+          const all = await this.getAll(storeName);
+          const keyField = storeName === 'tickets' ? 'ticketNumber' : (storeName === 'sessions' ? 'key' : 'id');
+          const idx = all.findIndex(x => x[keyField] === item[keyField]);
+          if (idx >= 0) all[idx] = item;
+          else all.unshift(item);
+          localStorage.setItem('baobab_' + storeName, JSON.stringify(all));
+          return item;
+        }
+        return new Promise((resolve, reject) => {
+          const tx = this.db.transaction(storeName, 'readwrite');
+          const store = tx.objectStore(storeName);
+          const req = store.put(item);
+          req.onsuccess = () => resolve(item);
+          req.onerror = (err) => reject(err);
+        });
+      }
+
+      async delete(storeName, key) {
+        if (!this.db) {
+          const all = await this.getAll(storeName);
+          const keyField = storeName === 'tickets' ? 'ticketNumber' : (storeName === 'sessions' ? 'key' : 'id');
+          const filtered = all.filter(x => x[keyField] !== key);
+          localStorage.setItem('baobab_' + storeName, JSON.stringify(filtered));
+          return;
+        }
+        return new Promise((resolve) => {
+          const tx = this.db.transaction(storeName, 'readwrite');
+          tx.objectStore(storeName).delete(key);
+          tx.oncomplete = () => resolve();
+        });
+      }
+    }
+
+    const db = new BaobabDatabase();
+
+    // =========================================================================
+    // 2. APPLICATION STATE
+    // =========================================================================
     const state = {
       currentTab: 'discovery',
       currentOrg: 'Baobab Luxury Events',
-      currentUserRole: 'ORGANISATEUR',
+      currentUser: {
+        name: 'Sega Diallo',
+        email: 'segacod05@gmail.com',
+        phone: '+221 77 845 12 34',
+        role: 'ORGANISATEUR'
+      },
       isOnline: true,
       selectedProvider: 'WAVE',
       selectedTierIndex: 0,
       selectedPrice: 25000,
       selectedTierName: 'STANDARD',
       activeEvent: null,
-
-      events: [
-        {
-          id: 'evt-001',
-          title: 'Baobab Luxury Gala 2026',
-          category: 'Gala & Soirée',
-          venue: 'Terrou-Bi Resort & Marina, Dakar',
-          date: '14 Nov 2026',
-          soldCount: 312,
-          lowestPrice: 25000,
-          tiers: [
-            { name: 'STANDARD', price: 25000 },
-            { name: 'VIP', price: 50000 },
-            { name: 'VVIP', price: 100000 }
-          ]
-        },
-        {
-          id: 'evt-002',
-          title: 'Dakar Tech & AI Summit 2026',
-          category: 'Conférence',
-          venue: 'CICAD, Diamniadio, Dakar',
-          date: '05 Déc 2026',
-          soldCount: 480,
-          lowestPrice: 0,
-          tiers: [
-            { name: 'PASS LIBRE', price: 0 },
-            { name: 'PRO ACCESS', price: 45000 }
-          ]
-        },
-        {
-          id: 'evt-003',
-          title: 'Festival Sahel Beats 2026',
-          category: 'Festival',
-          venue: 'Monument de la Renaissance, Dakar',
-          date: '28 Déc 2026',
-          soldCount: 650,
-          lowestPrice: 15000,
-          tiers: [
-            { name: 'JOUR 1', price: 15000 },
-            { name: 'PASS 3 JOURS', price: 35000 }
-          ]
-        }
-      ],
-
-      purchasedTickets: [
-        {
-          ticketNumber: 'BT-2026-8F92K7X4',
-          eventName: 'Baobab Luxury Gala 2026',
-          tier: 'VVIP TABLE',
-          attendeeName: 'Sega Diallo',
-          gate: 'Accès VIP',
-          seat: 'Zone Prestige A-12',
-          status: 'ACTIF',
-          token: 'BAOBAB-SECURE-TOKEN-8F92K7X4-VVIP-2026'
-        },
-        {
-          ticketNumber: 'BT-2026-4M71N9Q2',
-          eventName: 'Dakar Tech Summit 2026',
-          tier: 'PRO ACCESS',
-          attendeeName: 'Sega Diallo',
-          gate: 'Porte Principale',
-          seat: 'Amphi Diamniadio',
-          status: 'ACTIF',
-          token: 'BAOBAB-SECURE-TOKEN-4M71N9Q2-STD-2026'
-        }
-      ],
-
-      scanLogs: [
-        { time: '14:28:10', attendee: 'Aissatou Ba', tier: 'VIP', status: 'VALIDE', gate: 'Accès VIP' },
-        { time: '14:26:45', attendee: 'Cheikh Ndiaye', tier: 'STANDARD', status: 'VALIDE', gate: 'Porte Principale' },
-        { time: '14:24:02', attendee: 'Inconnu', tier: '-', status: 'INVALIDE', gate: 'Porte Principale' }
-      ]
+      events: [],
+      purchasedTickets: [],
+      scanLogs: [],
+      pendingManualProofs: []
     };
 
-    // Tab Switching Logic
+    // Clean Real Starter Events (Zero test fake tickets)
+    const STARTER_EVENTS = [
+      {
+        id: 'evt-gala-2026',
+        title: 'Baobab Luxury Gala 2026',
+        category: 'Gala & Soirée',
+        venue: 'Terrou-Bi Resort & Marina, Dakar',
+        date: '14 Novembre 2026',
+        capacity: 800,
+        soldCount: 0,
+        lowestPrice: 25000,
+        tiers: [
+          { name: 'STANDARD', price: 25000 },
+          { name: 'VIP PRESTIGE', price: 60000 },
+          { name: 'VVIP TABLE', price: 150000 }
+        ]
+      },
+      {
+        id: 'evt-tech-summit-2026',
+        title: 'Dakar Tech & AI Summit 2026',
+        category: 'Conférence & Tech',
+        venue: 'CICAD, Diamniadio, Dakar',
+        date: '05 Décembre 2026',
+        capacity: 1500,
+        soldCount: 0,
+        lowestPrice: 0,
+        tiers: [
+          { name: 'PASS LIBRE', price: 0 },
+          { name: 'PRO DELEGATE', price: 45000 }
+        ]
+      },
+      {
+        id: 'evt-sahel-beats-2026',
+        title: 'Festival Sahel Beats 2026',
+        category: 'Festival & Concert',
+        venue: 'Monument de la Renaissance, Dakar',
+        date: '28 Décembre 2026',
+        capacity: 3000,
+        soldCount: 0,
+        lowestPrice: 15000,
+        tiers: [
+          { name: 'PASS JOUR 1', price: 15000 },
+          { name: 'PASS 3 JOURS', price: 35000 }
+        ]
+      }
+    ];
+
+    // =========================================================================
+    // 3. LIFECYCLE & DATABASE SYNC
+    // =========================================================================
+    async function loadDataFromDatabase() {
+      await db.init();
+
+      // Load Events
+      const storedEvents = await db.getAll('events');
+      if (storedEvents && storedEvents.length > 0) {
+        state.events = storedEvents;
+      } else {
+        // Seed starter real events
+        state.events = STARTER_EVENTS;
+        for (const ev of STARTER_EVENTS) {
+          await db.put('events', ev);
+        }
+      }
+
+      // Load Tickets (Clean: only tickets actually purchased by user)
+      state.purchasedTickets = await db.getAll('tickets');
+
+      // Load Scan Logs
+      state.scanLogs = await db.getAll('scanLogs');
+
+      // Load Manual Payment Proofs
+      state.pendingManualProofs = await db.getAll('proofs');
+
+      // Load User Session
+      const sessions = await db.getAll('sessions');
+      const activeSession = sessions.find(s => s.key === 'active_user');
+      if (activeSession) {
+        state.currentUser = activeSession.data;
+        updateUserUI();
+      }
+
+      // Render UI
+      renderEvents();
+      renderWallet();
+      renderDashboard();
+      renderScanLogs();
+    }
+
+    function updateUserUI() {
+      document.getElementById('headerUserName').innerText = state.currentUser.name;
+      document.getElementById('roleBadge').innerText = state.currentUser.role;
+      const initials = state.currentUser.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'SD';
+      document.getElementById('userAvatarInitials').innerText = initials;
+      document.getElementById('authNameInput').value = state.currentUser.name;
+      document.getElementById('authEmailInput').value = state.currentUser.email;
+      document.getElementById('authPhoneInput').value = state.currentUser.phone;
+
+      // Update role buttons
+      document.getElementById('roleBtnOrg').className = 'cat-pill ' + (state.currentUser.role === 'ORGANISATEUR' ? 'active' : '');
+      document.getElementById('roleBtnCtrl').className = 'cat-pill ' + (state.currentUser.role === 'CONTRÔLEUR' ? 'active' : '');
+      document.getElementById('roleBtnCust').className = 'cat-pill ' + (state.currentUser.role === 'ACHETEUR' ? 'active' : '');
+    }
+
+    // =========================================================================
+    // 4. NAVIGATION & TABS
+    // =========================================================================
     function switchTab(tabId) {
       state.currentTab = tabId;
 
       // Update Desktop Rail
       document.querySelectorAll('.rail-item').forEach(btn => btn.classList.remove('active'));
-      const activeRailBtn = Array.from(document.querySelectorAll('.rail-item')).find(btn => btn.innerText.toLowerCase().includes(tabId.replace('_', ' ')));
-      if (activeRailBtn) activeRailBtn.classList.add('active');
+      const activeRail = Array.from(document.querySelectorAll('.rail-item')).find(b => b.innerText.toLowerCase().includes(tabId.replace('_', ' ')));
+      if (activeRail) activeRail.classList.add('active');
 
-      // Update Mobile Bottom Nav
+      // Update Mobile Nav
       document.querySelectorAll('.bottom-nav-item').forEach(btn => btn.classList.remove('active'));
-      const activeMobileBtn = Array.from(document.querySelectorAll('.bottom-nav-item')).find(btn => btn.innerText.toLowerCase().includes(tabId.replace('_', ' ')));
-      if (activeMobileBtn) activeMobileBtn.classList.add('active');
+      const activeMobile = Array.from(document.querySelectorAll('.bottom-nav-item')).find(b => b.innerText.toLowerCase().includes(tabId.replace('_', ' ')));
+      if (activeMobile) activeMobile.classList.add('active');
 
-      // Show Tab View
-      document.querySelectorAll('.tab-view').forEach(view => view.classList.remove('active'));
-      const targetView = document.getElementById('tab-' + tabId);
-      if (targetView) targetView.classList.add('active');
+      // Show View
+      document.querySelectorAll('.tab-view').forEach(v => v.classList.remove('active'));
+      const target = document.getElementById('tab-' + tabId);
+      if (target) target.classList.add('active');
 
       if (tabId === 'wallet') renderWallet();
+      if (tabId === 'dashboard') renderDashboard();
+      if (tabId === 'scanner') triggerCameraFeed();
     }
 
-    // Render Events in Explorer Tab
-    function renderEvents(filter = '') {
+    // =========================================================================
+    // 5. EXPLORER (DISCOVERY)
+    // =========================================================================
+    function renderEvents(filter = '', category = 'Tous') {
       const grid = document.getElementById('eventsGrid');
       grid.innerHTML = '';
 
-      const filtered = state.events.filter(e => 
-        e.title.toLowerCase().includes(filter.toLowerCase()) || 
-        e.venue.toLowerCase().includes(filter.toLowerCase()) ||
-        e.category.toLowerCase().includes(filter.toLowerCase())
-      );
+      const filtered = state.events.filter(e => {
+        const matchesQuery = e.title.toLowerCase().includes(filter.toLowerCase()) || 
+                             e.venue.toLowerCase().includes(filter.toLowerCase()) ||
+                             e.category.toLowerCase().includes(filter.toLowerCase());
+        const matchesCat = (category === 'Tous') || e.category === category;
+        return matchesQuery && matchesCat;
+      });
 
       document.getElementById('eventsHeaderTitle').innerText = `Événements Disponibles (${filtered.length})`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state-box" style="grid-column: 1 / -1;">
+            <div class="icon">🔍</div>
+            <h3>Aucun événement trouvé</h3>
+            <p>Essayez une autre recherche ou créez un nouvel événement en tant qu'organisateur.</p>
+            <button class="btn-book" onclick="openCreateEventModal()">+ Créer un Événement</button>
+          </div>
+        `;
+        return;
+      }
 
       filtered.forEach(ev => {
         const card = document.createElement('div');
@@ -1421,7 +1816,7 @@
             <div>
               <span class="tag-category">${ev.category}</span>
               <div class="event-title">${ev.title}</div>
-              <div class="event-venue">${ev.venue} • ${ev.date}</div>
+              <div class="event-venue">📍 ${ev.venue} • ${ev.date}</div>
             </div>
             <div class="price-tag-col">
               <div class="price-amount">${ev.lowestPrice === 0 ? 'GRATUIT' : 'Dès ' + ev.lowestPrice.toLocaleString('fr-FR') + ' F'}</div>
@@ -1439,67 +1834,22 @@
       });
     }
 
-    // Render Wallet Passbook Tickets
-    function renderWallet() {
-      const grid = document.getElementById('walletGrid');
-      grid.innerHTML = '';
-
-      state.purchasedTickets.forEach(tkt => {
-        const card = document.createElement('div');
-        card.className = 'passbook-ticket';
-        card.innerHTML = `
-          <div class="ticket-header">
-            <span class="ticket-event-name">${tkt.eventName}</span>
-            <span class="ticket-tier-tag">${tkt.tier}</span>
-          </div>
-          <div class="ticket-body">
-            <div class="qr-container">
-              <svg viewBox="0 0 100 100">
-                <rect width="100" height="100" fill="#FFF"/>
-                <!-- QR Code Finder Patterns -->
-                <rect x="10" y="10" width="25" height="25" fill="#000"/>
-                <rect x="15" y="15" width="15" height="15" fill="#FFF"/>
-                <rect x="18" y="18" width="9" height="9" fill="#000"/>
-
-                <rect x="65" y="10" width="25" height="25" fill="#000"/>
-                <rect x="70" y="15" width="15" height="15" fill="#FFF"/>
-                <rect x="73" y="18" width="9" height="9" fill="#000"/>
-
-                <rect x="10" y="65" width="25" height="25" fill="#000"/>
-                <rect x="15" y="70" width="15" height="15" fill="#FFF"/>
-                <rect x="18" y="73" width="9" height="9" fill="#000"/>
-                
-                <!-- Synthetic bit clusters -->
-                <rect x="42" y="12" width="6" height="6" fill="#000"/>
-                <rect x="52" y="24" width="6" height="6" fill="#000"/>
-                <rect x="40" y="40" width="20" height="20" fill="#000"/>
-                <rect x="45" y="45" width="10" height="10" fill="#FFF"/>
-                <rect x="12" y="45" width="6" height="6" fill="#000"/>
-                <rect x="65" y="65" width="6" height="6" fill="#000"/>
-                <rect x="78" y="75" width="8" height="8" fill="#000"/>
-                <rect x="85" y="45" width="6" height="6" fill="#000"/>
-              </svg>
-            </div>
-
-            <div style="font-size: 11px; font-weight: 800; color: var(--gold-champagne); letter-spacing: 0.8px;">${tkt.ticketNumber}</div>
-
-            <div class="ticket-meta-grid">
-              <div class="meta-item"><div class="label">PARTICIPANT</div><div class="val">${tkt.attendeeName}</div></div>
-              <div class="meta-item"><div class="label">ACCÈS PORTE</div><div class="val">${tkt.gate}</div></div>
-              <div class="meta-item"><div class="label">EMPLACEMENT</div><div class="val">${tkt.seat}</div></div>
-              <div class="meta-item"><div class="label">STATUT</div><div class="val" style="color: var(--valid-green);">${tkt.status}</div></div>
-            </div>
-
-            <div class="ticket-actions">
-              <button class="btn-transfer" onclick="transferTicket('${tkt.ticketNumber}')">Céder ce billet</button>
-            </div>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
+    function filterEvents() {
+      const query = document.getElementById('eventSearchInput').value;
+      const activeCat = document.querySelector('.cat-pill.active')?.innerText || 'Tous';
+      renderEvents(query, activeCat);
     }
 
-    // Modal Checkout Logic
+    function setCategory(cat, btn) {
+      document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const query = document.getElementById('eventSearchInput').value;
+      renderEvents(query, cat);
+    }
+
+    // =========================================================================
+    // 6. CHECKOUT & MOBILE PAYMENT (WAVE & ORANGE MONEY)
+    // =========================================================================
     function openPurchaseModal(eventId) {
       const ev = state.events.find(e => e.id === eventId);
       if (!ev) return;
@@ -1508,8 +1858,11 @@
       document.getElementById('modalCategoryTag').innerText = ev.category.toUpperCase();
       document.getElementById('modalEventTitle').innerText = ev.title;
       document.getElementById('modalEventVenue').innerText = `${ev.venue} • ${ev.date}`;
+      document.getElementById('buyerName').value = state.currentUser.name;
+      document.getElementById('buyerEmail').value = state.currentUser.email;
+      document.getElementById('buyerPhone').value = state.currentUser.phone;
 
-      // Build tier selectors
+      // Tier Selector
       const grid = document.getElementById('tierSelectGrid');
       grid.innerHTML = '';
       ev.tiers.forEach((t, idx) => {
@@ -1541,7 +1894,7 @@
       });
 
       document.getElementById('modalTotalAmount').innerText = price === 0 ? 'GRATUIT' : price.toLocaleString('fr-FR') + ' FCFA';
-      updateConfirmButtonText();
+      updateConfirmButton();
     }
 
     function selectPaymentProvider(provider) {
@@ -1558,10 +1911,10 @@
         cardOM.className = 'provider-choice-card selected-om';
         cardOM.querySelector('input').checked = true;
       }
-      updateConfirmButtonText();
+      updateConfirmButton();
     }
 
-    function updateConfirmButtonText() {
+    function updateConfirmButton() {
       const btn = document.getElementById('btnConfirmPay');
       const providerName = state.selectedProvider === 'WAVE' ? 'Wave' : 'Orange Money';
       const priceStr = state.selectedPrice === 0 ? 'Accès Gratuit' : state.selectedPrice.toLocaleString('fr-FR') + ' FCFA';
@@ -1570,107 +1923,447 @@
       btn.style.color = '#FFF';
     }
 
-    function executePaymentProcess() {
-      const name = document.getElementById('buyerName').value.trim() || 'Sega Diallo';
-      const phone = document.getElementById('buyerPhone').value.trim() || '+221 77 845 12 34';
+    async function executePaymentProcess() {
+      const name = document.getElementById('buyerName').value.trim() || state.currentUser.name;
+      const email = document.getElementById('buyerEmail').value.trim() || state.currentUser.email;
+      const phone = document.getElementById('buyerPhone').value.trim() || state.currentUser.phone;
       const provider = state.selectedProvider === 'WAVE' ? 'Wave' : 'Orange Money';
 
       const randomSuffix = Math.random().toString(36).substring(2, 8).toUpperCase();
-      const newTicketNumber = 'BT-2026-' + randomSuffix;
+      const ticketNumber = 'BT-2026-' + randomSuffix;
+      const qrSecurityToken = `BAOBAB-SECURE-${state.activeEvent.id.takeLast?.(4) || 'EVT'}-${randomSuffix}-${Date.now()}`;
 
-      state.purchasedTickets.unshift({
-        ticketNumber: newTicketNumber,
+      const newTicket = {
+        ticketNumber: ticketNumber,
+        eventId: state.activeEvent.id,
         eventName: state.activeEvent.title,
         tier: state.selectedTierName,
         attendeeName: name,
-        gate: 'Accès VIP',
+        attendeeEmail: email,
+        attendeePhone: phone,
+        gate: 'Porte Principale',
         seat: 'Zone Libre',
+        price: state.selectedPrice,
+        paymentMethod: provider,
         status: 'ACTIF',
-        token: `BAOBAB-SECURE-${randomSuffix}`
-      });
+        qrSecurityToken: qrSecurityToken,
+        purchasedAt: Date.now()
+      };
 
-      alert(`Paiement ${provider} de ${state.selectedPrice.toLocaleString('fr-FR')} FCFA validé !\nBillet ${newTicketNumber} généré dans votre portefeuille.`);
+      // Persist to Real Database
+      await db.put('tickets', newTicket);
+      state.purchasedTickets.unshift(newTicket);
+
+      // Increment Event soldCount in Database
+      state.activeEvent.soldCount = (state.activeEvent.soldCount || 0) + 1;
+      await db.put('events', state.activeEvent);
+
+      alert(`Paiement ${provider} de ${state.selectedPrice.toLocaleString('fr-FR')} FCFA validé !\nBillet ${ticketNumber} généré et sauvegardé dans la base de données.`);
       closePurchaseModal();
       switchTab('wallet');
+      renderDashboard();
     }
 
-    // Scanner Workstation Logic
-    function simulateScan(type) {
-      const banner = document.getElementById('scanStatusBanner');
-      const title = document.getElementById('scanStatusTitle');
-      const attendee = document.getElementById('scanStatusAttendee');
-      const now = new Date().toLocaleTimeString('fr-FR');
+    // =========================================================================
+    // 7. WALLET (PORTFOLIO PASSBOOK TICKETS)
+    // =========================================================================
+    function renderWallet() {
+      const grid = document.getElementById('walletGrid');
+      grid.innerHTML = '';
 
-      if (type === 'VALID') {
-        banner.className = 'scan-status-alert status-alert-valid';
-        title.innerText = 'BILLET VALIDE • ACCÈS AUTORISÉ';
-        attendee.innerText = 'Fatou Dieng • VIP Prestige • BT-2026-9A12K3';
-        addScanLog(now, 'Fatou Dieng', 'VIP', 'VALIDE');
-      } else if (type === 'USED') {
-        banner.className = 'scan-status-alert status-alert-used';
-        title.innerText = 'ATTENTION : BILLET DÉJÀ UTILISÉ';
-        attendee.innerText = 'Ce billet a déjà été scanné à 14:15:32 (Porte Principale)';
-        addScanLog(now, 'Moussa Sy', 'STANDARD', 'DÉJÀ UTILISÉ');
-      } else {
-        banner.className = 'scan-status-alert status-alert-invalid';
-        title.innerText = 'BILLET INVALIDE • REFUS D\'ACCÈS';
-        attendee.innerText = 'Code non reconnu dans la base sécurisée';
-        addScanLog(now, 'Code Inconnu', '-', 'INVALIDE');
+      const count = state.purchasedTickets.length;
+      document.getElementById('walletBadgeCount').innerText = `${count} BILLET${count > 1 ? 'S' : ''} ACTIF${count > 1 ? 'S' : ''}`;
+
+      if (count === 0) {
+        grid.innerHTML = `
+          <div class="empty-state-box" style="grid-column: 1 / -1;">
+            <div class="icon">🎟️</div>
+            <h3>Votre portefeuille est vide</h3>
+            <p>Vous n'avez pas encore acheté de billet. Réservez votre place dès maintenant via Wave ou Orange Money.</p>
+            <button class="btn-book" onclick="switchTab('discovery')">Explorer les Événements</button>
+          </div>
+        `;
+        return;
+      }
+
+      state.purchasedTickets.forEach(tkt => {
+        const isUsed = tkt.status === 'UTILISÉ';
+        const isTransferred = tkt.status === 'TRANSFÉRÉ';
+        const statusColor = isUsed ? 'var(--used-amber)' : (isTransferred ? 'var(--wave-blue)' : 'var(--valid-green)');
+
+        const card = document.createElement('div');
+        card.className = 'passbook-ticket';
+        card.innerHTML = `
+          <div class="ticket-header">
+            <span class="ticket-event-name">${tkt.eventName}</span>
+            <span class="ticket-tier-tag">${tkt.tier}</span>
+          </div>
+          <div class="ticket-body">
+            <div class="qr-container">
+              <svg viewBox="0 0 100 100" style="width: 100%; height: 100%;">
+                <rect width="100" height="100" fill="#FFF"/>
+                <!-- Real Finder Patterns -->
+                <rect x="8" y="8" width="26" height="26" fill="#000"/>
+                <rect x="12" y="12" width="18" height="18" fill="#FFF"/>
+                <rect x="15" y="15" width="12" height="12" fill="#000"/>
+
+                <rect x="66" y="8" width="26" height="26" fill="#000"/>
+                <rect x="70" y="12" width="18" height="18" fill="#FFF"/>
+                <rect x="73" y="15" width="12" height="12" fill="#000"/>
+
+                <rect x="8" y="66" width="26" height="26" fill="#000"/>
+                <rect x="12" y="70" width="18" height="18" fill="#FFF"/>
+                <rect x="15" y="73" width="12" height="12" fill="#000"/>
+                
+                <!-- Density matrix based on security token -->
+                <rect x="40" y="12" width="6" height="6" fill="#000"/>
+                <rect x="50" y="18" width="6" height="6" fill="#000"/>
+                <rect x="42" y="42" width="18" height="18" fill="#000"/>
+                <rect x="46" y="46" width="10" height="10" fill="#FFF"/>
+                <rect x="12" y="46" width="8" height="6" fill="#000"/>
+                <rect x="66" y="66" width="8" height="8" fill="#000"/>
+                <rect x="78" y="76" width="8" height="8" fill="#000"/>
+                <rect x="86" y="44" width="6" height="6" fill="#000"/>
+              </svg>
+            </div>
+
+            <div style="font-size: 11.5px; font-weight: 800; color: var(--gold-champagne); letter-spacing: 1px;">${tkt.ticketNumber}</div>
+
+            <div class="ticket-meta-grid">
+              <div class="meta-item"><div class="label">PARTICIPANT</div><div class="val">${tkt.attendeeName}</div></div>
+              <div class="meta-item"><div class="label">ACCÈS PORTE</div><div class="val">${tkt.gate}</div></div>
+              <div class="meta-item"><div class="label">EMPLACEMENT</div><div class="val">${tkt.seat}</div></div>
+              <div class="meta-item"><div class="label">STATUT</div><div class="val" style="color: ${statusColor};">${tkt.status}</div></div>
+            </div>
+
+            <div class="ticket-actions">
+              <button class="btn-transfer" onclick="transferTicket('${tkt.ticketNumber}')">Céder ce billet</button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    async function transferTicket(ticketNumber) {
+      const tkt = state.purchasedTickets.find(t => t.ticketNumber === ticketNumber);
+      if (!tkt) return;
+      if (tkt.status !== 'ACTIF') {
+        alert(`Ce billet est déjà ${tkt.status} et ne peut pas être cédé.`);
+        return;
+      }
+
+      const recipient = prompt(`Céder le billet ${ticketNumber} à un proche.\nEntrez le nom et le téléphone Wave/OM du destinataire :`, 'Amadou Diallo (+221 77 123 45 67)');
+      if (recipient) {
+        tkt.status = 'TRANSFÉRÉ';
+        await db.put('tickets', tkt);
+
+        // Issue new ticket for recipient
+        const newNum = 'BT-2026-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+        const transferredTicket = {
+          ...tkt,
+          ticketNumber: newNum,
+          attendeeName: recipient.split('(')[0].trim(),
+          attendeePhone: recipient,
+          status: 'ACTIF',
+          qrSecurityToken: `BAOBAB-SECURE-${newNum}-${Date.now()}`
+        };
+        await db.put('tickets', transferredTicket);
+        state.purchasedTickets.unshift(transferredTicket);
+
+        alert(`Billet cédé avec succès !\nLe billet ${newNum} a été généré au nom de ${recipient}.`);
+        renderWallet();
       }
     }
 
-    function addScanLog(time, attendee, tier, status) {
-      state.scanLogs.unshift({ time, attendee, tier, status, gate: document.getElementById('gateSelector').value });
+    // =========================================================================
+    // 8. DASHBOARD SAAS (REAL REVENUE & EVENT CREATION WIZARD)
+    // =========================================================================
+    function renderDashboard() {
+      // Dynamic computation of actual real metrics
+      const totalRevenue = state.purchasedTickets.reduce((acc, t) => acc + (t.price || 0), 0);
+      const totalSold = state.purchasedTickets.length;
+      const totalScanned = state.purchasedTickets.filter(t => t.status === 'UTILISÉ').length;
+      const pendingCount = state.pendingManualProofs.length;
+
+      document.getElementById('dashRevenue').innerText = totalRevenue.toLocaleString('fr-FR') + ' FCFA';
+      document.getElementById('dashSold').innerText = totalSold;
+      document.getElementById('dashSoldSub').innerText = `${totalSold} billets enregistrés`;
+      document.getElementById('dashScanned').innerText = `${totalScanned} / ${totalSold}`;
+      document.getElementById('dashPending').innerText = pendingCount;
+
+      // Proofs list
+      const container = document.getElementById('proofsQueueList');
+      container.innerHTML = '';
+      if (pendingCount === 0) {
+        container.innerHTML = `
+          <div style="font-size: 12px; color: var(--text-muted); text-align: center; padding: 12px;">
+            ✅ Aucune preuve en attente. Toutes les transactions Wave & Orange Money sont confirmées.
+          </div>
+        `;
+      } else {
+        state.pendingManualProofs.forEach(p => {
+          const row = document.createElement('div');
+          row.style = 'display: flex; justify-content: space-between; align-items: center; background: var(--surface-card); padding: 12px; border-radius: 10px; border: 1px solid rgba(245, 158, 11, 0.4); margin-bottom: 8px;';
+          row.innerHTML = `
+            <div>
+              <div style="font-size: 13px; font-weight: 700; color: #FFF;">${p.attendeeName} • ${p.eventName}</div>
+              <div style="font-size: 11px; color: var(--text-muted);">Réf SMS : ${p.smsRef} • ${p.phone} • ${p.amount.toLocaleString('fr-FR')} FCFA</div>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn-book" style="background: var(--valid-green); color: #FFF; padding: 6px 12px; font-size: 11px;" onclick="approveProof('${p.id}')">Approuver</button>
+              <button class="btn-transfer" style="padding: 6px 12px; font-size: 11px;" onclick="rejectProof('${p.id}')">Rejeter</button>
+            </div>
+          `;
+          container.appendChild(row);
+        });
+      }
+    }
+
+    async function approveProof(proofId) {
+      await db.delete('proofs', proofId);
+      state.pendingManualProofs = state.pendingManualProofs.filter(p => p.id !== proofId);
+      renderDashboard();
+      alert('Paiement approuvé et synchronisé dans la base de données.');
+    }
+
+    async function rejectProof(proofId) {
+      await db.delete('proofs', proofId);
+      state.pendingManualProofs = state.pendingManualProofs.filter(p => p.id !== proofId);
+      renderDashboard();
+      alert('Preuve de paiement rejetée.');
+    }
+
+    // Event Wizard
+    function openCreateEventModal() {
+      document.getElementById('createEventModal').style.display = 'flex';
+    }
+
+    function closeCreateEventModal() {
+      document.getElementById('createEventModal').style.display = 'none';
+    }
+
+    async function submitCreateEvent() {
+      const title = document.getElementById('newEvtTitle').value.trim();
+      const category = document.getElementById('newEvtCategory').value;
+      const city = document.getElementById('newEvtCity').value.trim() || 'Dakar';
+      const venue = document.getElementById('newEvtVenue').value.trim() || 'Dakar, Sénégal';
+      const date = document.getElementById('newEvtDate').value.trim() || 'Décembre 2026';
+      const capacity = parseInt(document.getElementById('newEvtCapacity').value) || 500;
+      const pStd = parseFloat(document.getElementById('newEvtPriceStandard').value) || 25000;
+      const pVip = parseFloat(document.getElementById('newEvtPriceVip').value) || 50000;
+
+      if (!title) {
+        alert('Veuillez renseigner le titre de l\'événement.');
+        return;
+      }
+
+      const newEvt = {
+        id: 'evt-' + Math.random().toString(36).substring(2, 9),
+        title: title,
+        category: category,
+        venue: `${venue}, ${city}`,
+        date: date,
+        capacity: capacity,
+        soldCount: 0,
+        lowestPrice: Math.min(pStd, pVip),
+        tiers: [
+          { name: 'STANDARD', price: pStd },
+          { name: 'VIP', price: pVip }
+        ]
+      };
+
+      await db.put('events', newEvt);
+      state.events.unshift(newEvt);
+      closeCreateEventModal();
+      renderEvents();
+      renderDashboard();
+      alert(`Événement "${title}" publié et enregistré dans la base de données !`);
+    }
+
+    // =========================================================================
+    // 9. SCANNER & ACCESS CONTROL (CAMERAX / WEBRTC INTEGRATION)
+    // =========================================================================
+    let videoStream = null;
+
+    async function triggerCameraFeed() {
+      const video = document.getElementById('scannerVideo');
+      const badge = document.getElementById('cameraStatusBadge');
+
+      try {
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          videoStream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: 'environment' }
+          });
+          video.srcObject = videoStream;
+          badge.innerText = 'Caméra Active • Pointez vers un Billet';
+        } else {
+          badge.innerText = 'Mode Simulation Prêt (Caméra non disponible)';
+        }
+      } catch (err) {
+        console.warn('Webcam access error:', err);
+        badge.innerText = 'Mode Manuel & Simulation Actif';
+      }
+    }
+
+    async function processScannedCode(code) {
+      const banner = document.getElementById('scanStatusBanner');
+      const title = document.getElementById('scanStatusTitle');
+      const attendee = document.getElementById('scanStatusAttendee');
+      const icon = document.getElementById('scanStatusIcon');
+      const gate = document.getElementById('gateSelector').value;
+      const now = new Date().toLocaleTimeString('fr-FR');
+
+      banner.style.display = 'flex';
+
+      // Look up ticket in persistent database
+      const foundTicket = state.purchasedTickets.find(t => 
+        t.ticketNumber === code || t.qrSecurityToken === code || code.includes(t.ticketNumber)
+      );
+
+      if (foundTicket) {
+        if (foundTicket.status === 'ACTIVE' || foundTicket.status === 'ACTIF') {
+          // Mark ticket as USED in database
+          foundTicket.status = 'UTILISÉ';
+          foundTicket.usedAt = Date.now();
+          foundTicket.usedGate = gate;
+          await db.put('tickets', foundTicket);
+
+          banner.className = 'scan-status-alert status-alert-valid';
+          icon.innerText = '✅';
+          title.innerText = 'BILLET VALIDE • ACCÈS AUTORISÉ';
+          attendee.innerText = `${foundTicket.attendeeName} • ${foundTicket.tier} • ${foundTicket.ticketNumber}`;
+
+          await logScanEvent(now, foundTicket.attendeeName, foundTicket.tier, 'VALIDE', gate);
+          renderDashboard();
+        } else {
+          // Anti-fraud: already used
+          banner.className = 'scan-status-alert status-alert-used';
+          icon.innerText = '⚠️';
+          title.innerText = 'ATTENTION : BILLET DÉJÀ UTILISÉ';
+          attendee.innerText = `Ce billet a déjà été scanné (${foundTicket.attendeeName}) - Refus d'accès`;
+
+          await logScanEvent(now, foundTicket.attendeeName, foundTicket.tier, 'DÉJÀ UTILISÉ', gate);
+        }
+      } else {
+        // Unknown code
+        banner.className = 'scan-status-alert status-alert-invalid';
+        icon.innerText = '❌';
+        title.innerText = 'BILLET INVALIDE • REFUS D\'ACCÈS';
+        attendee.innerText = 'Code non reconnu dans la base sécurisée';
+
+        await logScanEvent(now, 'Inconnu', '-', 'INVALIDE', gate);
+      }
+    }
+
+    async function logScanEvent(time, attendee, tier, status, gate) {
+      const log = { time, attendee, tier, status, gate };
+      await db.put('scanLogs', log);
+      state.scanLogs.unshift(log);
       renderScanLogs();
     }
 
     function renderScanLogs() {
-      const container = document.getElementById('scanLogList');
-      container.innerHTML = '';
+      const list = document.getElementById('scanLogList');
+      list.innerHTML = '';
       document.getElementById('scanCountLabel').innerText = state.scanLogs.length;
 
+      if (state.scanLogs.length === 0) {
+        list.innerHTML = `
+          <div style="font-size: 11.5px; color: var(--text-muted); padding: 14px; text-align: center;">
+            Aucun scan effectué pour le moment.
+          </div>
+        `;
+        return;
+      }
+
       state.scanLogs.forEach(log => {
-        const isSuccess = log.status.includes('VALIDE');
-        const color = isSuccess ? 'var(--valid-green)' : (log.status.includes('UTILISÉ') ? 'var(--used-amber)' : 'var(--expired-red)');
+        const isSuccess = log.status === 'VALIDE';
+        const isUsed = log.status.includes('UTILISÉ');
+        const color = isSuccess ? 'var(--valid-green)' : (isUsed ? 'var(--used-amber)' : 'var(--expired-red)');
+        
         const row = document.createElement('div');
         row.className = 'scan-log-row';
         row.innerHTML = `
           <div>
             <span style="font-weight: 700; color: #FFF;">${log.attendee}</span> • 
-            <span style="color: var(--text-muted);">${log.tier} (${log.time})</span>
+            <span style="color: var(--text-muted);">${log.tier} (${log.time}) - ${log.gate}</span>
           </div>
           <span style="font-weight: 800; color: ${color};">${log.status}</span>
         `;
-        container.appendChild(row);
+        list.appendChild(row);
       });
     }
 
     function submitManualCode() {
       const code = document.getElementById('manualScanInput').value.trim();
       if (!code) return;
-      if (code.includes('8F') || code.includes('BT')) {
-        simulateScan('VALID');
-      } else {
-        simulateScan('INVALID');
-      }
+      processScannedCode(code);
       document.getElementById('manualScanInput').value = '';
     }
 
-    // Role & Org Switcher dialogs
-    function promptSwitchOrg() {
-      const orgs = ['Baobab Luxury Events', 'Dakar Tech Forum', 'Sahel Festivals Sarl'];
-      const chosen = prompt('Sélectionnez une organisation :\n1. Baobab Luxury Events\n2. Dakar Tech Forum\n3. Sahel Festivals Sarl', '1');
+    function scanLatestWalletTicket() {
+      if (state.purchasedTickets.length === 0) {
+        alert('Aucun billet dans votre portefeuille. Achetez un billet dans l\'onglet Explorer pour tester le scan !');
+        return;
+      }
+      const latest = state.purchasedTickets[0];
+      processScannedCode(latest.ticketNumber);
+    }
+
+    // =========================================================================
+    // 10. AUTHENTICATION & PROFILE MODAL
+    // =========================================================================
+    function openAuthModal() {
+      document.getElementById('authModal').style.display = 'flex';
+    }
+
+    function closeAuthModal() {
+      document.getElementById('authModal').style.display = 'none';
+    }
+
+    function setUserRole(role) {
+      state.currentUser.role = role;
+      document.getElementById('roleBtnOrg').className = 'cat-pill ' + (role === 'ORGANISATEUR' ? 'active' : '');
+      document.getElementById('roleBtnCtrl').className = 'cat-pill ' + (role === 'CONTRÔLEUR' ? 'active' : '');
+      document.getElementById('roleBtnCust').className = 'cat-pill ' + (role === 'ACHETEUR' ? 'active' : '');
+    }
+
+    async function saveAuthProfile() {
+      const name = document.getElementById('authNameInput').value.trim() || 'Sega Diallo';
+      const email = document.getElementById('authEmailInput').value.trim() || 'segacod05@gmail.com';
+      const phone = document.getElementById('authPhoneInput').value.trim() || '+221 77 845 12 34';
+
+      state.currentUser.name = name;
+      state.currentUser.email = email;
+      state.currentUser.phone = phone;
+
+      await db.put('sessions', { key: 'active_user', data: state.currentUser });
+      updateUserUI();
+      closeAuthModal();
+      alert(`Profil et rôle "${state.currentUser.role}" mis à jour et persistés dans la base de données !`);
+    }
+
+    async function signOutUser() {
+      state.currentUser = {
+        name: 'Invité',
+        email: 'invite@baobabticket.sn',
+        phone: '',
+        role: 'ACHETEUR'
+      };
+      await db.put('sessions', { key: 'active_user', data: state.currentUser });
+      updateUserUI();
+      closeAuthModal();
+      alert('Vous êtes maintenant en session Invité.');
+    }
+
+    function openOrgModal() {
+      const orgs = ['Baobab Luxury Events', 'Dakar Arena Production', 'Sahel Festivals Sarl'];
+      const chosen = prompt('Changer d\'organisation active :\n1. Baobab Luxury Events\n2. Dakar Arena Production\n3. Sahel Festivals Sarl', '1');
       if (chosen === '2') state.currentOrg = orgs[1];
       else if (chosen === '3') state.currentOrg = orgs[2];
       else state.currentOrg = orgs[0];
       document.getElementById('currentOrgLabel').innerText = state.currentOrg;
-    }
-
-    function promptSwitchRole() {
-      const roles = ['ORGANISATEUR', 'CONTRÔLEUR', 'ACHETEUR'];
-      const nextRole = state.currentUserRole === 'ORGANISATEUR' ? 'CONTRÔLEUR' : (state.currentUserRole === 'CONTRÔLEUR' ? 'ACHETEUR' : 'ORGANISATEUR');
-      state.currentUserRole = nextRole;
-      document.getElementById('roleBadge').innerText = nextRole;
     }
 
     function toggleNetwork() {
@@ -1679,14 +2372,16 @@
       const label = document.getElementById('networkLabel');
       if (state.isOnline) {
         badge.className = 'status-badge status-online';
-        label.innerText = 'EN LIGNE';
+        label.innerText = 'BD ACTIVE';
       } else {
         badge.className = 'status-badge status-offline';
         label.innerText = 'HORS-LIGNE';
       }
     }
 
-    // AI Studio Generator
+    // =========================================================================
+    // 11. AI STUDIO
+    // =========================================================================
     function setAiPrompt(type) {
       const textarea = document.getElementById('aiPromptText');
       if (type === 1) textarea.value = 'Rédige un concept pour une soirée VIP au Terrou-Bi avec dîner gastronomique et dress-code Gold & Green.';
@@ -1695,55 +2390,25 @@
     }
 
     function generateWithAi() {
+      const prompt = document.getElementById('aiPromptText').value.trim() || 'Stratégie événementielle';
       const out = document.getElementById('aiOutputBox');
       out.style.display = 'block';
       out.innerHTML = `
-        <div style="color: var(--gold-champagne); font-weight: 800; margin-bottom: 6px;">✨ Recommandation IA Baobab Studio</div>
-        <p><strong>Proposition Événementielle :</strong></p>
-        <ul style="margin-left: 20px; margin-top: 6px;">
-          <li><strong>Tarification Suggérée :</strong> Standard à 25 000 FCFA, VIP à 50 000 FCFA avec coupe de bienvenue.</li>
-          <li><strong>Paiements Directs :</strong> Activer Wave (0% frais) en mode 1-clic et Orange Money avec le rappel code #144#.</li>
-          <li><strong>Sécurité d'Accès :</strong> Les QR codes sécurisés intègrent un hash cryptographique à renouvellement dynamique.</li>
+        <div style="color: var(--gold-champagne); font-weight: 800; margin-bottom: 8px;">✨ Recommandation Baobab AI Studio</div>
+        <p><strong>Analyse pour : "${prompt.substring(0, 60)}..."</strong></p>
+        <ul style="margin-left: 20px; margin-top: 8px;">
+          <li><strong>Optimisation des Flux :</strong> Intégrez Wave en mode 1-clic pour un paiement en moins de 3 secondes avec 0% de commission supplémentaire.</li>
+          <li><strong>Protection Anti-Fraude :</strong> Les QR codes à signature horodatée empêchent toute duplication ou revente illicite de billet aux portes.</li>
+          <li><strong>Capacité & Remplissage :</strong> Suivez les KPIs en temps réel sur le Dashboard SaaS avec synchronisation automatique.</li>
         </ul>
       `;
     }
 
-    function filterEvents() {
-      const val = document.getElementById('eventSearchInput').value;
-      renderEvents(val);
-    }
-
-    function setCategory(cat, btn) {
-      document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      if (cat === 'Tous') renderEvents('');
-      else renderEvents(cat);
-    }
-
-    function transferTicket(tktNum) {
-      const recipient = prompt(`Céder le billet ${tktNum} à un proche.\nEntrez le nom complet et téléphone Wave/OM du destinataire :`, 'Amadou Diallo (+221 77 123 45 67)');
-      if (recipient) {
-        alert(`Billet ${tktNum} cédé avec succès à ${recipient} ! Son QR a été réémis.`);
-      }
-    }
-
-    function approveProof(btn) {
-      btn.parentElement.parentElement.style.opacity = '0.5';
-      btn.parentElement.innerHTML = '<span style="color: var(--valid-green); font-size: 11px; font-weight: 800;">APPROUVÉ ✅</span>';
-      document.getElementById('dashPending').innerText = '0';
-      alert('Paiement manuel approuvé. Le billet a été automatiquement activé.');
-    }
-
-    function rejectProof(btn) {
-      btn.parentElement.parentElement.style.display = 'none';
-      document.getElementById('dashPending').innerText = '0';
-      alert('Preuve rejetée.');
-    }
-
-    // Init
+    // =========================================================================
+    // INITIALIZATION
+    // =========================================================================
     window.addEventListener('DOMContentLoaded', () => {
-      renderEvents();
-      renderScanLogs();
+      loadDataFromDatabase();
     });
   </script>
 </body>

@@ -122,20 +122,51 @@ interface OfflineScanLogDao {
     suspend fun countUnsynced(): Int
 }
 
+// --- Room Entity: User Session & Authentication ---
+@Entity(tableName = "user_sessions")
+data class UserSessionEntity(
+    @PrimaryKey val id: String, // User UID
+    val name: String,
+    val email: String,
+    val phone: String,
+    val role: String = "ORGANIZATION_OWNER",
+    val organizationId: String = "org-baobab-events",
+    val token: String = "",
+    val isLoggedIn: Boolean = true,
+    val lastLoginAt: Long = System.currentTimeMillis()
+)
+
+@Dao
+interface UserSessionDao {
+    @Query("SELECT * FROM user_sessions WHERE isLoggedIn = 1 LIMIT 1")
+    fun getActiveSession(): Flow<UserSessionEntity?>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertSession(session: UserSessionEntity)
+
+    @Query("UPDATE user_sessions SET isLoggedIn = 0")
+    suspend fun clearActiveSessions()
+
+    @Query("DELETE FROM user_sessions")
+    suspend fun deleteAll()
+}
+
 // --- Database Configuration ---
 @Database(
     entities = [
         EventEntity::class,
         PurchasedTicketEntity::class,
-        OfflineScanLogEntity::class
+        OfflineScanLogEntity::class,
+        UserSessionEntity::class
     ],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 abstract class BaobabRoomDatabase : RoomDatabase() {
     abstract fun eventDao(): EventDao
     abstract fun ticketDao(): PurchasedTicketDao
     abstract fun scanLogDao(): OfflineScanLogDao
+    abstract fun userSessionDao(): UserSessionDao
 
     companion object {
         @Volatile

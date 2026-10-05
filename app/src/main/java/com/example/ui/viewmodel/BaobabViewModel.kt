@@ -112,6 +112,14 @@ class BaobabViewModel(
         repository.switchUserRole(role)
     }
 
+    fun signIn(email: String, name: String = "", phone: String = "") {
+        repository.signInUser(email, name, phone)
+    }
+
+    fun signOut() {
+        repository.signOutUser()
+    }
+
     fun createEvent(
         title: String,
         subtitle: String,

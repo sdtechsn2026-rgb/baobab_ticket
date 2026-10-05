@@ -426,54 +426,144 @@ fun MainAppScreen(
         )
     }
 
-    // Role Switcher Modal (Role-Based Access Control)
+    // Profile & Authentication Modal (Active Database Authentication)
     if (showRoleSwitcher) {
+        var isEditingAuth by remember { mutableStateOf(false) }
+        var inputEmail by remember { mutableStateOf(currentUser.email) }
+        var inputName by remember { mutableStateOf(currentUser.name) }
+        var inputPhone by remember { mutableStateOf(currentUser.phone) }
+
         AlertDialog(
             onDismissRequest = { showRoleSwitcher = false },
             containerColor = DarkSurfaceElevated,
             title = {
-                Text("Changer de Rôle Utilisateur", color = IvoryWhite, fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Icon(Icons.Default.AccountCircle, contentDescription = null, tint = ChampagneGold)
+                    Text("Authentification & Compte", color = IvoryWhite, fontWeight = FontWeight.Bold, fontSize = 17.sp)
+                }
             },
             text = {
-                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                    Text(
-                        "Testez l'expérience selon votre rôle (RBAC) :",
-                        color = Color(0xFFA5B8AD),
-                        fontSize = 12.sp
-                    )
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    if (isEditingAuth) {
+                        Text(
+                            "Connexion ou Création de Compte :",
+                            color = ChampagneGold,
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold
+                        )
 
-                    val demoRoles = listOf(
-                        UserRole.ORGANIZATION_OWNER,
-                        UserRole.SCANNER,
-                        UserRole.ADMIN,
-                        UserRole.CUSTOMER
-                    )
+                        OutlinedTextField(
+                            value = inputName,
+                            onValueChange = { inputName = it },
+                            label = { Text("Nom complet", fontSize = 11.sp) },
+                            modifier = Modifier.fillMaxWidth(),
+                            singleLine = true
+                        )
 
-                    demoRoles.forEach { role ->
-                        val isSelected = (role == currentUser.role)
-                        Surface(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(8.dp))
-                                .clickable {
-                                    viewModel.switchRole(role)
-                                    showRoleSwitcher = false
-                                    // Auto switch tab to role focus
-                                    if (role == UserRole.SCANNER) currentTab = AppNavTab.SCANNER
-                                    if (role == UserRole.CUSTOMER) currentTab = AppNavTab.WALLET
-                                },
+                        OutlinedTextField(
+                            value = inputEmail,
+                            onValueChange = { inputEmail = it },
+                            label = { Text("Adresse Email", fontSize = 11.sp) },
+                            modifier = Modifier.fillMaxWidth(),
+                            singleLine = true
+                        )
+
+                        OutlinedTextField(
+                            value = inputPhone,
+                            onValueChange = { inputPhone = it },
+                            label = { Text("Téléphone (Wave / OM)", fontSize = 11.sp) },
+                            modifier = Modifier.fillMaxWidth(),
+                            singleLine = true
+                        )
+
+                        Button(
+                            onClick = {
+                                if (inputEmail.isNotBlank()) {
+                                    viewModel.signIn(inputEmail.trim(), inputName.trim(), inputPhone.trim())
+                                    isEditingAuth = false
+                                    Toast.makeText(context, "Session enregistrée dans la base locale !", Toast.LENGTH_SHORT).show()
+                                }
+                            },
+                            colors = ButtonDefaults.buttonColors(containerColor = ChampagneGold, contentColor = GraphiteBlack),
                             shape = RoundedCornerShape(8.dp),
-                            color = if (isSelected) DeepEmerald else DarkSurfaceCard,
-                            border = androidx.compose.foundation.BorderStroke(1.dp, if (isSelected) ChampagneGold else Color(0xFF384E42))
+                            modifier = Modifier.fillMaxWidth()
                         ) {
-                            Row(
-                                modifier = Modifier.padding(10.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.SpaceBetween
+                            Text("Enregistrer la Session", fontWeight = FontWeight.Bold)
+                        }
+                    } else {
+                        // Current User Profile Display
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            colors = CardDefaults.cardColors(containerColor = DeepEmerald),
+                            shape = RoundedCornerShape(10.dp)
+                        ) {
+                            Column(modifier = Modifier.padding(12.dp)) {
+                                Text(currentUser.name, color = IvoryWhite, fontWeight = FontWeight.Bold, fontSize = 15.sp)
+                                Text(currentUser.email, color = ChampagneGold, fontSize = 12.sp)
+                                if (currentUser.phone.isNotBlank()) {
+                                    Text(currentUser.phone, color = Color(0xFFA5B8AD), fontSize = 11.sp)
+                                }
+                                Text("Rôle : ${currentUser.role.label}", color = IvoryWhite, fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
+                            }
+                        }
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            TextButton(onClick = { isEditingAuth = true }) {
+                                Text("Changer de compte", color = ChampagneGold, fontSize = 12.sp)
+                            }
+                            TextButton(onClick = {
+                                viewModel.signOut()
+                                showRoleSwitcher = false
+                                Toast.makeText(context, "Déconnexion effectuée", Toast.LENGTH_SHORT).show()
+                            }) {
+                                Text("Déconnexion", color = ExpiredRed, fontSize = 12.sp)
+                            }
+                        }
+
+                        Text(
+                            "Rôle Actif (Contrôle d'accès RBAC) :",
+                            color = Color(0xFFA5B8AD),
+                            fontSize = 11.sp
+                        )
+
+                        val demoRoles = listOf(
+                            UserRole.ORGANIZATION_OWNER,
+                            UserRole.SCANNER,
+                            UserRole.ADMIN,
+                            UserRole.CUSTOMER
+                        )
+
+                        demoRoles.forEach { role ->
+                            val isSelected = (role == currentUser.role)
+                            Surface(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .clickable {
+                                        viewModel.switchRole(role)
+                                        showRoleSwitcher = false
+                                        if (role == UserRole.SCANNER) currentTab = AppNavTab.SCANNER
+                                        if (role == UserRole.CUSTOMER) currentTab = AppNavTab.WALLET
+                                    },
+                                shape = RoundedCornerShape(8.dp),
+                                color = if (isSelected) DeepEmerald else DarkSurfaceCard,
+                                border = androidx.compose.foundation.BorderStroke(1.dp, if (isSelected) ChampagneGold else Color(0xFF384E42))
                             ) {
-                                Text(role.label, color = IvoryWhite, fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
-                                if (isSelected) {
-                                    Icon(Icons.Default.Check, contentDescription = null, tint = ChampagneGold)
+                                Row(
+                                    modifier = Modifier.padding(8.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Text(role.label, color = IvoryWhite, fontWeight = FontWeight.SemiBold, fontSize = 12.sp)
+                                    if (isSelected) {
+                                        Icon(Icons.Default.Check, contentDescription = null, tint = ChampagneGold)
+                                    }
                                 }
                             }
                         }

@@ -257,96 +257,10 @@ class BaobabRepository(private val context: Context) {
         )
         _ticketTypes.value = types
 
-        // Active Tickets for the signed-in attendee (User's tickets)
-        val initialTickets = listOf(
-            Ticket(
-                id = "tkt-001",
-                ticketNumber = "BT-2026-8F92K7X4",
-                orderId = "ord-001",
-                eventId = "evt-gala-2026",
-                eventTitle = "Baobab Luxury Gala 2026",
-                ticketTypeId = "tt-gala-vip",
-                ticketTypeName = "VIP",
-                attendeeName = "Sega Diallo",
-                attendeePhone = "+221 77 845 12 34",
-                attendeeEmail = "segacod05@gmail.com",
-                status = TicketStatus.ACTIVE,
-                qrSecurityToken = "BAOBAB-SECURE-TOKEN-8F92K7X4-VVIP-2026",
-                priceXof = 60000.0,
-                seatZone = "Zone A - Table 12",
-                gate = "Accès VIP",
-                perks = listOf("Dîner gastronomique", "Coupe de champagne", "Fast Track Entrée VIP")
-            ),
-            Ticket(
-                id = "tkt-002",
-                ticketNumber = "BT-2026-4M71N9Q2",
-                orderId = "ord-002",
-                eventId = "evt-gala-2026",
-                eventTitle = "Baobab Luxury Gala 2026",
-                ticketTypeId = "tt-gala-std",
-                ticketTypeName = "STANDARD",
-                attendeeName = "Aminata Fall",
-                attendeePhone = "+221 76 345 67 89",
-                attendeeEmail = "aminata.fall@gmail.com",
-                status = TicketStatus.ACTIVE,
-                qrSecurityToken = "BAOBAB-SECURE-TOKEN-4M71N9Q2-STD-2026",
-                priceXof = 25000.0,
-                seatZone = "Zone B - Rangée 4",
-                gate = "Porte Principale",
-                perks = listOf("Cocktail de bienvenue", "Accès salle principale")
-            ),
-            Ticket(
-                id = "tkt-003",
-                ticketNumber = "BT-2026-9P33T5L1",
-                orderId = "ord-003",
-                eventId = "evt-gala-2026",
-                eventTitle = "Baobab Luxury Gala 2026",
-                ticketTypeId = "tt-gala-vvip",
-                ticketTypeName = "VVIP PRESTIGE",
-                attendeeName = "Cheikh Oumar Ba",
-                attendeePhone = "+221 77 123 99 88",
-                attendeeEmail = "c.ba@invest-dakar.com",
-                status = TicketStatus.USED,
-                qrSecurityToken = "BAOBAB-SECURE-TOKEN-9P33T5L1-VVIP-2026",
-                priceXof = 150000.0,
-                seatZone = "Salon Présidentiel",
-                gate = "Accès VVIP",
-                usedAt = System.currentTimeMillis() - 3600000,
-                usedGate = "Accès VVIP",
-                usedByScannerId = "SCANNER-DEVICE-01",
-                perks = listOf("Table d'honneur privée", "Bar prestige", "Lounge privé VIP")
-            )
-        )
-        _tickets.value = initialTickets
-
-        // Pending Manual Payments to verify (Mode B)
-        val initialProofs = listOf(
-            ManualPaymentProof(
-                id = "proof-001",
-                orderId = "ord-manual-101",
-                eventTitle = "Baobab Luxury Gala 2026",
-                customerName = "Moussa Diop",
-                customerPhone = "+221 77 555 43 21",
-                method = PaymentMethod.WAVE_QR_MANUAL,
-                amountXof = 60000.0,
-                transactionRef = "WV-DKR-984210",
-                proofNote = "Transfert effectué vers BAOBAB LUXURY EVENTS à 14h30",
-                status = "PENDING"
-            ),
-            ManualPaymentProof(
-                id = "proof-002",
-                orderId = "ord-manual-102",
-                eventTitle = "Baobab Luxury Gala 2026",
-                customerName = "Fatou Kiné Sarr",
-                customerPhone = "+221 78 222 11 00",
-                method = PaymentMethod.ORANGE_MONEY_QR_MANUAL,
-                amountXof = 50000.0,
-                transactionRef = "OM-SN-7734120",
-                proofNote = "Paiement 2 billets standard via Orange Money",
-                status = "PENDING"
-            )
-        )
-        _pendingManualPayments.value = initialProofs
+        // Clean initial state: No fake test tickets, no fake proofs.
+        // Data is driven exclusively by the real local database and purchases.
+        _tickets.value = emptyList()
+        _pendingManualPayments.value = emptyList()
     }
 
     private fun syncToLocalDb() {
@@ -369,33 +283,97 @@ class BaobabRepository(private val context: Context) {
             }
             db.eventDao().insertEvents(eventEntities)
 
-            // Persist Purchased Tickets in Room Database with eventName, date, price
-            val ticketEntities = _tickets.value.map {
-                val ev = _events.value.find { e -> e.id == it.eventId }
-                PurchasedTicketEntity(
-                    ticketNumber = it.ticketNumber,
-                    eventId = it.eventId,
-                    eventName = it.eventTitle.ifBlank { ev?.title ?: "Événement" },
-                    eventDate = ev?.startDate ?: "14 Nov 2026",
-                    priceXof = it.priceXof,
-                    ticketTypeName = it.ticketTypeName,
-                    attendeeName = it.attendeeName,
-                    attendeePhone = it.attendeePhone,
-                    attendeeEmail = it.attendeeEmail,
-                    qrSecurityToken = it.qrSecurityToken,
-                    gate = it.gate,
-                    seatZone = it.seatZone,
-                    status = it.status.name,
-                    paymentMethod = "WAVE_API",
-                    purchasedAt = it.createdAt,
-                    usedAt = it.usedAt,
-                    usedGate = it.usedGate
-                )
+            // Reactive collection from Room Database: Tickets are 100% sourced from Room
+            db.ticketDao().getAllPurchasedTickets().collect { entities ->
+                _tickets.value = entities.map { entity ->
+                    Ticket(
+                        id = entity.ticketNumber,
+                        ticketNumber = entity.ticketNumber,
+                        orderId = "ord-" + entity.ticketNumber.takeLast(6),
+                        eventId = entity.eventId,
+                        eventTitle = entity.eventName,
+                        ticketTypeId = "tt-" + entity.ticketTypeName.lowercase(),
+                        ticketTypeName = entity.ticketTypeName,
+                        attendeeName = entity.attendeeName,
+                        attendeePhone = entity.attendeePhone,
+                        attendeeEmail = entity.attendeeEmail,
+                        status = if (entity.status == "USED") TicketStatus.USED else if (entity.status == "TRANSFERRED") TicketStatus.TRANSFERRED else TicketStatus.ACTIVE,
+                        qrSecurityToken = entity.qrSecurityToken,
+                        priceXof = entity.priceXof,
+                        seatZone = entity.seatZone,
+                        gate = entity.gate,
+                        createdAt = entity.purchasedAt,
+                        usedAt = entity.usedAt,
+                        usedGate = entity.usedGate
+                    )
+                }
             }
-            db.ticketDao().insertTickets(ticketEntities)
 
             checkUnsyncedScans()
         }
+
+        // Reactive collection of active authenticated user session from Room Database
+        scope.launch {
+            db.userSessionDao().getActiveSession().collect { session ->
+                if (session != null) {
+                    val roleEnum = try {
+                        UserRole.valueOf(session.role)
+                    } catch (_: Exception) {
+                        UserRole.ORGANIZATION_OWNER
+                    }
+                    _currentUser.value = UserProfile(
+                        id = session.id,
+                        name = session.name,
+                        email = session.email,
+                        phone = session.phone,
+                        role = roleEnum,
+                        organizationId = session.organizationId
+                    )
+                    _selectedOrgId.value = session.organizationId
+                }
+            }
+        }
+    }
+
+    // --- Authentication & User Session Management ---
+    fun signInUser(email: String, name: String = "", phone: String = "") {
+        val resolvedName = if (name.isNotBlank()) name else email.substringBefore("@").replaceFirstChar { it.uppercase() }
+        val user = UserProfile(
+            id = "usr-" + UUID.randomUUID().toString().take(8),
+            name = resolvedName,
+            email = email,
+            phone = phone.ifBlank { "+221 77 845 12 34" },
+            role = UserRole.ORGANIZATION_OWNER,
+            organizationId = _selectedOrgId.value
+        )
+        _currentUser.value = user
+        scope.launch {
+            db.userSessionDao().insertSession(
+                com.example.data.local.UserSessionEntity(
+                    id = user.id,
+                    name = user.name,
+                    email = user.email,
+                    phone = user.phone,
+                    role = user.role.name,
+                    organizationId = user.organizationId,
+                    isLoggedIn = true
+                )
+            )
+        }
+    }
+
+    fun signOutUser() {
+        scope.launch {
+            db.userSessionDao().clearActiveSessions()
+        }
+        _currentUser.value = UserProfile(
+            id = "usr-guest",
+            name = "Invité",
+            email = "invite@baobabticket.sn",
+            phone = "",
+            role = UserRole.CUSTOMER,
+            organizationId = _selectedOrgId.value
+        )
     }
 
     private suspend fun checkUnsyncedScans() {
